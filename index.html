@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Park Feierbach — Attainable Systems</title>
+  <meta name="description" content="Park Feierbach — strategy and operations consultant at Attainable Systems.">
+  <style>
+    :root {
+      --color-bg: #fafaf9;
+      --color-text: #1c1917;
+      --color-muted: #57534e;
+      --color-accent: #0c4a6e;
+      --color-accent-light: #e0f2fe;
+      --color-border: #d6d3d1;
+      --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --font-serif: Georgia, 'Times New Roman', serif;
+      --max-w: 720px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      border-bottom: 1px solid var(--color-border);
+      padding: 1.5rem 2rem;
+    }
+
+    header .inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    nav a {
+      color: var(--color-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-left: 1.5rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--color-accent); }
+
+    main {
+      flex: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      color: var(--color-accent);
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--color-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    section { margin-bottom: 2.5rem; }
+
+    section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--color-text);
+    }
+
+    section p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .services { grid-template-columns: 1fr; }
+    }
+
+    .service {
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      background: white;
+    }
+
+    .service h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .service p {
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    .contact-block {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      padding: 2rem;
+    }
+
+    .contact-block a {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+    .contact-block a:hover { text-decoration: underline; }
+
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      color: var(--color-muted);
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--color-muted);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="inner">
+      <a href="https://attainable.systems" class="logo">Attainable Systems</a>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Park Feierbach</h1>
+    <p class="tagline">Strategy &amp; Operations Consulting</p>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I help organizations design and implement systems that actually work —
+        operational processes, team structures, and strategic frameworks that
+        deliver results without unnecessary overhead.
+      </p>
+      <p>
+        With experience spanning [your background areas], I focus on practical,
+        sustainable improvements that teams can own and evolve on their own.
+      </p>
+    </section>
+
+    <section id="services">
+      <h2>What I Do</h2>
+      <div class="services">
+        <div class="service">
+          <h3>Operational Strategy</h3>
+          <p>Designing systems and processes that align with how your team actually works.</p>
+        </div>
+        <div class="service">
+          <h3>Process Design</h3>
+          <p>Building workflows that reduce friction and make the right thing the easy thing.</p>
+        </div>
+        <div class="service">
+          <h3>Team Alignment</h3>
+          <p>Helping teams get clear on priorities, ownership, and decision-making.</p>
+        </div>
+        <div class="service">
+          <h3>Systems Thinking</h3>
+          <p>Looking at the whole picture to find the leverage points that matter most.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Get in Touch</h2>
+      <div class="contact-block">
+        <p>Interested in working together? I'd like to hear about what you're building.</p>
+        <p style="margin-top: 0.75rem;">
+          <a href="mailto:park@attainable.systems">park@attainable.systems</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://attainable.systems">&larr; attainable.systems</a>
+  </footer>
+</body>
+</html>
