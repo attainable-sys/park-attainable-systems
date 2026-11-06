@@ -52,6 +52,14 @@
     figcaption { margin-top: 10px; font-size: 13px; line-height: 1.55; color: var(--muted); }
     figcaption a { color: var(--muted); text-underline-offset: 2px; }
     @media (min-width: 900px) { figure.wide { margin-left: -60px; margin-right: -60px; } }
+    .notebook { margin-top: 72px; padding-top: 32px; border-top: 0.5px solid var(--faint); }
+    .notebook h2 { font-size: 12px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .notebook p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+    .pages { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .pages a { display: block; color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 1px; }
+    .pages img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; background: var(--surface); margin-bottom: 6px; }
+    .pages a:hover img { opacity: 0.85; }
+    @media (max-width: 600px) { .pages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 600px) {
       nav { padding: 16px 20px; }
       main { padding: 40px 20px 72px; }
@@ -92,6 +100,18 @@
       </figure>
       <p>All of this bubbles up to a good lesson for anyone who follows either Freire or Ukeles' logic: there is no "higher knowledge" and there is no "art," save that which we designate as either art or as knowledge. For me, it generated a new dimension of freedom: while both of these individuals <em>did</em> form their views on the basis of academic accreditation, the pedagogical re-examination of outputs as founded upon skill and output rather than on titular permission becomes a lesson. You can just do things, and you get to call it art, because it probably is. <span class="end" aria-hidden="true">■</span></p>
     </article>
+    <section class="notebook" aria-labelledby="nb">
+      <h2 id="nb">The notebook</h2>
+      <p>The first draft, by hand. Tap a page to open it full size.</p>
+      <ol class="pages">
+        <li><a href="notebook/p1.jpg" target="_blank" rel="noopener"><img src="notebook/p1-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 1 of 6 of this essay's first draft">Page 1</a></li>
+        <li><a href="notebook/p2.jpg" target="_blank" rel="noopener"><img src="notebook/p2-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 2 of 6 of this essay's first draft">Page 2</a></li>
+        <li><a href="notebook/p3.jpg" target="_blank" rel="noopener"><img src="notebook/p3-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 3 of 6 of this essay's first draft">Page 3</a></li>
+        <li><a href="notebook/p4.jpg" target="_blank" rel="noopener"><img src="notebook/p4-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 4 of 6 of this essay's first draft">Page 4</a></li>
+        <li><a href="notebook/p5.jpg" target="_blank" rel="noopener"><img src="notebook/p5-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 5 of 6 of this essay's first draft">Page 5</a></li>
+        <li><a href="notebook/p6.jpg" target="_blank" rel="noopener"><img src="notebook/p6-sm.jpg" width="480" height="640" loading="lazy" alt="Handwritten notebook page 6 of 6 of this essay's first draft">Page 6</a></li>
+      </ol>
+    </section>
   </main>
 </body>
 </html>
