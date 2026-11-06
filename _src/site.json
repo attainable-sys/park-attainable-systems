@@ -1,0 +1,10 @@
+{
+ "updated": "2026-11-06",
+ "status": [
+  {"label": "form", "value": "unsettled"},
+  {"label": "location", "value": "Brooklyn, New York"},
+  {"label": "writing", "value": "Los Cielos Desaparecen", "href": "/about/#now"},
+  {"label": "last race", "value": "TSP Pyrénées, Oct 2026", "href": "/deck/"},
+  {"label": "next", "value": "the private library, 0.3", "href": "/library/"}
+ ]
+}

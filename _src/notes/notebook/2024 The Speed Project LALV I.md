@@ -1,0 +1,37 @@
+---
+{
+ "title": "The Speed Project, Los Angeles → Las Vegas",
+ "date": "2024-04-01",
+ "date_label": "2024",
+ "kind": "field note",
+ "folder": "1050 Writing",
+ "stem": "2024 The Speed Project LALV I",
+ "notebook": true,
+ "related": [
+  "running",
+  "The Speed Project",
+  "Tamra Green"
+ ]
+}
+---
+The desert gives us only a few times of year to run through it. Some of you know this for sure, as I do - I once wandered through northwestern New Mexico in late June, trying to prove I knew better, and almost gave my dog heat stroke instead. You should never argue with the sun in the summer in the desert. You'll never get a word in. The sun in the summer in the desert is too loud.
+
+ That's why [[running]] the desert in the spring is better; the Sun has not quite woken up. In March. the Sun still has a mouthful of sand and sleep-rimmed eyes. As a result, you can get in a few words before it rubs its eyes and beats down for the rest of the season like a beaming child unsullied by the anxiety of judgment.
+
+ If you want to run the desert, March in the Mojave is a good desert to test. You're more likely to survive its passage, and it will inspire you with the dreams of winter the sun has not yet shaken away. If you run the Mojave in March, you'll get to feel the weather that doesn't feel like the desert, a sideways wind that tests your core, a sleet that bounces off of a hat brim and into the shoulders of roads while you do your best to stay warm. If you run in the desert in March, at night the stars will feel as though they could swallow you whole just because they want to. You will let them, and you'll keep running over missing footsteps while chasing the flash of sky that might as well have been waiting for you to collide with it. If you run in the Mojave in March, you can look fifty miles away and run a good twenty of them and nothing will change.
+
+ If you do choose to run the Mojave in March, maybe one of those particular times you will come upon your best friend running 300 miles out of LA and you'll have to take her hand in yours to pull her 9 of those miles up a pass at the end of one of those fifty miles into a small town just outside of Vegas and the weather will lie to you the whole time as if it's the sun's favorite joke. Maybe while you walk and jog, she will fall asleep between footsteps, and you'll see faces in the mined-out cliffs you have to pass, and they will tell you stories through their layers about what the land has to offer you. You'll see those holes we make in the mountains in the chase for gold weeping out dust and chalk and you'll feel sorry for the mountains.
+
+ So you'll turn repeat the story to your friend that one of those faces in the mountain is snickering at you both for doing what you're doing. As you repeat it, the expression of that face will turn from a sneer to a grin while it reminds you both it has seen you--and any number of others--do this any number of times in the silly, long, winding story of its life. It will also remind you that you are built for grace in having chosen to take on the passage.
+
+Maybe on this run, part of the way up the pass your friend will have to stop from all the tears that suddenly hug her old dog tight to her chest, where his memories fading are fading from her as she heals through the undertaking, while that dog in her heart put up one last defense between her and the venom an angry exit threatened to infuse in her before the escape you knew she needed. On that run, she'll live with you, the same way she lives with you, without question or sewn doubt - as though it was a calling, same as the brown of her skin choosing to commune with the dirt and to feel tired, just as tired as the dirt beneath, as though it's a form of prayer made just for this kind of motion. She will live with you in these moments as though the movement were made to remember our place in the dirt, aging downward, and your footsteps will cross Sandy Valley until you make it across the pass. Then the wind will keep screaming at you. Then the sleet will come, and the sun, and the discarded oranges that litter the side of the road.
+
+ 22 miles later, when you and her and the other best friend who came to help share the ending run together toward the glass and flashing lights of the end, it might feel as though you have learned something new that wasn't there, but it may be something that lived within you since the beginning.
+
+If running is meditation on the things that we humans leave behind (*what is running, really*), then running in the desert is specifically a form of communion with the things the *earth* has left behind. The sun leaves behind salt on the surface of a caked-out flat, and it is the same salt that gathers at the edges of our eyes. What little water reaches these places grasps onto hardy roots until they die and their skeletons litter the desert, just as our skeletons are all we leave. The wind and sun then bake it all into the to same whispered shades that lose their color, and our skin and our hair mimic this with our own passage into time.
+
+Running in the desert is the act of choosing to bring into line aspects of the self that need changing with the time it takes to change. Relative to our lives, the changes of the desert can take an infinity - there are regions of the world where the land is only changed by the wind and the geological force of the earth moving. The desert chooses to change slowly, and running in the desert forces us to reckon with the pace at which we change. If in our short lives, we choose to sit with the change that comes over us as we move between the littered states of being, then the lessons we learn from respecting the rate of change are what running in the desert can teach us how to do. The desert is always willing to teach this lesson, but running through the desert in the spring is when you are most likely to hear it.
+
+Having moved through that landscape will seek to place you like a seed within those layers of dirt. It will then wait patiently for a little rain and frost below a cold crust, and given the right conditions, might choose to sprout upward into the ancient explosive of crippled trees that dust the Mojave. Running in deserts feels like seeking a home in something desolate that does not care about your being there but is pleased when you are, and running through, alone, with friends, is listening for an eke of self-sufficiency in the self that seems to want to prove the possible. If you run through the desert in pursuit of yourself, it will feel like a rediscovery that over and over cracks open what you keep forgetting, and it will offer you the chance to leave behind these tawny layers with each forward footfall.
+
+If you run through the Mojave in March, you might then share that end with so many others who sought the same end, and you might all have might have learned similar lessons. You'll laugh and share them, and these will be the friends you make in the desert. These will be the people who listened to the same whisper of sand they tried to keep out of their toes, and you'll commiserate over the experience of arguing with a sleepy sun and the weather that follows it. You'll laugh and share, and filled with the sunlight of early spring will make plans to do it again just so that you can see everyone do it again, and you'll all smile through the wrinkles the sun is offers as parting gifts - because yes, it really was better next year, and it was even better the year after.

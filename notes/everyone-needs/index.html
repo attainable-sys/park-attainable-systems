@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>everyone needs ****** · codex magna</title>
+<meta name="description" content="three fronts need to be grown in order to actually scale crypto: 1. Scalability 2. Privacy 3. User Experience &#x27;why have privacy if you have nothing to hide&#x27;  …">
+<link rel="canonical" href="https://park.attainable.systems/notes/everyone-needs/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.031</div>
+  <h2 class="title">everyone needs ******</h2>
+  <div class="meta"><span>2000.031</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<h3>The utility of privacy</h3>
+<p>three fronts need to be grown in order to actually scale crypto:<br>
+1. Scalability<br>
+2. <a class="wl" href="/notes/privacy/">Privacy</a><br>
+3. <span class="ul" title="not published">User Experience</span></p>
+<h2>Arguments against Privacy:</h2>
+<ul>
+<li>'why have privacy if you have nothing to hide' - this is wrong headed because privacy is normal.</li>
+<li>the most adopted privacy technologies are VPNs and adblockers.<br>
+things that can't be done due to monetary transparency on blockchains:</li>
+<li>institutional adoption - if transactions aren't private, the biggest participants won't transact</li>
+<li>transparency allows manipulation to pervade the space</li>
+</ul>
+<h2>What makes privacy hard to build?</h2>
+<ul>
+<li>Shared state models - a network hast o share state across the entirety of the chain, while privacy transactions require part of execution to be off-chain.</li>
+<li>Moving execution to the client-side introduces race conditions</li>
+<li>concurrent access-to-state vs privacy</li>
+</ul>
+<h3><span class="ul" title="not published">Tornado Cash</span></h3>
+<p>Shielded Pools on Tornado allow you to generate a note on your computer - hash is recorded in the Tornado contract to keep original depositor connected to action.<br>
+- Anonymity set is the collection of receipt owners engaging with a pool of assets that have 'notes' attached to them on a private account.</p>
+<h3><span class="ul" title="not published">Zcash</span></h3>
+<p>ZEC is not private by default, but tokens can be deposted into a shielded pool and transferred privately.<br>
+    Only 8% of supply is shielded. - This could be explained by a compination of supbar tooling/UX and a lack of in-protocol incentives for shielding - i.e. you are trying to get people to use something that they don't actually feel the need to use.</p>
+<ol>
+<li>Adoption through shielded pools is crucian for privacy, as without adoption the value proposition is lost.</li>
+</ol>
+<h2><span class="ul" title="not published">Monero</span></h2>
+<p>'Shielding' of transactions is done through dummy inputs.</p>
+<p>Information cascades and probabilistic re-association can be used to break this model, given time and AI/ML.</p>
+<p>"Opt-in privacy 'simply doesn't work" - <span class="ul" title="not published">Aztec</span>, by contrast, doesn't offer anything short of a closed environment within which users operate.</p>
+<h2><a class="wl" href="/notes/namada/">Namada</a></h2>
+<ul>
+<li>Will be using the <a class="wl" href="/notes/masp/">MASP</a> to allow for a pool that supports all asset types. -</li>
+</ul>
+<p>*Of note here is the fact that both <span class="ul" title="not published">Tornado Cash</span> and <span class="ul" title="not published">Zcash</span> require you to use a native token and do not offer multi-asset transfer, in contrast to <a class="wl" href="/notes/namada/">Namada</a>, which can purely be navigated through multi-asset pooling that encourages and increases security over use privacy through growth of the overall set of private assets.</p>
+<ul>
+<li>"Namada has a single MASP that supports all assets. This is very handy for exotic assets and NFTs, as they share and benefit from the same anonymity set with every other asset."<br>
+    "Namada’s Privacy as a Public Good allows users to earn shielded rewards in exchange for contributing to privacy. The subsidy model incentivizes participation regardless of the size of the pool while incurring finite costs"</li>
+</ul>
+<h2><span class="ul" title="not published">Aleo</span></h2>
+<ul>
+<li><span class="ul" title="not published">zero-knowledge execution environment</span> build on WASM that defines a generic off-chain execution and on-chain verification model that can heterogenously secure <span class="ul" title="not published">ZKP</span>s that are posted to the Aleo chain.<ul>
+<li>Encounters <span class="ul" title="not published">race conditions</span> where concurrent <span class="ul" title="not published">ZKP</span>s can seek to fill the same block, though this can/might be avoided using the <a class="wl" href="/notes/prover/">prover</a> role to sort and post transactions to the parent chain.</li>
+</ul>
+</li>
+</ul>
+  </article>
+  <div class="links"><div class="lbl">linked from · 2</div><div class="bls"><a class="bl" href="/notes/namada/">← Namada</a><a class="bl" href="/notes/privacy/">← Privacy</a></div></div><div class="links"><div class="lbl">links to · 2</div><div class="bls"><a class="bl" href="/notes/masp/">→ MASP</a><a class="bl" href="/notes/prover/">→ prover</a></div></div>
+  <div class="pn"><a href="/notes/dios/">← 2000.030 DIOs</a><a href="/notes/evm/">2000.032 EVM →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

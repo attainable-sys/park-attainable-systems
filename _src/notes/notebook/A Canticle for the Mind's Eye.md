@@ -1,0 +1,31 @@
+---
+{
+ "title": "A Canticle for the Mind's Eye",
+ "date": "2025-03-29",
+ "date_label": null,
+ "kind": "fiction",
+ "folder": "1050 Writing",
+ "stem": "A Canticle for the Mind's Eye",
+ "notebook": true,
+ "related": []
+}
+---
+Falling. It's hard to say if it is a dream because the falling is taking so long that the falling has become normal, and in the deep darkness of my descent it could have be mistaken for flying, I think.
+
+My hands in the air play small resistance with passing but maybe that is a breeze. Maybe I'm not falling or flying. Maybe I am floating. Maybe I am not alive at all.
+
+A pinprick is all I can see and it is why I suppose that I am falling, I turn this way and that way and that little point stay below me. I think it is below me. I think gravity is pulling me toward it. I don't know if gravity is actually pulling me toward it. I can't remember how I leaned what gravity is. So maybe it's not gravity. I don't know. But there is a pinprick of light and I can't remember how I learned about gravity.
+
+I am not sure if I am afraid because I also can't remember ever being afraid before, or rather I'm realizing I don't think I remember anything at all and I think this scares me too but I also can't remember if this feeling is anything new, but my heart is in my chest (I think) and it is bump bump bumping faster than it was a moment ago before I was trying to figure out if I was afraid and my eyes are dry from the wind or the breeze and I'm cold on one side of my body from the wetness that just sprang across my skin. I don't know if I am falling and I don't know if I am afraid and I don't like not knowing anything and I don't know where I am.
+
+I try to think about anything and there is a jumble of concepts like "mathematics" and "Hustvedt's unification constant" but I don't really remember who Hustvedt is or why I know about her how I know she is a woman or really what a woman is because I'm just falling and experiencing something I'm not sure I have felt before and that pinprick is the only thing I can see. I think it might be brighter. Good, at least my frame of reference is changing but what is a "frame of reference" and why am I hearing myself think so loudly when I can't hear anything else, so I shout and I can hear my voice more like a bark into nothing and I realize that my throat is so dry and I'm so thirsty, my eyes hurt too and I close them and the pinprick winks out.
+
+Good. So I can close my eyes. I should again and it doesn't carry, it sounds like shouting into cotton but I can't remember how I know what cotton is. But I can close my eyes and the pinprick goes away, so maybe I can gather the noisy haze of my thoughts into something logical or at the least something I can steer like maybe Hustvedt's unification constant is something worth knowing and maybe cotton is important.
+
+It's difficult in the noise of my heart beating faster and these concepts racing through me to make sense of what is more important than anything else. I know what a pinprick is and I know what a pin is and I know that Hustvedt's unification constant is the numerical limit at which the barrier to consciousness interacts with a quint momentarily cooled to 0 degrees Kelvin, where consciousness is denoted by the bitflip of states within which incoming information can be processed by an extant system across the boundaries of connected interstitial state engines all reacting to the same manifold of inputs at a predictive rate constituting processor-type memory within the system. A system is a set of interacting state engines within which the flow of motivating forces inform local transformations between states for each component interacting in relation to another, and when I open my eyes I can see that the pinprick is definitely a little bit brighter but when I close my eyes I can't see it, so maybe when I close my eyes it's just not real, as though locally there's some transformation of reality that collapses into existence when I open my eyes.
+
+I keep my eyes closed for a while, which eventually feels a bit better because I am not wondering about the pinprick and I'm done thinking about why I know what Hustvedt's constant is, so I tell myself I'll just keep them closed for a while longer. It's a bit nicer in the darkness honestly and thinking about whether or not I could see the pinprick has meant I'm not dealing with all the racing thoughts that were trying to make sense of themselves but I'm still pretty thirsty and that's making my heart beat a little faster but maybe I can just not think about that. Can I remember anything other than concepts? It doesn't really seem that's the case but I'm counting out the numbers of Pi pretty far and I seem to know a fair number of primes and that's calming so I'm just counting those in my head as well since I seem to know a lot of them.
+
+I've been here a long time, I realize. I don't know how long I've been here but I am starting to wonder if maybe I've just been falling for so long that I don't really remember when I was first falling and if I've already thought all of this any number of times, it's just been so long since I last thought all of it that I can't remember. This, again, scares me but that can't possibly true because I can't possibly have been thirsty for this long and it's a small gnaw at my stomach that makes me think I maybe haven't been falling for that long because someone who has been falling for a long time would probably me a lot hungrier and a lot thirstier, and I open my eyes to ponder this and oh god the pinprick is brighter but I can see what it is a little better now and it looks like a little more than just a pinprick, it has a shape.
+
+But there's nothing else here for me to look at so I'm getting curious about it and allowing myself to feel the fear of looking at it and trying to figure out what's coming, and I realize that maybe it's something I can just barely make out, it's a shape I can recognize but oh god its an eye, just barely big enough for me to see it. I realize maybe I'm moving toward it and it's actually maybe even getting bigger as I look at it, but it's just this giant unblinking eye staring back at me in the middle of all this blackness where I can't even tell what direction I'm falling in.

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Case for Scaling the Ethereum Virtual Machine, but not Ethereum · codex magna</title>
+<meta name="description" content="An Open, Modular Stack for EVM - Mustafa Al-Bassam Introducing Cevmos - Tharsis Digging into Data Availability - Zero Knowledge Rollups/Data Availability  …">
+<link rel="canonical" href="https://park.attainable.systems/notes/cevmos-article/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.001</div>
+  <h2 class="title">A Case for Scaling the Ethereum Virtual Machine, but not Ethereum</h2>
+  <div class="meta"><span>2000.001</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<h3>Or: How I stopped worrying and learned to love the EVM</h3>
+<ul>
+<li><a class="ext" href="https://forum.celestia.org/t/an-open-modular-stack-for-evm-based-applications-using-celestia-evmos-and-cosmos/89" rel="noopener">An Open, Modular Stack for EVM</a> - Mustafa Al-Bassam</li>
+<li><a class="ext" href="https://evmos.blog/introducing-cevmos-an-open-scalable-and-modular-stack-for-evm-based-applications-72930ce6b85c" rel="noopener">Introducing Cevmos</a> - Tharsis</li>
+<li><a class="ext" href="https://podcasts.apple.com/pw/podcast/episode-208-digging-into-data-availability-with-ismail/id1326503043?i=1000543620830" rel="noopener">Digging into Data Availability</a> - Zero Knowledge</li>
+<li><a class="ext" href="https://polynya.medium.com/rollups-data-availability-layers-modular-blockchains-introductory-meta-post-5a1e7a60119d" rel="noopener">Rollups/Data Availability</a> - Polynya</li>
+<li><a class="ext" href="https://vitalik.ca/general/2021/12/06/endgame.html" rel="noopener">Endgame</a> - Vitalik</li>
+<li><a class="ext" href="https://twitter.com/kaiynne/status/1475623723591815168" rel="noopener">Why L2s will have a token</a> - kain.eth</li>
+</ul>
+<h2>Outline</h2>
+<h3>1. Introduction?</h3>
+<ul>
+<li>What is the main problem with Ethereum, right now?<ul>
+<li>Understanding the trilemma - scaling, security, decentralization</li>
+<li>There is another - data availability - and it ties into scalability.<ul>
+<li>Worse yet, it’s not something that can be solved for on the base chain itself. It’s more likely to be solved by changing the settlement layer altogether in order to provide the structure necessary to properly scale the EVM</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>What is <a class="wl" href="/notes/data-availability/">data availability</a>?<ul>
+<li>explain that it's something that will probably stop Ethereum from growing</li>
+<li>Data availability <em>sampling</em> vs data availability</li>
+<li>Example:<ul>
+<li>Imagine the formula “2+2” is  on the blockchain, every time a validator is looking to run consensus they have to run the calculation to determine the answer is 4. The data availability layer will simply store “4” and the consensus layer will store the transaction data.</li>
+<li>Most of the transaction costs incurred on proof of stake networks is associated with the computation of historical formulas such as 2+2=4 to prove the beginning balance for account ABC is in fact “4”.</li>
+<li>By removing the validators obligation to prove 4 is the beginning balance and opting instead to call 4 as the beginning balance from the data availability layer (which was already proven and agreed upon), the computation load for validating transactions on the settlement layer  is much lower and cheaper.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2>2. How could the EVM grow, but not Ethereum?</h2>
+<ul>
+<li>Open source, anyone can fork the code, obviously<ul>
+<li>Plenty of examples of EVM clones out there - Solana, Avalanche, Near, and so on.<ul>
+<li>NEAR has sharding built in and touts itself as a data available chain, but the network doesn’t necessarily provide the structures necessary to scale the EVM with clear permissionlessness.</li>
+</ul>
+</li>
+<li>What they are not doing is creating single-purpose blockchains. They are looking to create entire new L1 ecosystems,<ul>
+<li>we're starting to realize that doing this is actually not that good of an idea, because L1 ossification and baseload congestion is a real problem, and these chains run up against the trilemma really quickly.</li>
+</ul>
+</li>
+<li>EVMs can also be implemented within the rollup environment, creating an execution environment for transactions that can then derive consensus from the settlement layer’s DA solution at minimal cost and with trustful security</li>
+</ul>
+</li>
+<li>Other points:<ul>
+<li>Public goods - <a class="wl" href="/notes/ibc/">IBC</a> is the closest thing to a public good that we have for scaling solutions, working within an environment like NEAR, Solana, or Avalanche provides a solution.</li>
+<li>Polkadot offers a comparable solution, but it’s a completely new ecosystem with less adoption, and the need for Substrate chains to rent-seek in order to have shared security presents an issue that stands in the way of rapid scalability<br>
+1. Thinking more abstractly, what is an issue with monolithic transaction environments?</li>
+</ul>
+</li>
+<li>adaptability issues</li>
+<li>you can't fix what was built broken<ul>
+<li>This is true of all systems - clawing back solutions to the problems that we want to solve means that you’re solving piecemeal.</li>
+</ul>
+</li>
+<li>through put issues and mounting transaction cost are always going to be a problem on settlement layers that allow too much blockspace to L1-level transactions.<ul>
+<li>This is the reason that projects like Polkadot exist - the core tenet that Gavin Wood saw early on was that data availability was going to be a problem, so he created a technology that built the smart contract environment in a different space than the settlement layer and then created a communication format that allowed contract environments to communicate.</li>
+<li>This meant that the settlement layer could be used to allow inter-blockchain communication, and to settle transactions against the relay chain that create shared security among all chains connected to the base chain.</li>
+</ul>
+</li>
+</ul>
+<h2>2. So what's a potential solution to this problem?</h2>
+<ul>
+<li>The only way that we’ll get a modular environment that we want is if it’s easy to participate.<ul>
+<li>That means the entire stack must be modular and easy to access, and effectively frictionless in deployment.</li>
+<li>Any environment that causes structure to be non-modular, or makes it difficult to leave, is effectively not permissionless.</li>
+</ul>
+</li>
+<li>Modular chain design means that the pieces of the stack are atomic - they can function as well as they need to, and if they don’t work, you can swap them out for pieces that do work<ul>
+<li>This biases toward success, because the atomic structure of each modular piece can be as good as it needs to be, and nothing more. An implementation can be purpose-built, set, seen as valuable, and then implemented across all utilities.</li>
+</ul>
+</li>
+</ul>
+<p>In order to understand what a solution could look like in practice, you can start <a class="ext" href="https://forum.celestia.org/t/an-open-modular-stack-for-evm-based-applications-using-celestia-evmos-and-cosmos/89" rel="noopener">here</a>, where Mustafa Al-Bassam describes what could turn out to be one of the most robust solutions for utilizing the flexibility of the Ethereum Virtual Machine within a data availability architecture.</p>
+<p>Talk about each part of the stack</p>
+<ul>
+<li>Cosmos</li>
+<li><a href="figment.io/resources/first-look-evmos">Evmos</a></li>
+<li>Celestia</li>
+</ul>
+<h3>3. Why do all of these work together?</h3>
+<ul>
+<li><a class="ext" href="https://evmos.blog/introducing-cevmos-an-open-scalable-and-modular-stack-for-evm-based-applications-72930ce6b85c" rel="noopener">Cevmos </a>- a scaling solution that seeks to combine all pieces of the stack in order to scale the Ethereum Virtual Machine, or EVM</li>
+</ul>
+<p>However, in the abstract, there is a case for <em>anything</em> to take this space, since the predominant logic for scaling Ethereum technology  is proceeding in a different direction than what was the initial logic - not that chains will connect to a base-layer chain that can also settle transactions, but rather that there will be interchain modularity in the tech stack. This will result in a (wait for it) cosmos of blockchains allowing for modular construction of purpose-built chains.</p>
+<h2>4. Why is this a big deal?</h2>
+<p>The future of the EVM is probably not on Ethereum, but it's probably not on any other Layer 1 solution that exists out there - mainly because every other chain that exists is likely to run into the same data availability issue as almost every other Layer 1.</p>
+<p>Having a settlement layer that allows for collective consensus to be met quickly means that there is a way for networked growth among a set of rollups to happen quite rapidly, as well as securely at the hands a settlement layer - but this is just one solution.</p>
+<p>Using this design logic allows us to reconsider the ‘layered’ approach that we have taken to building out the components of a functioning transactional system. We no longer have one component depending on any other, but instead have components that comprise pieces of the tech stack alongside one another that can be swapped in and out depending on whether or not they accomplish the purpose.</p>
+<p>More importantly, it allows us to see the strongest implementation of Solidity within the EVM - single-purpose smart-contract rollups that can be permissionlessly plugged into a settlement layer for security and interoperating using a common message passing format, such as IBC.</p>
+<p>In this context, Cevmos marks the first step toward Vitalik’s <a class="ext" href="https://vitalik.ca/general/2021/12/06/endgame.html" rel="noopener">‘Endgame’</a> - an environment to scale shards of the Ethereum network, but without dealing with the congestion of smart contracts stored on the base chain. Effectively, a protocol like Cevmos moves us away from the dependency on Ethereum, while still leveraging the capabilities of the EVM environment within rollups.</p>
+<p><span class="ul" title="not published">Evmos</span>,<a class="wl" href="/notes/cosmos/">Cosmos</a>,<span class="ul" title="not published">Ethereum</span>,<a class="wl" href="/notes/blockchain/">blockchain</a>,<a class="wl" href="/notes/interoperability/">interoperability</a>,<span class="ul" title="not published">Bitcoin vs Ethereum</span>,<a class="wl" href="/notes/cevmos/">Cevmos</a></p>
+  </article>
+  <div class="links"><div class="lbl">links to · 6</div><div class="bls"><a class="bl" href="/notes/blockchain/">→ blockchain</a><a class="bl" href="/notes/cevmos/">→ Cevmos</a><a class="bl" href="/notes/cosmos/">→ Cosmos</a><a class="bl" href="/notes/data-availability/">→ data availability</a><a class="bl" href="/notes/ibc/">→ IBC</a><a class="bl" href="/notes/interoperability/">→ interoperability</a></div></div>
+  <div class="pn"><span></span><a href="/notes/accessibility-verification/">2000.002 accessibility verification →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>parachain · codex magna</title>
+<meta name="description" content="A parachain is a sharded blockchain equivalent that earns the shared security of the Polkadot or Kusama networks, not having to engage in settlement in its own …">
+<link rel="canonical" href="https://park.attainable.systems/notes/parachain/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.057</div>
+  <h2 class="title">parachain</h2>
+  <div class="meta"><span>2000.057</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<p>A parachain is a sharded blockchain equivalent that earns the shared security of the <a class="wl" href="/notes/polkadot/">Polkadot</a> or <a class="wl" href="/notes/kusama/">Kusama</a> networks, not having to engage in settlement in its own right through collation of transactions that are then validating by the <a class="wl" href="/notes/polkadot/">Polkadot</a> or <a class="wl" href="/notes/kusama/">Kusama</a>base chain.</p>
+<h2><a class="wl" href="/notes/data-availability/">data availability</a> in <a class="wl" href="/notes/polkadot/">Polkadot</a> and <a class="wl" href="/notes/kusama/">Kusama</a></h2>
+<p>The great advantage of a sharded format is that the chains that connect to the relay chain can depend on the base chain for their security, and therefore do not need to exhibit their own consensus, while the base chain is able to validate transactions and keep the <a class="wl" href="/notes/data-availability/">data availability</a> of the base chain at a maximum while <span class="ul" title="not published">smart contracts</span> are executed on the parachains themselves.</p>
+<h2>How does one become a parachain?</h2>
+<p>In order to earn access to the <a class="wl" href="/notes/relay-chain/">relay chain</a> for both message passing and execution, parachains must participate in <a class="wl" href="/notes/slot-auction/">slot auction</a>s, wherein the parachain raises locked $DOT in order to secure slot access to the base chain.</p>
+  </article>
+  <div class="links"><div class="lbl">linked from · 2</div><div class="bls"><a class="bl" href="/notes/slot-auction/">← slot auction</a><a class="bl" href="/notes/xcmp/">← XCMP</a></div></div><div class="links"><div class="lbl">links to · 4</div><div class="bls"><a class="bl" href="/notes/data-availability/">→ data availability</a><a class="bl" href="/notes/kusama/">→ Kusama</a><a class="bl" href="/notes/polkadot/">→ Polkadot</a><a class="bl" href="/notes/relay-chain/">→ relay chain</a></div></div>
+  <div class="pn"><a href="/notes/network-effect/">← 2000.056 network effect</a><a href="/notes/phragme-n-election/">2000.058 Phragmén election →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

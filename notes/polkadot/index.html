@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polkadot · codex magna</title>
+<meta name="description" content="Polkadot is an industrial scale blockchain solution acts as a metaprotocol for the implementation of Web 3 applications, providing ease of interoperability …">
+<link rel="canonical" href="https://park.attainable.systems/notes/polkadot/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.059</div>
+  <h2 class="title">Polkadot</h2>
+  <div class="meta"><span>2000.059</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<p>Polkadot is an industrial scale blockchain solution acts as a metaprotocol for the implementation of Web 3 applications, providing ease of interoperability, shared security, and infinite scaleability.</p>
+<h3>Polkadot <a class="wl" href="/notes/validator/">validator</a> election</h3>
+<p>Validator election on Polkadot happens through use of the weighted<span class="ul" title="not published">Phragmén election</span>algorithm, wherein the algorithm selects the winner of election cycles based on the number of tokens that a nominator holds, and the number of votes that a validator has received.</p>
+<p>In practice, a nominator <strong>can select up to 16 validators</strong> with whatever number of tokens that they have bonded to an account for nomination. The nominations are then distributed relative to the number of validators available, the scores that they have in accumulated token votes, and a distribution of the votes that ensures the largest possible amount of validators are elected with the tokens available.</p>
+<p>While this can seem quite confusing, the votes are distributed in a deterministic fashion, and it's possible to follow the logic once you've wrapped your head around the voting mechanism, known as the <span class="ul" title="not published">Phragmén election</span> algorithm.</p>
+<p>It's useful to understand this as an election mechanism that allocates votes based not solely on the number of votes that a particular validator has, but also the 'weight' of the other votes allocated by other parties to a validator in previous elections. In practice, this means that even if a validator has a higher amount of direct votes in a round, the weight of votes from previous elections can influence the current election, meaning that a less-allocated validator (in terms of cumulative votes) can be elected based on the distribution of votes from nominators.</p>
+<h4>What does this mean for getting validators elected?</h4>
+<p>If you're running a private validator set, chances are that we can arrange the election mechanism in a way that we'll be able to elect the maximal number of validators for the amount of DOT or KSM available. Assuming that there is enough of the asset to elect multiple validators, we will manage election through a controller account that we will rebalance on your behalf. However, there's no function on Polkadot or Kusama to permission only specific wallets - the only way we can do so is by setting commission at 100% for the validator and then settling rewards balances off-chain.</p>
+<p>For public elections, the method for election becomes a little more chaotic to predict - but it's still deterministic within a certain threshold (otherwise, how would the validators get elected?).</p>
+<h4>Minimum Stake Required for Election</h4>
+<p>The primary determining factor for getting a validator elected is the minimum stake required in order to be in the 'active set'. This is the minimum amount of DOT tokens required for nomination on a particular validator is a factor of two variables:<br>
+- The number of available slots for validation (as of writing this, 297 slots for validation are available on Polkadot)<br>
+- The amount of DOT staked by lowest staked validator in waiting.</p>
+<p>To simplify, let's posit that there are 5 slots available to validator and 10 validators hoping to fill the slots.<br>
+- The top five are elected based on each validator's total stake.<br>
+- The lowest staked validator <em>in the top five</em> determines the threshold for what is necessary in order for a validator to get elected<br>
+- if the 5th highest staked validator has 5 DOT nominating it<br>
+- if another validator is nominated with 6 DOT, this validator can take their place as the 5th highest in the next election.<br>
+In this situation, the 5 DOT limit would be considered the <strong>Minimum Stake Required</strong>.</p>
+<p>In order for a validator to be elected into the active set, Minimum Stake Required threshold that must be crossed before a validator will be a part of the set of 297 validators</p>
+<h4>Rewards Distribution</h4>
+<p>Polkadot distributes rewards equally to all active validators, such that no matter the amount of tokens staked to a validator from nominators, the amount rewarded and distributed to all active validators is roughly^1 equal.</p>
+<p>Validators are selected for block production using the NPoS consensus mechanism that rotates through all active validators Rewards are also not distributed on a constant basis per epoch (roughly ~1d) but rather per era (~4 hours) - so at times it can appear that a validator is not earning rewards. At the end of each epoch, all validators will have been selected for validation, roughly equalizing the total stake distributed to all elected validators.</p>
+<h3>Oversubscription</h3>
+<p>1- It is 'roughly' because validators can also receive network fees and tips that accrue over time, resulting in variations.</p>
+<p>Related to: <a class="wl" href="/notes/canary-network/">canary network</a>, <a class="wl" href="/notes/kusama/">Kusama</a>, <a class="wl" href="/notes/blockchain/">blockchain</a> · <a class="wl" href="/notes/protocol/">protocol</a></p>
+  </article>
+  <div class="links"><div class="lbl">linked from · 10</div><div class="bls"><a class="bl" href="/notes/blockchain/">← blockchain</a><a class="bl" href="/notes/canary-network/">← canary network</a><a class="bl" href="/notes/controller-accounts/">← controller accounts</a><a class="bl" href="/notes/cosmos/">← Cosmos</a><a class="bl" href="/notes/kusama/">← Kusama</a><a class="bl" href="/notes/parachain/">← parachain</a><a class="bl" href="/notes/protocol/">← protocol</a><a class="bl" href="/notes/relay-chain/">← relay chain</a><a class="bl" href="/notes/slot-auction/">← slot auction</a><a class="bl" href="/notes/xcmp/">← XCMP</a></div></div><div class="links"><div class="lbl">links to · 1</div><div class="bls"><a class="bl" href="/notes/validator/">→ validator</a></div></div>
+  <div class="pn"><a href="/notes/phragme-n-election/">← 2000.058 Phragmén election</a><a href="/notes/proofsquare/">2000.060 Proofsquare →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

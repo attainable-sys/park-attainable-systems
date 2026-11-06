@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coordinape · codex magna</title>
+<meta name="description" content="Coordinape is a program that decentralized communities can use to come to consensus on the contribution amounts that should be received by different community …">
+<link rel="canonical" href="https://park.attainable.systems/notes/coordinape/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.019</div>
+  <h2 class="title">Coordinape</h2>
+  <div class="meta"><span>2000.019</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<p><a class="ext" href="https://coordinape.com/" rel="noopener">Coordinape</a> is a program that decentralized communities can use to come to consensus on the contribution amounts that should be received by different community members. While it is mostly based on <span class="ul" title="not published">Ethereum</span>, the idea of using it in operations does not require the use of a blockchain, only an account. <br><br>
+The basic idea behind this is that each 'epoch' all members of a Circle (a group denoting a group working on a particular kind of function) can distribute a set amount of GIVE tokens to other members to indicate the impact that they had on one another's work.<br><br>
+This means that at the end of each epoch, al users allocate their, say 100GIVE to those that they measurably affected the outcomes that the Circle were aiming for. To this end, a group might look like the following:\</p>
+<pre><code>    Alice - 100 GIVE
+    Bob - 100 GIVE
+    Charlie - 100 GIVE
+    Deborah - 100 GIVE
+</code></pre>
+<p>Before the end of the epoch, these Circle participants would distribute their GIVE such that:</p>
+<pre><code>    Alice:
+        Alice - 20 GIVE
+        Bob - 50 GIVE
+        Charlie - 30 GIVE
+        Deborah - 0 GIVE
+    Bob
+        Alice - 30 GIVE
+        Bob - 10 GIVE
+        Charlie - 30 GIVE
+        Deborah - 30 GIVE
+    Charlie
+        Alice - 40 GIVE
+        Bob - 20 GIVE
+        Charlie - 10 GIVE
+        Deborah - 30 GIVE
+    Deborah
+        Alice - 20 GIVE
+        Bob - 35 GIVE
+        Charlie - 25 GIVE
+        Deborah - 20 GIVE
+</code></pre>
+<p>At the end of the epoch, the totals would be tallied:</p>
+<pre><code>    Alice - 110 GIVE
+    Bob - 115 GIVE
+    Charlie - 95 GIVE
+    Deborah - 90 GIVE
+
+For a total of 400 GIVE
+</code></pre>
+<p>These Circle members would then be allocated their 'share' of distributions from whatever granting system is being used to pay them:</p>
+<pre><code>    Total pool size : 6000 USDC
+        Alice - 27.5% of pool - 1650 USDC
+        Bob - 27.75% of pool - 1725 USDC
+        Charlie - 23.75% of pool - 1425 USDC
+        Deborah - 22.5% of pool - 1350 USDC
+</code></pre>
+<p>This way, those that participate in pool distribution all have a say in how much of the pool is used to allocate toward different efforts, and each participant of the Circle is recognized based on the impact seen by the others in their Circle.</p>
+<h2>How might this work for the <span class="ul" title="not published">Namada community work</span>?</h2>
+<p>For <span class="ul" title="not published">Namada rPGF community program</span>, this might be a favorable tool, because it could mean that fair distribution is done on the basis of perceived impact by a <span class="ul" title="not published">Namada rPGF council</span>.</p>
+<p>Use of Coordinape is free<br>
+Coordinape is a member of every circle, and as a result can be paid out from each epoch -  they might work to a SaaS model of percentage.</p>
+<p>Seeing users that are not using it for payment, but rather just accounting for equity.</p>
+<p>use coordinape to decide allocations of the rpgf program - it's offchain for decision-making.</p>
+<p>advantageous cultural piece that creates a shared display to be able to talk about what is actually valuable in the community. Creation of a values-based conversation.</p>
+  </article>
+  
+  <div class="pn"><a href="/notes/controller-accounts/">← 2000.018 controller accounts</a><a href="/notes/cosmos/">2000.020 Cosmos →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

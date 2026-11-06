@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>rollups (notes) · codex magna</title>
+<meta name="description" content="data shards were originally to be arranged in n = 64 data shards to the beacon chain, n proposers propose shard blobs, confirmed by committees of validators. …">
+<link rel="canonical" href="https://park.attainable.systems/notes/rollups-notes/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.068</div>
+  <h2 class="title">rollups (notes)</h2>
+  <div class="meta"><span>2000.068</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<h2><a class="ext" href="https://notes.ethereum.org/@dankrad/new_sharding" rel="noopener">new potential sharding design</a></h2>
+<ul>
+<li>data shards were originally to be arranged in $$n = 64$$ data shards to the beacon chain, n proposers propose shard blobs, confirmed by committees of validators.</li>
+<li>Alternative:<ul>
+<li>sharded data as calldata, block is then constructed by a single builder</li>
+<li>better integrations with L1 from rollups</li>
+<li>metablock builders are likely to come about because of MEV extraction anyway.</li>
+</ul>
+</li>
+<li>advantages:<ul>
+<li>rollup data immediately visible to manager contracts</li>
+<li>shard scanning logic doesn't need to be implemented</li>
+<li>no separate PBS (?)</li>
+<li>sharded calldata can be charged to the tx that is using the calldata</li>
+<li>data can be confirmed by larger committees (1/32 of val set)</li>
+<li>beacon and execution blocks can be immediately added to <a class="wl" href="/notes/data-availability/">data availability</a> set<ul>
+<li>light client preparedness and access to <span class="ul" title="not published">verkle trees</span></li>
+</ul>
+</li>
+<li>ZKR L1&lt;&gt;L2 synchronous calls</li>
+<li>superlight clients will be possible due to ease of provability for rollups on the L1 layer<br>
+Sampling:</li>
+</ul>
+</li>
+<li>256 commits to data (up to 512)</li>
+<li>sampling a square of $$ 512\times512 = 2^{18} = 262144 $$ such that any 50% of the block can be sufficient to recrease the whole block, decreasing demands for proving - increasing efficient recovery.</li>
+<li>high bribe resistance</li>
+<li>
+<ul>
+<li>dankrad</li>
+</ul>
+</li>
+<li>dankrad</li>
+</ul>
+<p>related to: <a class="wl" href="/notes/blockchain/">blockchain</a>,<span class="ul" title="not published">Ethereum</span>,<span class="ul" title="not published">rollup</span></p>
+  </article>
+  <div class="links"><div class="lbl">links to · 2</div><div class="bls"><a class="bl" href="/notes/blockchain/">→ blockchain</a><a class="bl" href="/notes/data-availability/">→ data availability</a></div></div>
+  <div class="pn"><a href="/notes/retail-validator/">← 2000.067 retail validator</a><a href="/notes/sagan/">2000.069 Sagan →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

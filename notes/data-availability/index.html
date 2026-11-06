@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>data availability · codex magna</title>
+<meta name="description" content="Data availability is a core tenet of the available space for a set of transactions - in that there must be sufficient space in a transactional environment for …">
+<link rel="canonical" href="https://park.attainable.systems/notes/data-availability/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.027</div>
+  <h2 class="title">data availability</h2>
+  <div class="meta"><span>2000.027</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<p>Data availability is a core tenet of the available space for a set of transactions - in that there must be sufficient space in a transactional environment for a number of transactions or computations to be authorized for the computational environment to proceed.</p>
+<h2>In the context of Blockchain</h2>
+<p>In the context of blockchain, data availability is a limitation on blockspace - where the number of transactions in a block decreases as the complexity of the transactions increases. As a result, an inability to change the structure of the block environment or to displace portions of the transactions taking up a block to a difference scaling solution (such as <span class="ul" title="not published">rollup</span>) becomes a scaling limitation on a particular block structure.</p>
+<p>A good example of this is the <span class="ul" title="not published">Ethereum</span> blockchain, whereing execution and smart contracts occupy the same block space and as a result the execution potential of the chain can become limited by smart contract execution, which on average takes up larger amounts of available data in a block.</p>
+<p>A potential solution to this is the <a class="wl" href="/notes/celestia/">Celestia</a> blockchain, which aims to remain an execution-only environment for blockchains, with independent rollups connecting with the execution layer and smart contracts (or other transaction types) remaining in the <span class="ul" title="not published">rollup</span> environment.</p>
+<pre><code>- [Celestia - ZK Knowledge Podcast](https://zeroknowledge.fm/208-2/)
+- [Fraud and Data Availability Proofs](https://arxiv.org/pdf/1809.09044.pdf) - Al Bassam, M
+- [Rollups, Data Availability, Modular Blockchains](https://polynya.medium.com/rollups-data-availability-layers-modular-blockchains-introductory-meta-post-5a1e7a60119d)
+</code></pre>
+<p><a class="wl" href="/notes/celestia/">Celestia</a>,<span class="ul" title="not published">Ethereum</span>,<span class="ul" title="not published">Evmos</span>,<a class="wl" href="/notes/ibc/">IBC</a>,<a class="wl" href="/notes/cosmos/">Cosmos</a> · <a class="wl" href="/notes/data-availability/">data availability</a></p>
+  </article>
+  <div class="links"><div class="lbl">linked from · 5</div><div class="bls"><a class="bl" href="/notes/cevmos-article/">← A Case for Scaling the Ethereum Virtual Machine, but not Ethereum</a><a class="bl" href="/notes/anytrust/">← AnyTrust</a><a class="bl" href="/notes/celestia/">← Celestia</a><a class="bl" href="/notes/parachain/">← parachain</a><a class="bl" href="/notes/rollups-notes/">← rollups (notes)</a></div></div><div class="links"><div class="lbl">links to · 2</div><div class="bls"><a class="bl" href="/notes/cosmos/">→ Cosmos</a><a class="bl" href="/notes/ibc/">→ IBC</a></div></div>
+  <div class="pn"><a href="/notes/dao/">← 2000.026 DAO</a><a href="/notes/decentralized-governance/">2000.028 decentralized governance →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

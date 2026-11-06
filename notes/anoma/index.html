@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anoma · codex magna</title>
+<meta name="description" content="The Anoma protocol aims to do away with trades that require an underlying asset to facilitate transaction. It does so through a private gossip network that …">
+<link rel="canonical" href="https://park.attainable.systems/notes/anoma/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2000/">2000 blockchain</a> / 2000.004</div>
+  <h2 class="title">Anoma</h2>
+  <div class="meta"><span>2000.004</span> · <a href="/vault/2000/">2000 blockchain</a></div>
+  
+  <article class="prose">
+<p>The Anoma protocol aims to do away with trades that require an underlying asset to facilitate transaction. It does so through a private gossip network that connects parties desiring a trade for any asset, then solves for the fullfilment of the connected trade desires of individual parties by creating groups of any computationally-limited arbitrary size necessary to facilitate the trade.</p>
+<h2>What's cool about this protocol?</h2>
+<p>It would provide parties with the ability to post limit sells/buys on the Anoma protocol for settlement under a programatic <a class="wl" href="/notes/validity-predicate/">validity predicate</a> that would be gossiped for settlement whenever the trade terms are met.</p>
+<h2>Calls</h2>
+<p><span class="ul" title="not published">2022.1.12 support asks for Anoma</span> · <span class="ul" title="not published">2021.12.15 call with Chris Goes</span><br>
+- 1.2  - centralized authority over issuance for fiat currencies leads to the abuse of these systems and monetary capture by those who control issuance<br>
+    - tie individuals to political and local economic systems<br>
+    - 1,2,2 - what are the causal reactions in the system for what your money facilitates?<br>
+    - the complexity of supply chains mean that you never know what chain of suffering you have triggered, or whose pocket the money you just spent went into.<br>
+    - largely due to the complexity of the supply chain, leading to subjugation by design as the supply chain fails to capture what happens within it<br>
+- 1, 3 - insufficient privacy and confusing UX have deterred adoption of p2p cash replacements<br>
+    - zk proofs greatly increased the level of privacy available, but current monetary systems are fixed or deflationary, which is not a stable form of payment.<br>
+    - <span class="ul" title="not published">von Neumann step-execution virtual machine</span> doesn't work for cash or barter, and two-currency systems can somewhat solve the inefficiency, but you still are committed to holding one of the two currencies as a basis for incurring fees. This means you are still depending on the system itself.<br>
+    - MEV is also an issue<br>
+- 2 - Anoma aims to make any digital asset into the basis of exchange - meaning that you can choose any set of assets to facilitate a trade, or to barter services trustlessly (including those made on Anoma). Assets can be traded into Anoma via any type of interoperability protocol (s/a <a class="wl" href="/notes/axelar/">Axelar</a>)<br>
+    - 2,1 Anoma will create private, asset agnostic digital cash. Any invariance in a fully encrypted transaction process is secured by a zk proof, and the anonymity set is a unified shielded pool across all assets, instead of pools of separate assets. Any asset can be used privately to transact in Anoma<br>
+    - 2,2 all you need to barter is two people who want to trade<br>
+        - 2,2,2 bartering in Anoma is facilitated though n-party trades - facilitating trade through an equivalence of wants for trades, and this trade can scale to n parties only limited by computational trade<br>
+    - 2,3 most trading is localized, so markets for value should be localized<br>
+        - ledgers for different scales of locality (berlin&lt;&gt;berlin, berlin&lt;&gt;shanghai)<br>
+- 3 - a set of interacting sub-protocols<br>
+    - 3,1 Operates on <span class="ul" title="not published">Tendermint</span> (<a class="wl" href="/notes/cosmos/">Cosmos</a>) over ABCI. There's no MEV due to distributed key generation and threshold encryption<br>
+        - 3,1,1 execution is not stepwise, contracts do not call subsequent contracts<br>
+            - 3,1,1,1 accounts decide on inclusion of transactions into their associated ledgers, code associated with an account is refered to as a 'validity predicate'<br>
+            - 3,1,1,2<br>
+                - arbitrary logic executed in a virtual machine, validity predicates are updated in the process of executing a trade and state changes are agreed upon on all associated accounts and the ledgers that associate them, only if agreed upon<br>
+                - multiparty trades don't require anyone knowing the parties - but I feel like finding people to use multiparty for trade emphasis requires people actually wanting to do the trade. I guess I don't really understand how people engage with it because it feels like it depends on users being available for the desired trades in order to execute.<br>
+                - <strong>I guess the idea is for wallets themselves to be ledgers, in a way? #question **<br>
+            - 3,1,1,3<br>
+                - zk Sapling circuit modified to support arbitrary asset denomination so that all parties are shielded from visibility<br>
+                    - all based on an Anoma standard validity predicate<br>
+        - 3,1,2 frontrunning prevention though alteration of block proposal mechanis<br>
+            - - game theoretical advantage is obvious<br>
+            - BFT key generation, but threshold decryption means that there is only aggregation, no interactions between nodes<br>
+            - threshold encryption means that validators have no information about the transaction and therefore no game theoretic reason to prioritize the tx<br>
+    - 3, 2 gossip networks mean that parties can find one another in order to facilitate an <em>n-party</em> transaction<br>
+        - 3,2,1 any surplus value from the trade is routed to peers who gossip the transaction across the network for completion, parties then engage in negotiation forwarded expressions of intent through other parties connected to the tx in terms of mutual liquidity ovoerall likely for tx bandwidth to be cheap as parties mutually agree on tx<br>
+        - 3,2,2 visibility limitation and/or token quanitity basis transfer without having to use the internet (woah)<br>
+            - basically, you could have people transact with one another without having to actually use the state of the blocks on the network to reflect the transaction<br>
+            - </strong>wouldn't this mean that you could have malicious action when not connected to the network that would then be seen as not agreed upon when the network is connected? is this not trustless? #question **<br>
+        - 3,2,3 matchmaking algo that scans intent set for compatible counterparties, then executed on teh base ledger, where they are appropriately settled<br>
+            - sometimes a spread, sometimes a matchmaking fee. matchmaker is permissionless<br>
+    - 3,3 topologically localized intent gossip networks and trade settlement - as a result antifragile - the topology of the locality can be geographic, topical, or cultural - as a result all economy that happens between parties is locally defined<br>
+        - **doesn't this mean that you could do in-system local/cultural/macro arbitrage? #question **<br>
+    - 3,4 security of the protocol conflates with the issue of coordinated upgrading across the system<br>
+        - aperiodic and acyclic upgrades on protocol, with multiple versions working in parallel across localities<br>
+        - 3, 4, 1 the ledger needs to evolve across usage patterns<br>
+            - under current structures, all parties must be equally upgraded.<br>
+        - 3,4,2 upgrades are usually cyclic and require governance, and multiple versions can't be tested at once<br>
+        - 3,4,3 anyone can change the conditions of the software locally. local validation of versioning?<br>
+            - canonical account ledger, can be atomically switched by a two-thirds majority using threshold commitment. cross chain calidation allows inter-ledger tracking for accountability.<br>
+    - There is a paper on the tokenomics somewhere<br>
+    - there is a paper on the technical specifications<br>
+    - #question - How are you planning on getting enough people on the network simultaneously so that chain bartering can be accomplished?</p>
+<h3>Calls</h3>
+<p><a class="wl" href="/notes/blockchain/">blockchain</a>,<a class="wl" href="/notes/privacy/">Privacy</a>,<a class="wl" href="/notes/complexity-of-value/">complexity of value</a>,<a class="wl" href="/notes/mev/">MEV</a>, <a class="wl" href="/notes/cosmos/">Cosmos</a>,</p>
+  </article>
+  <div class="links"><div class="lbl">linked from · 10</div><div class="bls"><a class="bl" href="/notes/comparative-advantages-of-distributed-ledgers/">← Comparative Advantages of Distributed Ledgers</a><a class="bl" href="/notes/cosmos/">← Cosmos</a><a class="bl" href="/notes/institutions/">← institutions</a><a class="bl" href="/notes/intent/">← intent</a><a class="bl" href="/notes/intent-note/">← intent note</a><a class="bl" href="/notes/namada/">← Namada</a><a class="bl" href="/notes/protocol/">← protocol</a><a class="bl" href="/notes/public-commons/">← public commons</a><a class="bl" href="/notes/stages-of-blockchain-privacy/">← stages of blockchain privacy</a><a class="bl" href="/notes/validity-predicate/">← validity predicate</a></div></div><div class="links"><div class="lbl">links to · 5</div><div class="bls"><a class="bl" href="/notes/axelar/">→ Axelar</a><a class="bl" href="/notes/blockchain/">→ blockchain</a><a class="bl" href="/notes/complexity-of-value/">→ complexity of value</a><a class="bl" href="/notes/mev/">→ MEV</a><a class="bl" href="/notes/privacy/">→ Privacy</a></div></div>
+  <div class="pn"><a href="/notes/activist-validator/">← 2000.003 activist validator</a><a href="/notes/anytrust/">2000.005 AnyTrust →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>anatomy of privacy · codex magna</title>
+<meta name="description" content="Now that we&#x27;ve understood the theory of privacy, that there&#x27;s somewhere we should be looking at Privacy from, we need to start to ask questions around what …">
+<link rel="canonical" href="https://park.attainable.systems/notes/anatomy-of-privacy/">
+<link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+</head>
+<body>
+<header>
+  <h1><a href="/">codex magna</a></h1>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
+</header>
+<nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/"><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
+<main class="s note">
+  <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/2100/">2100 privacy</a> / 2100.003</div>
+  <h2 class="title">anatomy of privacy</h2>
+  <div class="meta"><span>2100.003</span> · <a href="/vault/2100/">2100 privacy</a></div>
+  
+  <article class="prose">
+<h2>Introduction</h2>
+<p>Now that we've understood the theory of privacy, that there's somewhere we should be looking at Privacy <em>from</em>, we need to start to ask questions around what needs to be private, and how, as well as the privacy guarantees that come from having privacy at each layer.</p>
+<p>Additionally, for each layer, there should likely be the question of whether or not it should be private, or better at the value of keeping it public might be - since privacy is a question of the cultural safety around deciding what you disclose. If this is true, what should we feel societally compelled to disclose?</p>
+<h2>Network level privacy</h2>
+<p>Where the transactions are happening and how operators on the network make themselves visible. There are schema here for how to maintain privacy, so what are they, how what are functions around how to make thing more or less transparent - what are the reasons for doing so?</p>
+<p>e.g. in a ZEXE or in <span class="ul" title="not published">Taiga (Anoma)</span>, the bundles that are held at the network level can be managed in such a way that the contents are not immediately perceivable by an operator role, and the information from the payee who wants a tx to go through might be abstracted away. There are two things at work here - privacy on the layer of the account (who paid) and privacy on the layer of the transaction (what's in the transaction?).</p>
+<p>Solutions here are NYM, but what are some reason that you might want to have the network exposed? Why might it be advantageous to think about a network being visible vs not visible? Who does it serve to have either?</p>
+<h2>Account level privacy</h2>
+<p><a class="wl" href="/notes/account-level-privacy/">account-level privacy</a> is a question of where it is that your assets are being held - meaning, what identifiable information does a particular account hold on a particular user. Ideally, account-level privacy should be a question of the information that is being revealed to those with whom you transact, or at the least is an account of what it is that an individual stores and have the ability to decide that which is available to those who use the information held by an individual account.</p>
+<h2>Transaction level privacy</h2>
+<p>This is the transaction-surface on which transactions are being declared in order for an operator role who settles them to include them in a block.</p>
+<p>The issue here is that with something like <a class="wl" href="/notes/mev/">MEV</a>, there are many who would argue that this makes for an efficient network and market, but the reality of this argument is likely a little bit more nuanced - MEV is only possible if you can see what is within a transaction.</p>
+<h2>Runtime-level privacy</h2>
+<p>Where the transactions are being processed</p>
+<p>Here's a question of 'how much do you need to put out in the open in order to get things done' and the fine line between asking if privacy is an ethical position, or if it's <em>efficiency saving</em>. Technology like <span class="ul" title="not published">ZEXE</span> environments make it so that it's possible.</p>
+<h2>Privacy makes things run more smoothly</h2>
+<p>The reason for this is that there's not that much information that needs to enter the system, so the minimum viable information necessary in order to have things work</p>
+  </article>
+  <div class="links"><div class="lbl">linked from · 2</div><div class="bls"><a class="bl" href="/notes/privacy-in-crypto-as-an-ethos/">← privacy in crypto as an ethos</a><a class="bl" href="/notes/transparent-blockchains/">← transparent blockchains</a></div></div><div class="links"><div class="lbl">links to · 3</div><div class="bls"><a class="bl" href="/notes/account-level-privacy/">→ account-level privacy</a><a class="bl" href="/notes/mev/">→ MEV</a><a class="bl" href="/notes/privacy/">→ Privacy</a></div></div>
+  <div class="pn"><a href="/notes/account-level-privacy/">← 2100.002 account-level privacy</a><a href="/notes/information-leakage/">2100.004 information leakage →</a></div>
+</main>
+<footer>
+  <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
+  <div>built 2026.11.06 from 221 notes</div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
