@@ -3,7 +3,7 @@
  "title": "brain drain",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1100 Intelligence and Learning",
  "stem": "brain drain",
  "url": null,
  "related": []

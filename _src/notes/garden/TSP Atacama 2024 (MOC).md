@@ -9,10 +9,6 @@
  "related": []
 }
 ---
-## Writing
-[[2024 The Speed Project ATA I]]
-[[2024 The Speed Project ATA II]]
-
 ## Vibes:
 - We want good vibes
 	- Celebrate the wins,

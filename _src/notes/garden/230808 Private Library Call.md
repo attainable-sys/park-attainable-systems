@@ -3,7 +3,7 @@
  "title": "Private Library: what can't exist without privacy?",
  "date": "2023-08-08",
  "date_label": null,
- "folder": "2100 Privacy",
+ "folder": "1166 Heliax",
  "stem": "230808 Private Library Call",
  "url": null,
  "related": []
@@ -12,9 +12,9 @@
 ### Announcement:
 Hi @everyone!
 
-I'm excited to announce the next installment of the [[Private Library]] series.
+I'm excited to announce the next installment of the Private Library series.
 
-Based on discussion in [the forum], we settled on this next week tackling the question of 'What can't exist without [[2100 Privacy|privacy]]?'
+Based on discussion in [the forum], we settled on this next week tackling the question of 'What can't exist without privacy?'
 Recommended reading and/or watching for this next session is this article written by @gavin and the this Bankless episode wherein the question of privacy requirements are discussed.
 
 https://www.youtube.com/live/9FZq-9Oe5Hc?feature=share&t=708

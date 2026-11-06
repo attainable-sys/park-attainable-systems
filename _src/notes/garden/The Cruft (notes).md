@@ -35,7 +35,7 @@ Which of the following two approaches to antagonism are the correct ones:
 	- I don't know what this means for the central characters of the [[Walker]] and the [[The Figure]], because I don't think the two of them have anything to bond over, and in [[The Cruft - Conclusion I]] I already mention the apology and the idea of death.
 
 ## Thinking space
-[[240406]]
+[[240406 - Hubris story idea]]
 
 There's something to be said for the idea that organics are inherently inefficient as a species, so maybe the fact that organics will always be incredibly energy intensive is part of the story of what happens and the reason that [[hyperintelligence]] won't interact with anything that exists at that level.
 

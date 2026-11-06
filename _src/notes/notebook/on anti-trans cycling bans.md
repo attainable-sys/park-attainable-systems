@@ -4,7 +4,7 @@
  "date": null,
  "date_label": null,
  "kind": "essay",
- "folder": "1050 Writing",
+ "folder": "1055 Critique",
  "stem": "on anti-trans cycling bans",
  "notebook": true,
  "related": [

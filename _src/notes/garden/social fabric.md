@@ -3,7 +3,7 @@
  "title": "social fabric",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1115 Society and its structure",
  "stem": "social fabric",
  "url": null,
  "related": []

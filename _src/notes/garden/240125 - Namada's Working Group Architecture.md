@@ -3,7 +3,7 @@
  "title": "Proposing a Namada community architecture based on RPGF funding",
  "date": "2024-01-25",
  "date_label": null,
- "folder": "1166 Heliax",
+ "folder": "1000 Living and Loving",
  "stem": "240125 - Namada's Working Group Architecture",
  "url": "https://forum.namada.net/t/proposing-a-namada-community-architecture-based-on-rpgf-funding/427",
  "related": []

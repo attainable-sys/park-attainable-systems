@@ -4,7 +4,7 @@
  "date": "2026-01-01",
  "date_label": null,
  "kind": "essay",
- "folder": "1050 Writing",
+ "folder": "1055 Critique",
  "stem": "On the sadness of men",
  "notebook": true,
  "related": []

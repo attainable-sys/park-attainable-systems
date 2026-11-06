@@ -3,7 +3,7 @@
  "title": "What I need to do ahead of writing",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1050 Writing",
  "stem": "What I need to do ahead of writing",
  "url": null,
  "related": []
