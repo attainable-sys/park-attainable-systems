@@ -551,6 +551,7 @@ def main():
   <div class="s-head">0400 &mdash; about</div>
   <h2>About</h2>
   <div class="about-block">
+    <img class="portrait" src="/img/park.jpg" alt="Park Feierbach" width="900" height="1200">
     <p>I'm Park Feierbach. I photograph, write, and study systems — the kind that emerge from networks, from ecologies, from people building things together. The throughline: <em>how does information move through a system, and what does it change?</em></p>
     <p class="quiet"><a href="/about/">→ more</a> · <a href="/deck/">→ the deck: ¿a qué te dedicas?</a></p>
   </div>
@@ -706,6 +707,7 @@ def main():
   <div class="s-head">0400 &mdash; about</div>
   <h2>About</h2>
   <div class="about-block">
+    <img class="portrait" src="/img/park.jpg" alt="Park Feierbach" width="900" height="1200">
     <p>I'm Park Feierbach. I photograph, write, and study systems — the kind that emerge from networks, from ecologies, from people building things together. The throughline: <em>how does information move through a system, and what does it change?</em></p>
     <div class="career">Anthropology (UGA, 2012) → photographer &amp; archivist (National Geographic, three books) → Protocol Research (Figment) → Community Research (Namada) → CEO, Radiant Commons (Penumbra) → writing</div>
     <p id="now">I am dedicated to stories. What I do is examine what is happening and help people understand it.</p>
