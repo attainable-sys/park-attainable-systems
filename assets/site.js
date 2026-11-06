@@ -1,4 +1,19 @@
-// codex magna: notebook filter. Works without it; this only hides entries.
+// codex magna: theme switch (the eclipse) and notebook filter. The site works without either.
+(function () {
+  var root = document.documentElement, btn = document.querySelector('.eclipse');
+  if (!btn) return;
+  function label() {
+    var light = root.getAttribute('data-theme') === 'light';
+    btn.setAttribute('aria-label', light ? 'switch to dark mode' : 'switch to light mode');
+  }
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('cm-theme', next); } catch (e) {}
+    label();
+  });
+  label();
+})();
 (function () {
   var bar = document.querySelector('.filters');
   if (!bar) return;

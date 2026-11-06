@@ -23,7 +23,15 @@ FOLDERS = {  # vault folder -> (dewey, label)
     "1000 Living and Loving": ("1000", "living and loving"),
     "1010 Faith and Coordination": ("1010", "faith and coordination"),
     "1017 Running": ("1017", "running"),
+    "1005 Identity": ("1005", "identity"),
+    "1008 Loneliness": ("1008", "loneliness"),
+    "1025 The Speed Project": ("1025", "the speed project"),
     "1050 Writing": ("1050", "writing"),
+    "1052 Observation vs Advocacy": ("1052", "observation vs advocacy"),
+    "1075 Grad School": ("1075", "grad school"),
+    "1112 Community as Technology": ("1112", "community as technology"),
+    "1150 Management": ("1150", "management"),
+    "1151 Exec Coaching": ("1151", "exec coaching"),
     "1055 Critique": ("1055", "critique"),
     "1100 Intelligence and Learning": ("1100", "intelligence and learning"),
     "1115 Society and its structure": ("1115", "society and its structure"),
@@ -36,7 +44,7 @@ FOLDERS = {  # vault folder -> (dewey, label)
     "2266 Technology": ("2266", "technology"),
     "0000 Home": ("0000", "home"),
 }
-KINDS = ["essay", "field note", "poem", "fiction", "craft"]
+KINDS = ["essay", "memoir", "journal", "field note", "poem", "fiction", "craft"]
 
 NAV = [("0000", "index", "/"), ("0100", "photography", "/photography/"), ("0200", "writing", "/notebook/"),
        ("2222", "systems", "/systems/"), ("0300", "library", "/library/"), ("0400", "about", "/about/"),
@@ -52,6 +60,13 @@ PHOTOS = [  # file, title, line, series, shape (v = tall, h = wide)
     ("rhr-ramps", "Red Hook Race", "Orchard Street Runners.", "running", "h"),
     ("bread-route", "Bread Route", "Orchard Street Runners.", "running", "h"),
     ("snow-runner", "Prospect Park", "Brooklyn, during the January 2018 snowstorm.", "running", "h"),
+    ("kg-ridge", "Kyrgyzstan", "September 2025. Transmission towers on the ridge.", "kyrgyzstan and hong kong, 2025", "h"),
+    ("hk-delivery", "Hong Kong", "November 2025.", "kyrgyzstan and hong kong, 2025", "v"),
+    ("kg-horses", "Kyrgyzstan", "September 2025.", "kyrgyzstan and hong kong, 2025", "h"),
+    ("hk-desk", "Hong Kong", "November 2025. A desk.", "kyrgyzstan and hong kong, 2025", "v"),
+    ("lalv-road", "The Speed Project", "Los Angeles → Las Vegas, April 2026. Still from video.", "the speed project, 2026", "v"),
+    ("pyr-ridge", "The Speed Project", "the Pyrénées, October 2026. Still from video.", "the speed project, 2026", "v"),
+    ("lalv-roof", "The Speed Project", "Los Angeles → Las Vegas, April 2026. Still from video.", "the speed project, 2026", "v"),
     ("japan-climb", "Japan", "May 2018. Bicycling, January 2020.", "elsewhere", "h"),
     ("water", "Water", "March 2017.", "elsewhere", "v"),
 ]
@@ -178,6 +193,61 @@ def render_body(n, idx):
     return out
 
 
+MENTION_STOP = {
+    "system", "public", "writing", "protocol", "intent", "primitive", "primitives", "quality", "walker",
+    "the figure", "cosmos", "stellar", "uncommon", "threshold", "dao", "ibc", "evm", "mev", "masp", "nam", "prover", "gnosis", "candor",
+}
+
+
+def mention_terms(notes):
+    terms = {}
+    for g in notes:
+        if g.notebook:
+            continue
+        t = g.stem.lower().strip()
+        if len(t) < 4 or t in MENTION_STOP or len(t) > 40 or re.search(r"[?()_*\d]", t) or t.startswith(("what ", "why ")):
+            continue
+        terms.setdefault(t, g)
+    return terms
+
+
+SKIP_TAGS = re.compile(r"^<(/?)(a|code|pre|h[1-6]|mark|span)\b", re.I)
+
+
+def link_mentions(n, terms):
+    """Obsidian-style unlinked mentions: find vault notes named in a piece of
+    writing, link the first occurrence inline, and remember the pair."""
+    found = {}
+    low = plain(n.body, 10**9).lower()
+    cands = [t for t in terms if re.search(r"(?<![\w-])" + re.escape(t) + r"(?:s|es)?(?![\w-])", low)]
+    cands = [t for t in cands if terms[t] not in n.out and terms[t] is not n]
+    if not cands:
+        return
+    rx = re.compile(r"(?<![\w-])((" + "|".join(re.escape(t) for t in sorted(cands, key=len, reverse=True)) + r")(?:s|es)?)(?![\w-])", re.I)
+    parts = re.split(r"(<[^>]+>)", n.html)
+    depth = 0
+    for i, part in enumerate(parts):
+        if part.startswith("<"):
+            m = SKIP_TAGS.match(part)
+            if m:
+                depth += -1 if m.group(1) else 1
+            continue
+        if depth > 0 or not part.strip():
+            continue
+        def sub(m):
+            key = m.group(2).lower()
+            if key in found:
+                return m.group(0)
+            g = terms[key]
+            found[key] = g
+            return f'<a class="ml" href="{g.href}" title="in the vault: {esc(g.title)}">{m.group(1)}</a>'
+        parts[i] = rx.sub(sub, part)
+    n.html = "".join(parts)
+    for g in found.values():
+        n.mentions.add(g)
+        g.mentioned_in.add(n)
+
+
 def plain(text, n=220):
     t = WIKI.sub(lambda m: (m.group(1).split("|")[-1]).split("/")[-1], text)
     t = re.sub(r"```.*?```", " ", t, flags=re.S)
@@ -221,11 +291,26 @@ def page(title, body, active=None, desc=None, path="/", extra_head=""):
 <link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
 <link rel="stylesheet" href="/assets/site.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+<script>try{{var t=localStorage.getItem("cm-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 {extra_head}</head>
 <body>
 <header>
   <h1><a href="/">codex magna</a></h1>
-  <div class="signal">park feierbach &mdash; sapere aude</div>
+  <div class="hr"><div class="signal">park feierbach &mdash; sapere aude</div>
+  <button class="eclipse" type="button" aria-label="switch to light mode" title="light / dark">
+    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <g class="total">
+        <defs><radialGradient id="cm-corona" cx="16" cy="16" r="15.5" gradientUnits="userSpaceOnUse"><stop offset="0.5" stop-color="currentColor" stop-opacity="0.95"/><stop offset="0.6" stop-color="currentColor" stop-opacity="0.5"/><stop offset="0.78" stop-color="currentColor" stop-opacity="0.16"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs><circle class="glow" cx="16" cy="16" r="15.5" fill="url(#cm-corona)"/><g class="corona"><line x1="25.19" y1="15.61" x2="29.39" y2="15.43"/><line x1="24.39" y1="19.78" x2="27.12" y2="21.01"/><line x1="22.44" y1="22.57" x2="24.54" y2="24.71"/><line x1="18.34" y1="24.90" x2="19.10" y2="27.80"/><line x1="13.08" y1="24.73" x2="11.75" y2="28.71"/><line x1="11.10" y1="23.78" x2="9.82" y2="25.81"/><line x1="7.79" y1="20.15" x2="4.04" y2="22.05"/><line x1="6.84" y1="16.90" x2="4.46" y2="17.14"/><line x1="7.34" y1="12.91" x2="4.51" y2="11.90"/><line x1="11.07" y1="8.23" x2="9.46" y2="5.70"/><line x1="14.12" y1="6.99" x2="13.63" y2="4.65"/><line x1="17.07" y1="6.86" x2="17.55" y2="2.69"/><line x1="20.92" y1="8.23" x2="23.17" y2="4.68"/><line x1="24.08" y1="11.59" x2="27.76" y2="9.58"/></g>
+        <circle class="ring" cx="16" cy="16" r="8.6"/>
+        <circle class="disc" cx="16" cy="16" r="8"/>
+      </g>
+      <g class="partial">
+        <g class="rays"><line x1="27.00" y1="16.00" x2="29.60" y2="16.00"/><line x1="23.78" y1="23.78" x2="25.62" y2="25.62"/><line x1="16.00" y1="27.00" x2="16.00" y2="29.60"/><line x1="8.22" y1="23.78" x2="6.38" y2="25.62"/><line x1="5.00" y1="16.00" x2="2.40" y2="16.00"/><line x1="8.22" y1="8.22" x2="6.38" y2="6.38"/><line x1="16.00" y1="5.00" x2="16.00" y2="2.40"/><line x1="23.78" y1="8.22" x2="25.62" y2="6.38"/></g>
+        <circle class="sun" cx="16" cy="16" r="8.6"/>
+        <circle class="moon" cx="16" cy="16" r="8"/>
+      </g>
+    </svg>
+  </button></div>
 </header>
 <nav>{nav}</nav>
 {body}
@@ -246,6 +331,7 @@ def entry(n, idx_back):
     ol = sorted(n.out, key=lambda x: x.title.lower())[:4]
     links = "".join(f'<a class="bl" href="{b.href}">← {esc(b.title)}</a>' for b in bl)
     links += "".join(f'<a class="bl out" href="{o.href}">→ {esc(o.title)}</a>' for o in ol if o not in bl)
+    links += "".join(f'<a class="bl out" href="{o.href}">↘ {esc(o.title)}</a>' for o in sorted(n.mentions, key=lambda x: x.title.lower())[:5])
     return f"""<div class="ent" data-kind="{esc(n.kind or '')}">
     <div class="dt">{fmt_date(n)} <span class="id">{n.id}</span></div>
     <h3><a href="{n.href}">{esc(n.title)}</a></h3>
@@ -256,7 +342,7 @@ def entry(n, idx_back):
 
 
 def node_card(n, big=False):
-    c = len(n.out | n.back)
+    c = len(n.out | n.back | n.mentioned_in)
     return f"""<a class="nd" href="{n.href}">
       <div class="id">{n.id}</div>
       <h3>{esc(n.title)}</h3>
@@ -268,7 +354,7 @@ def node_card(n, big=False):
 def note_list(lst):
     rows = []
     for n in lst:
-        c = len(n.out | n.back)
+        c = len(n.out | n.back | n.mentioned_in | n.mentions)
         rows.append(f'<a href="{n.href}"><span class="n">{n.id}</span>{esc(n.title)}'
                     f'<span class="desc">{"↔ " + str(c) if c else ""}</span></a>')
     return f'<div class="idx">{"".join(rows)}</div>'
@@ -299,6 +385,11 @@ def note_page(n, idx):
     outs = n.out - n.back
     if outs:
         side += f'<div class="links"><div class="lbl">links to · {len(outs)}</div><div class="bls">{lst(outs, "→")}</div></div>'
+    mi = n.mentioned_in - n.back
+    if mi:
+        side += f'<div class="links"><div class="lbl">in the writing · {len(mi)}</div><div class="bls">{lst(mi, "¶")}</div></div>'
+    if n.mentions:
+        side += f'<div class="links"><div class="lbl">in the vault · {len(n.mentions)}</div><div class="bls">{lst(n.mentions, "↘")}</div></div>'
     # neighbours in the same folder
     sib = [x for x in FOLDER_LISTS[n.dewey] if x is not n]
     pos = FOLDER_LISTS[n.dewey].index(n)
@@ -331,6 +422,7 @@ def main():
     idx = build_index(notes)
     for n in notes:
         n.out, n.back = set(), set()
+        n.mentions, n.mentioned_in = set(), set()
     for n in notes:
         n.html = render_body(n, idx)
         for r in n.related:
@@ -340,6 +432,12 @@ def main():
     for n in notes:
         for o in n.out:
             o.back.add(n)
+    for n in notes:
+        n.mentions, n.mentioned_in = set(), set()
+    terms = mention_terms(notes)
+    for n in notes:
+        if n.notebook:
+            link_mentions(n, terms)
     FOLDER_LISTS = {}
     for n in sorted(notes, key=lambda n: n.id):
         FOLDER_LISTS.setdefault(n.dewey, []).append(n)
@@ -353,7 +451,7 @@ def main():
     shelf = json.load(open(os.path.join(SRC, "shelf.json")))
     nb = sorted([n for n in notes if n.notebook], key=lambda n: n.date or "0000", reverse=True)
     systems = [n for n in notes if n.dewey in ("2222", "2266")]
-    systems.sort(key=lambda n: (-len(n.out | n.back), n.title.lower()))
+    systems.sort(key=lambda n: (-len(n.out | n.back | n.mentioned_in), n.title.lower()))
 
     def status_row():
         cells = []
@@ -411,7 +509,7 @@ def main():
   <p>Film and digital. Processed in Capture One. Published in National Geographic, The New York Times. Three books.</p>
   <div class="gallery">
     <figure class="photo-full"><img src="/img/photo/{hero[0]}.jpg" alt="{esc(hero[1])}, {esc(hero[2])}"><figcaption class="cap"><strong>{esc(hero[1])}</strong> &middot; {esc(hero[2])}</figcaption></figure>
-    <div class="photo-grid">{''.join(ph(p) for p in [P[k] for k in ('herm-raft', 'window-rock-wave', 'kendra', 'rhr-ramps', 'water', 'japan-climb', 'tree-tunnel')])}</div>
+    <div class="photo-grid">{''.join(ph(p) for p in [P[k] for k in ('herm-raft', 'kg-ridge', 'kendra', 'rhr-ramps', 'hk-delivery', 'japan-climb')])}</div>
   </div>
   <p class="mobile-only quiet">The gallery is made for a larger screen.</p>
   <p class="quiet"><a href="/photography/">→ the full gallery, series and tear sheets</a></p>
@@ -498,12 +596,18 @@ def main():
 
     # ── photography
     series = []
-    for sname in ["four corners, 2017", "running", "elsewhere"]:
+    for sname in ["four corners, 2017", "kyrgyzstan and hong kong, 2025", "running", "the speed project, 2026", "elsewhere"]:
         ps = [p for p in PHOTOS if p[3] == sname and p is not hero]
+        from PIL import Image
+        def ar(f):
+            w, h = Image.open(os.path.join(ROOT, "img/photo", f + ".jpg")).size
+            return w / h
+        row = len(ps) <= 3
         cells = "".join(
-            f'<figure class="ph {p[4]}" id="{p[0]}"><img src="/img/photo/{p[0]}.jpg" alt="{esc(p[1])}, {esc(p[2])}" loading="lazy">'
+            f'<figure class="ph {p[4]}" id="{p[0]}"' + (f' style="flex:{ar(p[0]):.3f}"' if row else "") + f'><img src="/img/photo/{p[0]}.jpg" alt="{esc(p[1])}, {esc(p[2])}" loading="lazy">'
             f'<figcaption class="inf"><span class="t">{esc(p[1])}</span><span class="d">{esc(p[2])}</span></figcaption></figure>' for p in ps)
-        series.append(f'<div class="s-head series">{esc(sname)}</div><div class="photo-grid two">{cells}</div>')
+        cols = "row" if row else "two"
+        series.append(f'<div class="s-head series">{esc(sname)}</div><div class="photo-grid {cols}">{cells}</div>')
     tears = "".join(
         f'<figure class="ph tear"><img src="/img/photo/{f}.jpg" alt="{esc(t)}, {esc(d)}" loading="lazy">'
         f'<figcaption class="inf"><span class="t">{esc(t)}</span><span class="d">{esc(d)}</span></figcaption></figure>' for f, t, d in TEARSHEETS)
@@ -569,7 +673,7 @@ def main():
 
     # ── figment
     blk = [x for x in FOLDER_LISTS.get("2000", [])]
-    blk.sort(key=lambda n: (-len(n.out | n.back), n.title.lower()))
+    blk.sort(key=lambda n: (-len(n.out | n.back | n.mentioned_in), n.title.lower()))
     fp = f"""<div class="s">
   <div class="s-head">1155 &mdash; figment archive</div>
   <h2>Figment, 2021–2022</h2>

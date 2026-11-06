@@ -6,7 +6,7 @@ park.attainable.systems is plain HTML generated from a published slice of the Ob
 _src/
   build.py        renders everything below into the repo root
   notes/
-    notebook/     writing: essays, field notes, poems, fiction, craft
+    notebook/     writing: essays, memoir, journal, field notes, poems, fiction, craft
     garden/       vault notes: 2222 systems, 2000 blockchain, 2100 privacy, ...
   site.json       the status block on the index (form, location, writing, ...)
   shelf.json      the reading shelf
@@ -20,7 +20,7 @@ aren't published show as dimmed text. Backlinks, connection counts and Dewey ids
 ## Change something
 
 - Edit a note in `_src/notes/…`, or the status in `site.json`.
-- `python3 _src/build.py` from the repo root (needs Python 3 and `markdown`).
+- `python3 _src/build.py` from the repo root (needs Python 3, `markdown` and Pillow).
 - Commit and push to `main`. GitHub Pages serves the root.
 
 `deck/` and `drafts/` are never touched by the build. Folders the build owns and
@@ -33,3 +33,15 @@ The notes here were copied out of the vault by an import script that lives with
 the project files (Website Arch), not in this public repo. To publish a new piece,
 add it to that script's list and re-run it, or drop a cleaned markdown file into
 `_src/notes/notebook/` with the same header shape and rebuild.
+
+## Links between the vault and the writing
+
+Besides real `[[wikilinks]]`, the build finds vault notes that are *named* in a
+piece of writing (Obsidian's "unlinked mentions"), links the first occurrence
+inline, and lists the pair on both pages: "in the writing" on the vault note,
+"in the vault" on the piece. Words too generic to link are in `MENTION_STOP`.
+
+## Light and dark
+
+The eclipse button in the header switches themes (total eclipse = dark, partial =
+light). The choice is remembered in the visitor's browser only.
