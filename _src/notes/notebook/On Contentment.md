@@ -4,7 +4,7 @@
  "date": "2025-03-07",
  "date_label": null,
  "kind": "essay",
- "folder": "1050 Writing",
+ "folder": "1055 Critique",
  "stem": "On Contentment",
  "notebook": true,
  "related": []

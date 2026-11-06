@@ -3,7 +3,7 @@
  "title": "policy implications of monetary instability",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1115 Society and its structure",
  "stem": "policy implications of monetary instability",
  "url": null,
  "related": []

@@ -3,7 +3,7 @@
  "title": "On Style - Sontag",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1055 Critique",
  "stem": "On Style - Sontag",
  "url": null,
  "related": []

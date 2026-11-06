@@ -3,7 +3,7 @@
  "title": "quality",
  "date": null,
  "date_label": null,
- "folder": "0000 Home",
+ "folder": "1100 Intelligence and Learning",
  "stem": "quality",
  "url": null,
  "related": []

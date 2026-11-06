@@ -8,8 +8,8 @@
  "url": null,
  "related": [
   "_MOC - The Cruft",
-  "240309",
-  "240406"
+  "240309 - Hayelek epigraphs - The Cruft",
+  "240406 - Hubris story idea"
  ]
 }
 ---

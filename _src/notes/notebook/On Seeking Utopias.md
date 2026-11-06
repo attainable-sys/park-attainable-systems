@@ -4,7 +4,7 @@
  "date": "2023-12-09",
  "date_label": null,
  "kind": "essay",
- "folder": "1050 Writing",
+ "folder": "1055 Critique",
  "stem": "On Seeking Utopias",
  "notebook": true,
  "related": []
@@ -52,4 +52,4 @@ An agency for collectives to build away from dystopias and toward utopias requir
 
 We do not possess many tools that do not manipulate us in turn - we have not made many of them with intention. In the progress of human society, we must see carefully what great agency can be offered to individuals by our tools as well as the potential in these tools for robbing control that may lie in wait from their use. Oftentimes we can't predict these faults, but ownership over our mistakes is equally pressing - if we are inspired (as collectives and as individuals) to believe that we have a hand in the mistakes of humanity, we can atone for them, even learn and grow from them. To believe that there is no ownership over collective fault is dire at best, so it is imperative that we are inspired with a culture of ownership that documents and hardens ownership over our faults. If we maintain that we do not have a hand in our own mistakes, we can never seek to improve from them, and then all arguments to do so seem baseless.
 
-It may be that the greatest human achievement is to seek means through which individuals feel collective utopias are attainable - and that these utopias are born from human intention, from the hands of individuals and collectives, and in the interest of all those that utopias must serve. Great hope unfolds from the believe that potential is an achievement at the hand of collectives, and utopias can only be achieved if great hope is afforded as a function of working toward utopias; people must be enabled to believe that utopias are possible because they themselves are capable of creating them.
+It may be that the greatest human achievement is to seek means through which individuals feel collective utopias are attainable - and that these utopias are born from human intention, from the hands of individuals and collectives, and in the interest of all those that utopias must serve. Great hope unfolds from the belief that potential is an achievement at the hand of collectives, and utopias can only be achieved if great hope is afforded as a function of working toward utopias; people must be enabled to believe that utopias are possible because they themselves are capable of creating them.
