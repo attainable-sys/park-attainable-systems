@@ -110,6 +110,7 @@ nav a.on .n, nav a:hover .n { color: var(--dim); }
 .photo-grid .ph { position: relative; overflow: hidden; background: var(--surf); display: block; break-inside: avoid; margin: 0 0 2px; }
 .photo-grid .ph img { width: 100%; height: auto; transition: filter .2s; }
 .photo-grid.two { columns: 2 200px; }
+.photo-grid.three { columns: 3 180px; }
 .photo-grid.row { columns: auto; display: flex; gap: 2px; align-items: flex-start; }
 .photo-grid.row .ph { margin: 0; min-width: 0; }
 .photo-grid.tears .ph img { aspect-ratio: 4/5; object-fit: cover; object-position: top; }
