@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Park Feierbach</title>
+<style>
+/* Two registers that trade places with what is being said.
+   PAGE: the plain web page. White, Times, default link blue, a hairline. Facts live here.
+   COVER: the magazine interruption. One flat field, Helvetica far too big. Openers and numbers live here.
+   Chapter links go from blue to visited-purple as the presentation moves through them. */
+:root{
+  --desk:#E4E4DE; --deskink:#1A1A1A;
+  --white:#FFFFFF; --black:#0B0B0B;
+  --link:#0000EE; --visited:#551A8B;
+  --acid:#CDF23E; --blue:#1F2BFF;
+  --sans:"Helvetica Neue",Helvetica,Arial,FreeSans,sans-serif;
+  --times:"Times New Roman",Times,FreeSerif,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--desk:#161616;--deskink:#E8E8E8;color-scheme:dark}}
+:root[data-theme="dark"]{--desk:#161616;--deskink:#E8E8E8;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--desk);color:var(--deskink);font-family:var(--times);
+  padding:20px max(16px,env(safe-area-inset-right,0px)) 80px max(16px,env(safe-area-inset-left,0px))}
+p,h1,h2,ul,ol{margin:0}
+.deck{max-width:1280px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.hint{font:400 14px/1.4 var(--times);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.slide{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;container-type:inline-size;scroll-margin-top:16px}
+.slide:focus-visible{outline:3px solid var(--link);outline-offset:4px}
+.ab{position:absolute}
+
+/* ---------- PAGE register ---------- */
+.page{background:var(--white);color:var(--black);font-family:var(--times)}
+.page .nm{left:2.4cqw;top:2.2cqw;font-size:1.7cqw;line-height:1.25}
+.page .nav{left:2.4cqw;top:4.6cqw;font-size:1.7cqw;line-height:1.25}
+.page .pg{right:2.4cqw;top:2.2cqw;font-size:1.7cqw}
+.page .sub{right:2.4cqw;top:4.6cqw;font-size:1.7cqw;line-height:1.25}
+.page hr{position:absolute;left:0;right:0;top:8.6cqw;margin:0;border:0;border-top:1px solid var(--black)}
+.nav a,.sub a{margin-right:.9em}
+.sub a{margin:0 0 0 .9em}
+a{color:var(--link);text-decoration:underline}
+a.v{color:var(--visited)}
+a.cur{color:var(--black);text-decoration:none}
+.page h2{font-weight:700;font-size:4.4cqw;line-height:1.05}
+.page .role{font-style:italic;font-size:1.7cqw;line-height:1.3;margin-top:.7cqw}
+.page ul{font-size:1.55cqw;line-height:1.42;padding-left:1.3em}
+.page ul li+li{margin-top:.45em}
+.page .lbl{font-size:1.55cqw;margin-bottom:.6em}
+.page ol.links{list-style:none;padding:0;font-size:1.55cqw;line-height:1.35}
+.page ol.links li+li{margin-top:.75em}
+.page ol.links span{display:block;font-size:.85em}
+.page .note{font-size:1.3cqw;font-style:italic}
+
+/* the maximal intrusions on a plain page */
+.huge{font-family:var(--sans);font-weight:700;letter-spacing:-.07em;line-height:.8}
+.hugeT{font-family:var(--times);line-height:1;letter-spacing:-.04em}
+
+/* ---------- COVER register ---------- */
+.cover{font-family:var(--sans);color:var(--black)}
+.cover.acid{background:var(--acid)}
+.cover.blue{background:var(--blue);color:var(--white)}
+.cover .sm{font-weight:700;font-size:1.5cqw;line-height:1.2}
+
+/* ---------- slide layouts ---------- */
+/* 01 contents */
+.s1 .toc{left:2.4cqw;top:13cqw;font-size:3.4cqw;line-height:1.32;padding-left:1.3em}
+.s1 .toc span{font-size:.5em;color:var(--black);margin-left:.5em}
+.s1 .two{right:-2cqw;bottom:-9cqw;font-size:62cqw}
+.s1 .note{left:2.4cqw;bottom:2.4cqw}
+
+/* 02 opener */
+.s2 .t{left:-1.6cqw;bottom:-4.6cqw;font-size:39cqw}
+.s2 .ch{left:2.4cqw;top:2.4cqw}
+.s2 .yr{right:2.4cqw;top:2.4cqw;font-size:6.4cqw;font-weight:700;letter-spacing:-.05em;line-height:.9;text-align:right}
+
+/* 03 Figment */
+.s3 .h{left:2.4cqw;top:12.6cqw;width:52cqw}
+.s3 ul{left:2.4cqw;top:23.6cqw;width:50cqw}
+.s3 .big{right:-1.4cqw;bottom:-3.8cqw;font-size:26cqw}
+.s3 .bl{right:3cqw;top:13cqw;font-size:1.7cqw;text-align:right;width:30cqw}
+
+/* 04 Namada */
+.s4 .h{left:2.4cqw;top:12.6cqw;width:54cqw}
+.s4 ul{left:2.4cqw;top:23.6cqw;width:52cqw}
+.s4 .w{left:63cqw;top:12.6cqw;width:33cqw}
+
+/* 05 blue numbers */
+.s5 .a1{left:3.4cqw;top:4.4cqw;font-size:16cqw}
+.s5 .ar{left:3.6cqw;top:27cqw;font-size:9cqw}
+.s5 .a2{left:13cqw;top:22.6cqw;font-size:23.6cqw}
+.s5 .sm.t{right:2.4cqw;top:2.4cqw;text-align:right}
+.s5 .sm.b{left:3.6cqw;bottom:2.4cqw}
+
+/* 06 Radiant Commons */
+.s6 .h{left:2.4cqw;top:12.6cqw;width:54cqw}
+.s6 ul{left:2.4cqw;top:25.4cqw;width:52cqw}
+.s6 .w{left:63cqw;top:12.6cqw;width:33cqw}
+
+/* 07 acid numbers */
+.s7 .row{left:2.4cqw;display:flex;align-items:flex-end;gap:2cqw}
+.s7 .row .huge{font-size:15.5cqw}
+.s7 .row .sm{padding-bottom:1.3cqw;width:16cqw}
+.s7 .r1{top:3.4cqw}.s7 .r2{top:20.4cqw}.s7 .r3{top:37.4cqw}
+.s7 .sm.t{right:2.4cqw;top:2.4cqw;text-align:right}
+
+/* 08 end of chapter */
+.s8 .line{left:2.4cqw;top:13cqw;width:52cqw;font-size:2.4cqw;line-height:1.35}
+.s8 .next{left:2.4cqw;top:27cqw;font-size:1.7cqw}
+.s8 .three{right:-1cqw;bottom:-9cqw;font-size:62cqw}
+
+/* photograph pages */
+.ppage .ph{left:2.4cqw;top:12.4cqw}
+.ppage .ph img{height:41cqw;width:auto}
+.ppage.tall .ph img{height:43.4cqw}
+.ppage .lab{left:66cqw;top:12.4cqw;width:30cqw;font-size:1.55cqw;line-height:1.38}
+.ppage.tall .lab{left:35cqw;width:34cqw}
+.ppage .lab i{display:block;font-size:1.25em;margin-bottom:.5em}
+.ppage .cnt{left:66cqw;bottom:15.4cqw;width:30cqw;font-size:1.55cqw;line-height:1.38}
+.ppage.tall .cnt{left:35cqw;width:34cqw}
+.ppage .sel{right:-1cqw;bottom:-1.6cqw;font-size:16cqw}
+.page .sub{font-size:1.45cqw}
+/* chapter 1 opener and the funnel */
+.c1 .t{left:-1.2cqw;bottom:-3cqw;font-size:23.5cqw}
+.c1 .ch{left:2.4cqw;top:2.4cqw}
+.c1 .yr{right:2.4cqw;top:2.4cqw;font-size:6.4cqw;font-weight:700;letter-spacing:-.05em;line-height:.9;text-align:right}
+.fun .ph{left:2.4cqw;top:6.4cqw}
+.fun .ph img{width:60cqw;height:auto}
+.fun .nums{left:66cqw;top:6.4cqw;width:31cqw;font-size:3.6cqw;font-weight:700;letter-spacing:-.04em;line-height:1.05}
+.fun .nums span{display:block;font-size:.42em;font-weight:700;letter-spacing:0;margin-top:.25em}
+.fun .sm.t{left:66cqw;top:34cqw;width:30cqw}
+.fun .sm.b{left:2.4cqw;bottom:2.4cqw;font-weight:400}
+.trend .h{left:2.4cqw;top:11.6cqw;font-size:2.6cqw}
+.trend .chart{left:1.4cqw;top:16cqw;width:56cqw;height:auto;overflow:visible}
+.trend .chart text{font-family:var(--times);font-size:14px;fill:#0B0B0B}
+.trend .chart .pt:hover circle:last-child{r:7}
+.trend .tb{left:61cqw;top:11.6cqw;width:36cqw;border-collapse:collapse;font-size:1.22cqw;line-height:1.2}
+.trend .tb th{text-align:left;font-weight:700;border-bottom:1px solid var(--black);padding:.25em .4em .25em 0}
+.trend .tb td{padding:.22em .4em .22em 0;border-bottom:1px solid #D8D8D8}
+.trend .tb td:nth-child(n+2),.trend .tb th:nth-child(n+2){text-align:right}
+.trend .tn{left:61cqw;top:39.6cqw;width:36cqw;font-size:1.4cqw;line-height:1.38}
+.folio{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:5;
+  font:400 14px/1 var(--times);background:var(--white);color:var(--black);padding:7px 10px;border:1px solid var(--black)}
+
+/* ---------- narrow screens ---------- */
+@media (max-width:760px){
+  .slide{aspect-ratio:auto;container-type:normal;display:flex;flex-direction:column;gap:14px;padding:18px 16px 28px}
+  .ab{position:relative !important;inset:auto !important;left:auto !important;right:auto !important;top:auto !important;bottom:auto !important;width:auto !important}
+  .slide,.slide *{font-size:16px}
+  .page h2{font-size:28px}
+  .page hr{position:relative;top:auto}
+  .page .pg{order:-1}
+  .huge,.hugeT{font-size:28vw !important;line-height:.85}
+  .s1 .two,.s8 .three{display:none}
+  .trend .chart{width:100% !important}
+  .s2 .t{font-size:34vw !important}
+  .s5 .ar{display:none}
+  .s7 .row{flex-direction:column;align-items:flex-start;gap:4px}
+  .s7 .row .sm{width:auto;padding:0}
+}
+
+.bp .ph{left:2.4cqw;top:11cqw}
+.bp .ph img{height:43.6cqw;width:auto;display:block}
+.bp.tall .ph img{height:43.6cqw}
+.bp .lab{left:70.6cqw;top:11cqw;width:26.6cqw;font-size:1.5cqw;line-height:1.4}
+.bp.tall .lab{left:34.6cqw;width:58cqw}
+.bp .lab i{display:block;font-size:1.3em;margin-bottom:.4em}
+.bp .lab .bl{display:block;margin-bottom:.3em}
+.bp .lab .bq{font-size:2.4cqw;line-height:1.25;margin-top:1.6cqw}
+.bp.tall .lab .bq{font-size:3.8cqw;margin-top:6cqw}
+.bp .lab .bq span{display:block;font-size:.72em;margin-top:.4em}
+.natgeo .h{left:2.4cqw;top:11.6cqw;font-size:3.6cqw}
+.natgeo .ng1,.natgeo .ng2,.natgeo .ng3{top:19cqw;width:29.6cqw;font-size:1.7cqw;line-height:1.3}
+.natgeo .ng1{left:2.4cqw}.natgeo .ng2{left:35.2cqw}.natgeo .ng3{left:68cqw}
+.slot{background:#EFEFEF;border:1px dashed #999;color:#666;display:flex;align-items:center;justify-content:center;font-size:1.4cqw;font-style:italic}
+.natgeo .slot{width:100%;aspect-ratio:3/2;margin-bottom:.9cqw}
+.ng{font-size:1.25cqw;font-style:italic;margin-top:.3em}
+.feathers .cover{left:2.4cqw;top:11cqw;height:43.6cqw;width:34cqw}
+.feathers .ft{left:40cqw;top:11cqw;width:56cqw}
+.feathers .ft h2{font-size:5.6cqw;line-height:1}
+.feathers .ft .ng{font-size:1.5cqw;margin-top:.6em}
+.feathers .ft .big{font-size:3.8cqw;line-height:1.2;margin-top:4cqw}
+@media (max-width:760px){.bp .ph img{width:100%!important;height:auto!important}.feathers .cover{height:200px!important}}
+
+.stmt .sm.b{max-width:84cqw;line-height:1.3}
+.hs .lst{width:52cqw}
+.hs .insp{left:62cqw;top:12.4cqw;width:34cqw;font-size:2cqw;line-height:1.5}
+.hs .insp .ih{font-weight:700;font-size:2.2cqw;margin-bottom:.4em}
+.hs .insp .ix{font-size:1.5cqw;font-style:italic;margin-top:.8em}
+.roles .rl{font-style:italic;margin-bottom:.6em}
+.roles .rn{font-size:4.5cqw;line-height:.9;margin-top:1.4cqw;letter-spacing:-.05em;white-space:nowrap}.roles .ru{font-style:italic;margin-top:.3em!important}.roles .c1 p:nth-child(3),.roles .c2 p:nth-child(3),.roles .c3 p:nth-child(3){min-height:4.3em}
+.pen .grid4{left:2.4cqw;top:12.4cqw;width:62cqw;display:grid;grid-template-columns:1fr 1fr;gap:1cqw}
+.pen .grid4 img{width:100%;height:auto;display:block}
+.pen .pt{left:67.4cqw;top:12.4cqw;width:29cqw}
+.pen .pt h2{font-size:3.6cqw;line-height:1.05;margin-bottom:1.2cqw}
+.pen .pt p{font-size:2cqw;line-height:1.3}
+.pen .pt .q2{font-size:1.3cqw;font-style:italic;margin-top:1cqw}
+.tq .q .q2{font-size:.7em}
+.tq.anth .q{top:12.4cqw;font-size:3.6cqw;width:66cqw}
+.tq.anth .ah{font-size:4.4cqw;line-height:1.05}
+.tq.anth .deg{font-size:1.7cqw;font-style:italic;margin-top:.6em}
+.tl2 .lst .lnote{max-width:56cqw;line-height:1.35}
+.thru .lst{width:70cqw}.thru .lst ul{font-size:2.3cqw}
+
+/* statements and quote pages */
+.stmt .say{left:3cqw;bottom:6cqw;line-height:.9;letter-spacing:-.045em;margin:0}
+.stmt .sm.t{left:3cqw;right:auto;top:2.6cqw;text-align:left}
+.stmt .sm.b{left:3cqw;bottom:2.4cqw;right:auto;top:auto;font-weight:400}
+.cover .wd{left:2.4cqw;top:5.6cqw;font-size:2.4cqw;font-weight:700;letter-spacing:-.02em}
+.tq .q{left:2.4cqw;top:13cqw;width:64cqw;font-size:3cqw;line-height:1.22}
+.tq .q p+p{margin-top:.9em}
+.tq .q .q2{font-size:.62em;line-height:1.35;display:block}
+.tq .qc{left:9cqw;right:9cqw;top:50%;transform:translateY(-35%);font-size:3.6cqw;line-height:1.2;text-align:left}
+.tq .qsmall{margin-top:2.2cqw;font-size:1.55cqw;line-height:1.4;max-width:52cqw}
+.tq .qsmall p+p{margin-top:.5em}
+.qsrc{display:block;font-size:1.3cqw;font-style:italic;margin-top:.8cqw;line-height:1.3}
+.tq .q p .qsrc,.tq .q p span.qsrc{font-size:.45em}
+.tq .qbig{right:-1.5cqw;bottom:-3cqw;font-size:22cqw}
+.tl2 .lst{left:2.4cqw;top:12.4cqw;width:62cqw}
+.tl2 .lst h2{font-size:4.4cqw;line-height:1.05;margin-bottom:1.6cqw}
+.tl2 .lst ul{font-size:2cqw;line-height:1.38;padding-left:1.2em;margin:0}
+.tl2 .lst li+li{margin-top:.35em}
+.tl2 .lst .lnote{font-size:1.6cqw;margin-top:1.6cqw;font-style:italic}
+.tl2 .lst .qsrc{font-size:1.3cqw}
+.tl2 .lst li .qsrc{display:inline;font-size:.7em}
+.tl2 .qbig{right:-1.5cqw;bottom:-3cqw;font-size:24cqw}
+.two .pa{left:2.4cqw;top:12.4cqw}.two .pb{left:50.6cqw;top:12.4cqw}
+.two .pa img,.two .pb img{width:47cqw;height:auto}
+.two.tb .pb img{width:auto;height:31.3cqw}
+.two .cap2{left:2.4cqw;top:45.4cqw;width:80cqw;font-size:1.7cqw;line-height:1.35}
+.three .row3{left:2.4cqw;right:2.4cqw;top:12.4cqw;display:flex;gap:1.6cqw}
+.three .p3{flex:1}.three .p3 img{width:100%;height:auto}
+.three .cap3{left:2.4cqw;top:37.4cqw;width:80cqw;font-size:1.7cqw;line-height:1.35}
+.page .knw{left:2.4cqw;top:46cqw;width:48cqw;font-size:1.8cqw;line-height:1.3}
+.why3 .h{left:2.4cqw;top:12.4cqw;font-size:4.4cqw}
+.why3 .c1,.why3 .c2,.why3 .c3{top:21cqw;width:29.5cqw;font-size:1.6cqw;line-height:1.4}
+.why3 .c1{left:2.4cqw}.why3 .c2{left:35.2cqw}.why3 .c3{left:68cqw}
+.why3 .co{font-weight:700;font-size:1.25em;margin-bottom:.5em}
+.why3 .c1 p+p,.why3 .c2 p+p,.why3 .c3 p+p{margin-top:.6em}
+.why3 .ws{left:2.4cqw;bottom:2.4cqw}
+.now14 .big14{right:-1cqw;bottom:-7cqw;font-size:40cqw}
+.now14 .mo{left:2.4cqw;top:11.6cqw;font-size:1.8cqw}
+.now14 .tt{left:2.4cqw;top:17cqw;width:52cqw;border-collapse:collapse;font-size:1.35cqw;line-height:1.25}
+.now14 .tt td{padding:.42em .6em .42em 0;border-bottom:1px solid #D8D8D8;vertical-align:top}
+.now14 .tt td:first-child{white-space:nowrap;width:9.5em}
+.now14 .tt td:last-child{text-align:right;white-space:nowrap;font-style:italic}
+.now14 .tt tr.hot td{font-weight:700}
+/* speaker notes under each slide */
+.notes{width:100%;max-width:1280px;margin:-14px auto 0;font:400 14px/1.45 var(--times);color:var(--deskink)}
+.notes summary{cursor:pointer;color:var(--link);text-decoration:underline;list-style:none;width:max-content}
+.notes summary::-webkit-details-marker{display:none}
+.notes ul{margin:6px 0 0;padding-left:1.2em}
+.notes li+li{margin-top:4px}
+body.nonotes .notes{display:none}
+.bp .lab{top:11cqw}
+.bp.wide .lab{font-size:1.3cqw}.bp.wide .lab .bq{font-size:1.7cqw}
+.bp.pair .lab .bq{font-size:2cqw}
+.s1 .toc4{left:2.4cqw;top:12cqw;width:62cqw;font-size:3.6cqw;line-height:1.1;padding-left:1.2em;margin:0}
+.s1 .toc4 li span{display:block;font-family:var(--times);font-size:1.6cqw;font-style:italic;margin:.25em 0 1em;color:inherit}
+.s1 .two{right:-1cqw;bottom:-9cqw;font-size:44cqw}
+.boxes .h{left:2.4cqw;top:11.6cqw;font-size:4.4cqw}
+
+.s1 .toc4{width:56cqw}
+.s1 .ix{left:62cqw;top:12.6cqw;width:20cqw;font-size:1.9cqw;line-height:1.5}
+.s1 .ix .ih{font-weight:700;margin-bottom:.3em}.s1 .ix ul{list-style:none;padding:0;margin:0}
+.page .nav a{margin-right:.85em}
+.trip .row{left:2.4cqw;top:11cqw;display:flex;gap:1.6cqw;align-items:flex-start}
+.trip .row img{width:auto;display:block}
+.trip .cap{left:2.4cqw;width:93cqw;font-size:1.45cqw;line-height:1.35}
+.trip .cap .t i{margin-right:.5em}.trip .cap .bl{margin-right:1.2em}
+.trip .tq3{font-size:2cqw;line-height:1.25;margin-top:.5cqw;max-width:78cqw}
+.clips .cl{left:2.4cqw;top:12cqw;width:93cqw;display:grid;grid-template-columns:1fr 1fr;gap:4cqw}
+.clips .qq{font-family:var(--sans);font-size:1.5cqw;border:1px solid #999;padding:.45em .7em;margin:0 0 2cqw;width:80%}
+.clips .res{margin-bottom:2.2cqw}
+.clips .res a{font-size:2.1cqw;line-height:1.2}
+.clips .res .u{font-size:1.3cqw;color:#006621;margin-top:.3em}
+.wn .lst ul{font-size:1.75cqw}.wn .lst h2{margin-bottom:1.2cqw}
+.wn .qbig{color:#1F2BFF}
+.acidf{background:#CDF23E!important}.acidf .qbig{color:#1F2BFF}
+.ww .say{font-size:19cqw;line-height:.86}
+.ww .w3{font-family:var(--times);font-style:italic;font-weight:400;font-size:.3em;letter-spacing:0;white-space:nowrap}
+.pull .pq{left:2.4cqw;top:13cqw;width:80cqw;margin:0;font-size:5cqw;line-height:1.12;letter-spacing:-.01em}
+.pull.short .pq{font-size:9cqw;line-height:1;width:88cqw;letter-spacing:-.02em}
+.pull .pt{left:2.4cqw;bottom:4cqw;font-size:1.6cqw;font-style:italic}
+.shots .sa{left:2.4cqw;top:11cqw}.shots .sa img{height:39.5cqw;width:auto;display:block}
+.shots .sb{left:52cqw;top:11cqw;width:45.6cqw}.shots .sb img{width:100%;height:auto;display:block;border:1px solid #ccc}
+.shots .sa p,.shots .sb p{font-size:1.5cqw;margin-top:1cqw;line-height:1.3}
+.s1 .toc7{left:2.4cqw;top:12cqw;width:60cqw;font-size:3.4cqw;line-height:1.25;padding-left:1.4em;margin:0}
+.rwc .c1,.rwc .c2{top:11cqw;height:43.6cqw;width:32.7cqw}.rwc .c1{left:2.4cqw}.rwc .c2{left:36.7cqw}
+.rwc .lab{left:72.4cqw;top:11cqw;width:25cqw;font-size:1.5cqw;line-height:1.4}.rwc .lab i{display:block;font-size:1.3em;margin-bottom:.4em}
+.shots .rq{font-style:italic;font-size:1.7cqw!important;line-height:1.35!important;margin-top:3cqw!important}
+.ex .q{left:2.4cqw;top:12cqw;width:90cqw}.ex .xl{font-family:var(--sans);font-weight:700;font-size:13cqw;line-height:.9;letter-spacing:-.05em;margin-bottom:2cqw}.ex .q p+p{font-size:3.6cqw}
+.rwb .pa{left:2.4cqw;top:11cqw}.rwb .pa img{height:38.4cqw;width:auto;display:block}
+.rwb .pb{left:33.2cqw;top:11cqw}.rwb .pb img{height:38.4cqw;width:auto;display:block}
+.rwb .cp{left:2.4cqw;top:51cqw;width:95cqw;font-size:1.5cqw;line-height:1.35}
+.jp .pa{left:2.4cqw;top:11cqw}.jp .pa img{height:33cqw;width:auto;display:block}
+.jp .pb{left:62.6cqw;top:11cqw}.jp .pb img{height:43.6cqw;width:auto;display:block;border:1px solid #ccc}
+.jp .cp{left:2.4cqw;top:45.6cqw;width:58cqw;font-size:1.5cqw;line-height:1.35}
+.rk .xl{font-size:10cqw}.rk .q p+p{font-size:3cqw;line-height:1.22;max-width:66cqw}.rk .qsmall p{font-size:1.55cqw!important}
+.sb .seq{font-size:1.9cqw;line-height:1.4;margin:2.2cqw 0 0;padding-left:1.2em}.sb .seq li+li{margin-top:.3em}
+.pull.ctx .pq{font-size:1.75cqw;line-height:1.4;width:72cqw;letter-spacing:0;top:12cqw}.pull.ctx .cb{color:#555}.pull.ctx blockquote{margin:2cqw 0;font-size:6.4cqw;line-height:1.05;letter-spacing:-.02em;color:#111}
+
+
+.bbw .bbt{position:absolute;left:28.9%;top:27.6%;width:46.3%;height:20%;display:flex;flex-direction:column;justify-content:center;align-items:center;transform:rotate(1.5deg);color:#CDF23E;text-align:center}
+.bbw .bbt .w{font-family:var(--sans);font-weight:700;font-size:4.7cqw;line-height:.9;letter-spacing:-.04em}
+.bbw .bbt .m{font-family:var(--times);font-style:italic;font-size:1.7cqw;margin-top:.5cqw}
+
+.vids video{display:block;background:#000;object-fit:cover}
+.st .q{top:13cqw;width:80cqw}.st .big1{font-size:5.6cqw;line-height:1.05;letter-spacing:-.01em;margin-bottom:2.4cqw}.st .q p+p{font-size:2.6cqw;line-height:1.3;max-width:70cqw}
+.bbw{overflow:hidden}.bbw .bbimg{position:absolute;top:0;right:0;bottom:0;width:50%}
+.bbw .bbimg img{width:100%;height:100%;object-fit:cover;object-position:52% 50%;display:block}
+.bbw .bbh{left:3cqw;bottom:3cqw;margin:0;font-size:10cqw;line-height:.86;letter-spacing:-.05em;color:#1F2BFF;z-index:1}
+.bbw .bbh .m{display:block;margin-top:1.2cqw;font-family:var(--times);font-style:italic;font-weight:400;font-size:.2em;letter-spacing:0;line-height:1}
+.st .q p.sc{font-size:3.4cqw;margin-top:2.4cqw;max-width:none}
+.tspi .tx{left:2.4cqw;top:11.6cqw;width:93cqw}.tspi .logo{right:2.4cqw;top:11.6cqw;height:15cqw;width:auto}.tspi .tx .nr{font-family:var(--sans);font-weight:700;letter-spacing:.02em;font-size:1.5cqw;margin:-.3cqw 0 .8cqw}.tspi .tx p:not(.nr){max-width:72cqw}.tspi .tx h2{font-size:4.4cqw;line-height:1.05;margin:0 0 1cqw}.tspi .tx p{font-size:1.7cqw;line-height:1.35;max-width:92cqw}.tspi .tx .wd{font-style:italic;margin-top:.6em}
+.tspi .im1{left:2.4cqw;top:32cqw}.tspi .im1 img{height:21.4cqw;width:auto;display:block;border:1px solid #ccc}
+.tspi .im2{left:39.4cqw;top:32cqw}.tspi .im2 img{height:21.4cqw;width:auto;display:block;border:1px solid #ccc}
+.wg .ph{left:2.4cqw;top:11cqw}.wg .ph img{height:43.6cqw;width:auto;display:block}
+.wg .tx{left:38.4cqw;top:11cqw;width:58cqw}.wg h2{font-size:3.8cqw;line-height:1;margin:0}.wg .mt{font-size:1.4cqw;font-style:italic;margin:.5cqw 0 1cqw}
+.wg .win{font-family:var(--sans);font-weight:700;font-size:4.2cqw;line-height:1;letter-spacing:-.03em;margin:0}
+.wg .st{font-size:1.7cqw;margin:.8cqw 0 0}.wg .dd{font-size:1.5cqw;line-height:1.35;margin:.8cqw 0 0;max-width:56cqw}.wg .q{font-size:1.5cqw;font-style:italic;margin:.6cqw 0 0;color:#555}
+.wg figure{margin:0;top:36.4cqw;width:28.6cqw}.wg .c1{left:38.4cqw}.wg .c2{left:69cqw}
+.wg figcaption{font-size:1.15cqw;font-style:italic;margin-bottom:.3cqw}.wg svg{width:100%;height:auto;display:block;font:10px var(--times)}.wg svg text{fill:#555}.wg svg rect:hover{fill:#111}
+.roles .h{font-size:3.2cqw;line-height:1.1;width:84cqw}.why3.roles .c1,.why3.roles .c2,.why3.roles .c3{top:23.4cqw}
+body.present{background:#000;overflow:hidden}
+body.present .hint,body.present .notes,body.present .folio{display:none!important}
+body.present .deck{max-width:none;margin:0;gap:0}
+body.present .slide{display:none!important}
+body.present .slide.on{display:block!important;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:min(100vw,calc(100vh * 16 / 9));aspect-ratio:16/9;container-type:inline-size;padding:0;margin:0;z-index:10}
+.boxes .bx{left:2.4cqw;top:19cqw;width:93cqw;columns:3;column-gap:4cqw;font-size:1.6cqw;line-height:1.45;padding-left:1.6em;margin:0}
+
+@media (max-width:760px){.tq .qc{transform:none}.two .pa img,.two .pb img,.two.tb .pb img{width:100%!important;height:auto!important}.three .row3{flex-direction:column}}
+
+/* ---------- mobile: continuous scroll + persistent chapter bar ---------- */
+.mbar{display:none}
+@media (max-width:760px){
+  html{scroll-padding-top:84px}
+  body{padding:84px 0 0 0 !important;background:var(--white)}
+  .deck{gap:0;max-width:none}
+  .hint,.folio,.notes,.slide .nm,.slide .nav,.slide .pg,.slide hr,.slide .sub{display:none !important}
+  .mbar{display:block;position:fixed;top:0;left:0;right:0;z-index:30;background:var(--white);border-bottom:1px solid var(--black);
+        padding:calc(8px + env(safe-area-inset-top,0px)) 16px 8px;font-family:var(--times);color:var(--black)}
+  .mbar .mn{display:block;font-size:13px;line-height:1.2;color:var(--black);text-decoration:none;margin-bottom:3px}
+  .mbar .mch{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:16px;line-height:1.35}
+  .mbar .mch::-webkit-scrollbar{display:none}
+  .mbar .mch a{flex:none}
+  .mbar .mch a.cur{color:var(--black);text-decoration:none}
+  .slide{scroll-margin-top:84px;padding:32px 16px 40px !important;gap:16px;overflow:visible;background:var(--white);color:var(--black)}
+  .slide.page + .slide.page{border-top:1px solid #d6d6d0}
+  .slide.cover{min-height:72svh;justify-content:flex-end;padding:28px 16px 32px !important}
+  .slide.cover .sm.t{order:-1;margin-bottom:auto}
+  .slide img,.slide video{max-width:100% !important;height:auto !important}
+  .trip .row,.rwb .ab,.jp .ab{flex-direction:column !important}
+  .trip .row img,.trip .row video,.bp img,.rwb img,.jp img,.wg .ph img,.shots img,.tspi .shots img,.vids video{width:100% !important}
+  .trip .row{gap:10px !important}
+  .slide svg{max-width:100%;height:auto}
+  .slide .ab{transform:none !important}
+  .slide p,.slide li,.slide h2,.slide h3{overflow-wrap:break-word}
+  .slide .ab p,.slide .ab div,.slide .ab li,.slide .ab ul,.slide .ab ol{width:auto !important;max-width:100% !important}
+  .bbw{min-height:0 !important;justify-content:flex-start !important}
+  .bbw .bbimg{position:static !important;width:100% !important;order:2}
+  .bbw .bbimg img{width:100% !important;height:auto !important;object-fit:contain !important}
+}
+</style>
+</head>
+<body>
+<nav class="mbar" aria-label="Chapters"><a class="mn" href="#" id="mtop">Park Feierbach</a><div class="mch"><a href="#early">Early life</a><a href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></div></nav>
+<main class="deck">
+  <div class="hint"><span>40 slides · six chapters</span><span><a href="#" id="present">Present</a> (or press P) · ← → or space to move · Esc to leave</span></div>
+  <section class="slide cover acid stmt" tabindex="-1" aria-label="To what are you dedicated?">
+    <p class="ab sm t">Park Feierbach</p>
+    <h2 class="ab say huge" style="font-size:12cqw;width:92cqw">¿A qué te dedicas?</h2>
+    <p class="ab sm b">to what are you dedicated?</p>
+  </section>
+  <section class="slide page s1" tabindex="-1" aria-label="Contents">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a href="#early">Early life</a><a href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <ol class="ab toc toc7"><li><a href="#early">Early life</a></li><li><a href="#anth">A Study of Culture</a></li><li><a href="#systems">Systems</a></li><li><a href="#tech">Tech</a></li><li><a href="#rw">Running & Writing</a></li><li><a href="#next">Now</a></li></ol>
+    <span class="ab two huge" aria-hidden="true">6</span>
+  </section>
+  <section class="slide cover blue stmt" id="early" tabindex="-1" aria-label="Early life">
+    <p class="ab sm t">Early life · the Netherlands · France · Canada · Connecticut · Dubai · Luxembourg (2) · Italy · Georgia</p>
+    <h2 class="ab say huge" style="font-size:9.6cqw;width:92cqw">9 moves in 8 countries before I was 16 years old</h2>
+    <p class="ab sm b">In early life, I moved a lot, which forced me into constant social adaptation.</p>
+  </section>
+  <section class="slide cover acid stmt" id="anth" tabindex="-1" aria-label="A Study of Culture">
+    
+    <h2 class="ab say huge" style="font-size:11.5cqw;width:92cqw">A Study of Culture</h2>
+    <p class="ab sm b">Then I moved to the US, got an anthropology degree, and graduated thinking that I had no idea what I'd do with it.</p>
+  </section>
+  <section class="slide page tq anth" tabindex="-1" aria-label="The degree">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><h2 class="ah">BA, Anthropology</h2><p class="deg">University of Georgia · 2012</p><p>Both a part of a community and studying it from a distance.</p><p class="q2">Quality is the history behind an object.</p></div>
+    <span class="ab qbig huge" aria-hidden="true">BA</span>
+  </section>
+  <section class="slide page shots" tabindex="-1" aria-label="The road">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab sa"><img src="img/clip-s2s.jpg" alt="Military Times, 6 August 2012: Wounded warriors bike across America in World T.E.A.M. Sports' Sea to Shining Sea ride."><p><a href="https://militarytimes.com/off-duty/military-fitness/2012/08/06/wounded-warriors-bike-across-america-in-world-t-e-a-m-sports-sea-to-shining-sea-ride">Sea to Shining Sea</a> · 16 disabled veterans, by bicycle · two months, 2012</p></div>
+    <div class="ab sb"><img src="img/clip-push.jpg" alt="CBS New York, 15 June 2013: Paralympic Athlete Completes Cross-Country Ride For A Good Cause."><p><a href="https://www.cbsnews.com/newyork/news/paralympic-athlete-completes-cross-country-ride-for-a-good-cause/">Push Across America</a> · Los Angeles → New York by wheelchair · 71 days, 2013</p><p class="rq">"In a sense, I was made for the road, a bit for the unknowing and uncertainty between places to rest, a bit for the constant need to problem solve."</p></div>
+  </section>
+  <section class="slide cover blue stmt" tabindex="-1" aria-label="An understanding of the stories that make up culture">
+    <p class="ab sm t">A Study of Culture · Photography</p>
+    <h2 class="ab say huge" style="font-size:8cqw;width:92cqw">This turned into an understanding of the stories that make up culture,</h2>
+    <p class="ab sm b">which I used for a photo career.</p>
+  </section>
+  <section class="slide page tl2 hs" tabindex="-1" aria-label="How it started">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab lst"><h2>How it started</h2><ul><li>Martin Schoeller's studio · nine months</li><li>Studio manager for Robert Clark, National Geographic photographer · two years</li><li>National Geographic: <a href="https://en.wikipedia.org/wiki/List_of_National_Geographic_cover_stories_(2010s)">Homo naledi</a> · <a href="https://www.nationalgeographic.com/photography/article/nodosaur-fossil-discovery-science-photography">the nodosaur</a> · <a href="https://www.nationalgeographicla.com/revista/2019/02/un-sacrificio-inimaginable">the child sacrifices near Trujillo</a></li><li>Every scientific caption in <i>Feathers: Displays of Brilliant Plumage</i> (Chronicle, 2016)</li><li>Lighting on film sets in Utah; digital tech; food at Hearst</li></ul><p class="lnote">"It weighed nothing."</p></div>
+    <div class="ab insp"><p class="ih">Inspirations</p><p><a href="#">Hiroshi Sugimoto</a><br><a href="#">Peter Beard</a><br><a href="#">Martin Schoeller</a><br><a href="#">Robert Clark</a></p></div>
+  </section>
+  <section class="slide page bp tall" tabindex="-1" aria-label="Herm Hoops">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab ph"><img src="img/herm-raft.jpg" alt="A bearded man in a cap laughs, seated in his garage behind a deflated whitewater raft."></div>
+    <div class="ab lab" style="left:34.5cqw;width:63.1cqw"><i>Four Corners</i><span class="bl">Herm Hoops, 1 June 2017.</span><span class="bl">Colorado Plateau.</span></div>
+  </section>
+  <section class="slide page bp " tabindex="-1" aria-label="The stacks">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab ph"><img src="img/coal-stacks.jpg" alt="A two-lane highway runs toward the smokestacks of a coal power plant in hazy evening light."></div>
+    <div class="ab lab" style="left:70.8cqw;width:26.8cqw"><i>Four Corners</i><span class="bl">3 July 2017.</span><span class="bl">Colorado Plateau.</span></div>
+  </section>
+  <section class="slide page bp " tabindex="-1" aria-label="Window Rock">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab ph"><img src="img/window-rock-wave.jpg" alt="A woman raises her hand to wave toward the top of a red sandstone arch while a small child beside her looks back."></div>
+    <div class="ab lab" style="left:70.8cqw;width:26.8cqw"><i>Window Rock</i><span class="bl">26 June 2017.</span></div>
+  </section>
+  <section class="slide page trip" tabindex="-1" aria-label="Running">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab row"><img src="img/tree-tunnel.jpg" alt="A long two-lane road through a tunnel of green trees, a small runner far down the road." style="height:20.44cqw"><img src="img/rhr-ramps.jpg" alt="Runners race down the ramps beside an elevated highway at night." style="height:20.44cqw"><img src="img/bread-route.jpg" alt="A pack of runners and a cyclist surge off a start line at night." style="height:20.44cqw"></div>
+    <div class="ab cap" style="top:32.84cqw"><p class="t"><i>Running</i> <span class="bl">Vol State 500k, 2018: Rhoda Smoker, first woman, second overall.</span> <span class="bl">Orchard Street Runners: Red Hook Race, Bread Route.</span></p></div>
+  </section>
+  <section class="slide page rwb" tabindex="-1" aria-label="Runner's World and Bicycling">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab pa"><img src="img/rw-sam.jpg" alt="The May 2018 Runner's World cover: Sam Anderson running down a night street between parked cars, headline The Rebirth of Sam Anderson."></div>
+    <div class="ab pb"><img src="img/clip-goldsprints.jpg" alt="Bicycling, November/December 2016, a two-page spread: The Most Fun You'll Have Riding Indoors, about goldsprints. The full right page is a photo of a rider straining on rollers while the crowd behind him screams. Photograph by Parker Feierbach."></div>
+    <p class="ab cp"><i>Runner's World</i> · May 2018 · the cover &nbsp;&nbsp; <i>Bicycling</i> · November/December 2016 · goldsprints at Sacred Tattoo, New York</p>
+  </section>
+  <section class="slide page trip" tabindex="-1" aria-label="National Geographic">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab row"><img src="img/ng-naledi.jpg" alt="National Geographic, History and Culture: Scientist found 20 ancient hominins in a cave, and a mystery: Why are they all female? Two cavers with headlamps crouch beneath a huge slab of rock." style="height:27.38cqw"><img src="img/ng-trujillo.jpg" alt="Two photographs from National Geographic: the remains of a child and a baby llama emerging from the sand at Huanchaquito and at Pampa la Cruz, Peru." style="height:27.38cqw"><img src="img/ng-abusir.jpg" alt="National Geographic: a guard in a white robe walks across an ancient cemetery at Abu Sir al Malaq, the sand littered with bones and a skull in the foreground." style="height:27.38cqw"></div>
+    <div class="ab cap" style="top:39.78cqw"><p class="t"><i>National Geographic</i> <span class="bl">Stories with Robert Clark: <span style="font-style:italic">Homo naledi</span>, the child sacrifices at Trujillo, and Egypt's looted tombs.</span></p></div>
+  </section>
+  <section class="slide page jp" tabindex="-1" aria-label="Japan">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab pa"><img src="img/japan-climb.jpg" alt="A cyclist with loaded bags climbs a wet mountain road into fog, black and white."></div>
+    <div class="ab pb"><img src="img/clip-bicycling.jpg" alt="Bicycling, 7 January 2020: In Japan, the People, the Riding, and the Roads Are Poetry. Photography by Bryan Banducci and Parker Feierbach."></div>
+    <p class="ab cp"><i>Japan</i> · May 2018 · <a href="https://www.bicycling.com/">Bicycling</a>, January 2020</p>
+  </section>
+  <section class="slide page bp tall" tabindex="-1" aria-label="Kendra Pinto">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="cur" href="#anth">A Study of Culture</a><a href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab ph"><img src="img/kendra.jpg" alt="A young Diné woman in sunglasses and braids smiles slightly, in front of a black and white chevron wall."></div>
+    <div class="ab lab" style="left:34.5cqw;width:63.1cqw"><i>Kendra Pinto</i><span class="bl">22 June 2017.</span><span class="bl">I got disillusioned because of the impact of photography, and I started to look elsewhere.</span><p class="bq">"Why — how is it going to change my life?"<br><span>I didn't have an answer.</span></p></div>
+  </section>
+  <section class="slide cover acid stmt" id="systems" tabindex="-1" aria-label="Systems">
+    <p class="ab sm t">Systems · Through all of this has been a question:</p>
+    <h2 class="ab say huge" style="font-size:13cqw;width:92cqw">What makes a system?</h2>
+    
+  </section>
+  <section class="slide page tq" tabindex="-1" aria-label="Covid">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="cur" href="#systems">Systems</a><a href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p>Covid hit, and the whole economic system shut down.</p><p>For several years, I devoured everything that the Santa Fe Institute put out.</p><div class="qsmall"><p>I made connections with people who'd worked there.</p><p>Because the economics of the world shut down in covid, maybe we needed a new economic system.</p></div></div>
+    <span class="ab qbig huge" aria-hidden="true">2020</span>
+  </section>
+  <section class="slide cover blue stmt" id="tech" tabindex="-1" aria-label="Working on a new internet">
+    <p class="ab sm t">So I turned to technology.</p>
+    <h2 class="ab say huge" style="font-size:12.5cqw;width:92cqw">WORKING ON A NEW INTERNET</h2>
+    
+  </section>
+  <section class="slide page tl2" tabindex="-1" aria-label="A researcher&#x27;s mind">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="cur" href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab lst"><h2>A researcher's mind</h2><ul><li>I learned everything I could about crypto, and learned that I have a researcher's mind.</li><li>I began to write technical documents.</li><li>The way I look at social environments translates extremely well to understanding systems.</li><li>Project management, then leadership.</li><li>I began to run in order to deal with the stress, and that became a support system for my intentions.</li></ul><p class="lnote">My ability to synthesize concepts that others had a hard time understanding is a superpower, because it helps you shape the narrative of where a system can go.</p></div>
+    
+  </section>
+  <section class="slide page why3 roles" tabindex="-1" aria-label="Three companies">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="cur" href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <h2 class="ab h">Three companies, grown through an understanding of networks and a narrative built for growth</h2>
+    <div class="ab c1"><p class="co">Figment</p><p class="rl">Protocol Research Manager<br>2021 – 2022</p><p>Led 11 analysts through 70+ networks. Built "Codex," the knowledge system that became our performance reports.</p><p class="rn huge">70+</p><p class="ru">networks</p></div>
+    <div class="ab c2"><p class="co">Namada</p><p class="rl">Community Research Manager<br>2022 – 2023</p><p>Designed governance for a pseudonymous community on retroactive public goods funding.</p><p class="rn huge">75k → 275k</p><p class="ru">members</p></div>
+    <div class="ab c3"><p class="co">Radiant Commons</p><p class="rl">Chief Executive Officer, Penumbra<br>2023 – 2025</p><p>15 staff, 20 contractors, a privacy-preserving payments network.</p><p class="rn huge">95k → 225k</p><p class="ru">members</p></div>
+  </section>
+  <section class="slide page tq ex rk" tabindex="-1" aria-label="A reckoning">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="cur" href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p class="xl">A RECKONING:</p><p>No amount of understanding a system prepares you for dealing with it when it starts to collapse.</p><div class="qsmall"><p>I put all my energy into trying to deal with it anyway.</p><p>Five years is a really long time in any emerging industry. I burned out.</p></div></div>
+  </section>
+  <section class="slide cover blue stmt" tabindex="-1" aria-label="Exploited">
+    
+    <h2 class="ab say huge" style="font-size:6.8cqw;width:92cqw">If the protocols are built in a way that people can exploit them, they will be exploited, whether financially or socially.</h2>
+    <p class="ab sm b">Then, that became the game everyone plays. Crypto, for now, isn't the solution.</p>
+  </section>
+  <section class="slide page tq sb" tabindex="-1" aria-label="Stepping back">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="cur" href="#tech">Tech</a><a href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p>So I stepped back.</p><p>Shutting down a company with integrity showed me that I know how to end things well.</p>
+    <ul class="seq"><li>Tenure-based severance</li><li>Extended health insurance</li><li>Open-source handoff</li><li>Wound down completely, December 2025</li></ul></div>
+  </section>
+  <section class="slide cover acid stmt" id="rw" tabindex="-1" aria-label="Running and Writing">
+    
+    <h2 class="ab say huge" style="font-size:13cqw;width:92cqw">Running &amp; Writing</h2>
+    <p class="ab sm b">In the space of a year, I took on writing like it's been a job, and I ran like I wanted to be a professional athlete.</p>
+  </section>
+  <section class="slide page tq" tabindex="-1" aria-label="The PhD">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p>I thought I'd learned enough about how to build systems that I wanted to get a PhD.</p><p>I didn't get in, anyway. That's okay! I still learned a lot about how I think.</p><div class="qsmall"><p>MIT IDSS · Northeastern NetSci, applied 2025.</p><p>By the time the rejection letters arrived, I'd learned that I already knew how to do research and synthesis.</p><p>I started writing a book.</p></div></div>
+    <span class="ab qbig huge" aria-hidden="true">0/2</span>
+  </section>
+  <section class="slide page tq" tabindex="-1" aria-label="The novel">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p>Writing my novel is the most meaningful thing I have ever done, even though it is not finished.</p><div class="qsmall"><p><i>Los Cielos Desaparecen</i>.</p><p>I ended up not writing seriously for about 14 years other than in technical contexts.</p></div></div>
+    
+  </section>
+  <section class="slide cover blue stmt" tabindex="-1" aria-label="A public of unknown personas">
+    
+    <h2 class="ab say huge" style="font-size:11cqw;width:92cqw">a public of unknown personas</h2>
+    
+  </section>
+  <section class="slide page pull ctx" tabindex="-1" aria-label="Pull quote: Kundera">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab pq"><blockquote>But my narcissism requires more words.</blockquote>
+    <p class="cb">Maybe this is why it is manic, if attention can only tolerate concentrated aesthetics, I'll never make it, I always hit the character count, but I am still trying to be a writer, for the first time.</p></div>
+    <p class="ab pt"><a href="#">Somewhere beyond Kundera</a></p>
+  </section>
+  <section class="slide page tspi" tabindex="-1" aria-label="The Speed Project">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <img class="ab logo" src="img/tsp-pyr-logo.png" alt="TSP PYR logo"><div class="ab tx"><h2>The Speed Project</h2><p class="nr">NO RULES. NO SPECTATORS.</p><p>An unsanctioned relay: 340 miles from Los Angeles to Las Vegas, first run in 2013, now also across the Atacama and through Europe.</p><p class="wd">What I do with them: build the relay plan. Every leg, pair, van meetup and night shift, down to the finish time.</p></div>
+    <div class="ab im1"><img src="img/tsp-plan-timeline.png" alt="Part of the Pyrénées relay plan: a colour-coded timeline of legs, runners, distances and van meetups."></div>
+    <div class="ab im2"><img src="img/tsp-plan-summary.png" alt="The plan's per-runner summary for two teams: legs, run time, night hours, kilometres and climbing, finishing Monday 14:07 after 106 hours."></div>
+  </section>
+  <section class="slide page trip vids" tabindex="-1" aria-label="TSP Los Angeles to Las Vegas, video">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab row"><video src="vid/lalv-night.mp4" poster="vid/lalv-night.jpg" muted loop playsinline preload="auto" aria-label="Night in the desert: the support car, headlights and a parked runner." style="height:31.69cqw;width:56.34cqw"></video><video src="vid/lalv-roof.mp4" poster="vid/lalv-roof.jpg" muted loop playsinline preload="auto" aria-label="A runner dances on the roof of the blue support Jeep under a big sky." style="height:31.69cqw;width:17.83cqw"></video><video src="vid/lalv-road.mp4" poster="vid/lalv-road.jpg" muted loop playsinline preload="auto" aria-label="Runners dance down a desert road past Joshua trees and an old white chapel." style="height:31.69cqw;width:17.83cqw"></video></div>
+    <div class="ab cap" style="top:44.09cqw"><p class="t"><i>The Speed Project, Los Angeles → Las Vegas</i> <span class="bl">April 2026.</span></p><p class="tq3">The desert chooses to change slowly, and running in the desert forces us to reckon with the pace at which we change.</p></div>
+  </section>
+  <section class="slide page wg" tabindex="-1" aria-label="Wild Goose 50 Miler">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab ph"><img src="img/wildgoose-medals.jpg" alt="Two wooden Wild Goose Trail Festival medals: a 50M finisher's medal and a 1st Place Female 50 Miler award, held by a brass clip."></div>
+    <div class="ab tx"><h2>Wild Goose 50 Miler</h2><p class="mt">19 September 2026 · Ringwood, New Jersey</p>
+      <p class="win">1st woman. 2nd overall.</p>
+      <p class="st">49.2 miles · 5,430 ft of climbing · 8:55:26</p>
+      <p class="dd">I trained by the numbers, bringing together everything I'd learned about my body, and, for the first time, working with a coach.</p>
+      <p class="q">Metronome / It takes as long as it takes</p></div>
+    <figure class="ab c1"><figcaption>Weekly miles, June – September</figcaption><svg viewBox="0 0 420 150" role="img" aria-label="Weekly miles, June to September"><line x1="30" x2="420" y1="88.0" y2="88.0" stroke="#e2e2e2" stroke-width="1"/><text x="26" y="91.5" text-anchor="end">20</text><line x1="30" x2="420" y1="48.0" y2="48.0" stroke="#e2e2e2" stroke-width="1"/><text x="26" y="51.5" text-anchor="end">40</text><line x1="30" x2="420" y1="8.0" y2="8.0" stroke="#e2e2e2" stroke-width="1"/><text x="26" y="11.5" text-anchor="end">60</text><rect x="30.0" y="87.8" width="22.5" height="40.2" rx="3.0" fill="#1F2BFF"><title>Jun 1: 20.1 mi</title></rect><rect x="54.5" y="128.0" width="22.5" height="0.0" rx="3.0" fill="#1F2BFF"><title>Jun 8: 0.0 mi</title></rect><rect x="79.0" y="58.6" width="22.5" height="69.4" rx="3.0" fill="#1F2BFF"><title>Jun 15: 34.7 mi</title></rect><rect x="103.5" y="79.6" width="22.5" height="48.4" rx="3.0" fill="#1F2BFF"><title>Jun 22: 24.2 mi</title></rect><rect x="128.0" y="49.4" width="22.5" height="78.6" rx="3.0" fill="#1F2BFF"><title>Jun 29: 39.3 mi</title></rect><rect x="152.5" y="36.6" width="22.5" height="91.4" rx="3.0" fill="#1F2BFF"><title>Jul 6: 45.7 mi</title></rect><rect x="177.0" y="31.2" width="22.5" height="96.8" rx="3.0" fill="#1F2BFF"><title>Jul 13: 48.4 mi</title></rect><rect x="201.5" y="46.2" width="22.5" height="81.8" rx="3.0" fill="#1F2BFF"><title>Jul 20: 40.9 mi</title></rect><rect x="226.0" y="28.0" width="22.5" height="100.0" rx="3.0" fill="#1F2BFF"><title>Jul 27: 50.0 mi</title></rect><rect x="250.5" y="36.2" width="22.5" height="91.8" rx="3.0" fill="#1F2BFF"><title>Aug 3: 45.9 mi</title></rect><rect x="275.0" y="80.8" width="22.5" height="47.2" rx="3.0" fill="#1F2BFF"><title>Aug 10: 23.6 mi</title></rect><rect x="299.5" y="26.0" width="22.5" height="102.0" rx="3.0" fill="#1F2BFF"><title>Aug 17: 51.0 mi</title></rect><rect x="324.0" y="120.4" width="22.5" height="7.6" rx="3.0" fill="#1F2BFF"><title>Aug 24: 3.8 mi</title></rect><rect x="348.5" y="30.4" width="22.5" height="97.6" rx="3.0" fill="#1F2BFF"><title>Aug 31: 48.8 mi</title></rect><rect x="373.0" y="30.6" width="22.5" height="97.4" rx="3.0" fill="#1F2BFF"><title>Sep 7: 48.7 mi</title></rect><rect x="397.5" y="21.6" width="22.5" height="106.4" rx="3.0" fill="#1F2BFF"><title>Sep 14: 53.2 mi</title></rect><line x1="30" x2="420" y1="128" y2="128" stroke="#111" stroke-width="1"/><text x="30.0" y="144" text-anchor="start">Jun</text><text x="152.5" y="144" text-anchor="start">Jul</text><text x="250.5" y="144" text-anchor="start">Aug</text><text x="348.5" y="144" text-anchor="start">Sep</text></svg></figure>
+    <figure class="ab c2"><figcaption>Every mile, in order (minutes per mile)</figcaption><svg viewBox="0 0 420 150" role="img" aria-label="Minutes per mile, all 49 miles"><line x1="30" x2="420" y1="80.0" y2="80.0" stroke="#e2e2e2" stroke-width="1"/><text x="26" y="83.5" text-anchor="end">10</text><line x1="30" x2="420" y1="32.0" y2="32.0" stroke="#e2e2e2" stroke-width="1"/><text x="26" y="35.5" text-anchor="end">20</text><rect x="30.0" y="81.7" width="6.0" height="46.3" rx="3.0" fill="#1F2BFF"><title>Mile 1: 9:39 /mi</title></rect><rect x="38.0" y="87.4" width="6.0" height="40.6" rx="3.0" fill="#1F2BFF"><title>Mile 2: 8:27 /mi</title></rect><rect x="46.0" y="85.8" width="6.0" height="42.2" rx="3.0" fill="#1F2BFF"><title>Mile 3: 8:48 /mi</title></rect><rect x="54.0" y="83.1" width="6.0" height="44.9" rx="3.0" fill="#1F2BFF"><title>Mile 4: 9:21 /mi</title></rect><rect x="62.0" y="90.8" width="6.0" height="37.2" rx="3.0" fill="#1F2BFF"><title>Mile 5: 7:45 /mi</title></rect><rect x="70.0" y="84.0" width="6.0" height="44.0" rx="3.0" fill="#1F2BFF"><title>Mile 6: 9:10 /mi</title></rect><rect x="78.0" y="84.2" width="6.0" height="43.8" rx="3.0" fill="#1F2BFF"><title>Mile 7: 9:08 /mi</title></rect><rect x="86.0" y="82.3" width="6.0" height="45.7" rx="3.0" fill="#1F2BFF"><title>Mile 8: 9:31 /mi</title></rect><rect x="94.0" y="82.1" width="6.0" height="45.9" rx="3.0" fill="#1F2BFF"><title>Mile 9: 9:34 /mi</title></rect><rect x="102.0" y="83.8" width="6.0" height="44.2" rx="3.0" fill="#1F2BFF"><title>Mile 10: 9:13 /mi</title></rect><rect x="110.0" y="78.1" width="6.0" height="49.9" rx="3.0" fill="#1F2BFF"><title>Mile 11: 10:24 /mi</title></rect><rect x="118.0" y="83.0" width="6.0" height="45.0" rx="3.0" fill="#1F2BFF"><title>Mile 12: 9:22 /mi</title></rect><rect x="126.0" y="85.1" width="6.0" height="42.9" rx="3.0" fill="#1F2BFF"><title>Mile 13: 8:56 /mi</title></rect><rect x="134.0" y="83.0" width="6.0" height="45.0" rx="3.0" fill="#1F2BFF"><title>Mile 14: 9:23 /mi</title></rect><rect x="142.0" y="87.8" width="6.0" height="40.2" rx="3.0" fill="#1F2BFF"><title>Mile 15: 8:22 /mi</title></rect><rect x="150.0" y="85.3" width="6.0" height="42.7" rx="3.0" fill="#1F2BFF"><title>Mile 16: 8:54 /mi</title></rect><rect x="158.0" y="83.1" width="6.0" height="44.9" rx="3.0" fill="#1F2BFF"><title>Mile 17: 9:21 /mi</title></rect><rect x="166.0" y="81.4" width="6.0" height="46.6" rx="3.0" fill="#1F2BFF"><title>Mile 18: 9:43 /mi</title></rect><rect x="174.0" y="84.2" width="6.0" height="43.8" rx="3.0" fill="#1F2BFF"><title>Mile 19: 9:08 /mi</title></rect><rect x="182.0" y="84.6" width="6.0" height="43.4" rx="3.0" fill="#1F2BFF"><title>Mile 20: 9:02 /mi</title></rect><rect x="190.0" y="85.7" width="6.0" height="42.3" rx="3.0" fill="#1F2BFF"><title>Mile 21: 8:49 /mi</title></rect><rect x="198.0" y="82.2" width="6.0" height="45.8" rx="3.0" fill="#1F2BFF"><title>Mile 22: 9:33 /mi</title></rect><rect x="206.0" y="88.0" width="6.0" height="40.0" rx="3.0" fill="#1F2BFF"><title>Mile 23: 8:20 /mi</title></rect><rect x="214.0" y="83.6" width="6.0" height="44.4" rx="3.0" fill="#1F2BFF"><title>Mile 24: 9:15 /mi</title></rect><rect x="222.0" y="83.2" width="6.0" height="44.8" rx="3.0" fill="#1F2BFF"><title>Mile 25: 9:20 /mi</title></rect><rect x="230.0" y="65.1" width="6.0" height="62.9" rx="3.0" fill="#1F2BFF"><title>Mile 26: 13:06 /mi</title></rect><rect x="238.0" y="80.0" width="6.0" height="48.0" rx="3.0" fill="#1F2BFF"><title>Mile 27: 10:00 /mi</title></rect><rect x="246.0" y="76.1" width="6.0" height="51.9" rx="3.0" fill="#1F2BFF"><title>Mile 28: 10:49 /mi</title></rect><rect x="254.0" y="63.4" width="6.0" height="64.6" rx="3.0" fill="#1F2BFF"><title>Mile 29: 13:28 /mi</title></rect><rect x="262.0" y="75.0" width="6.0" height="53.0" rx="3.0" fill="#1F2BFF"><title>Mile 30: 11:02 /mi</title></rect><rect x="270.0" y="70.1" width="6.0" height="57.9" rx="3.0" fill="#1F2BFF"><title>Mile 31: 12:04 /mi</title></rect><rect x="278.0" y="75.1" width="6.0" height="52.9" rx="3.0" fill="#1F2BFF"><title>Mile 32: 11:01 /mi</title></rect><rect x="286.0" y="77.9" width="6.0" height="50.1" rx="3.0" fill="#1F2BFF"><title>Mile 33: 10:26 /mi</title></rect><rect x="294.0" y="77.4" width="6.0" height="50.6" rx="3.0" fill="#1F2BFF"><title>Mile 34: 10:33 /mi</title></rect><rect x="302.0" y="70.9" width="6.0" height="57.1" rx="3.0" fill="#1F2BFF"><title>Mile 35: 11:54 /mi</title></rect><rect x="310.0" y="20.4" width="6.0" height="107.6" rx="3.0" fill="#1F2BFF"><title>Mile 36: 22:25 /mi</title></rect><rect x="318.0" y="76.7" width="6.0" height="51.3" rx="3.0" fill="#1F2BFF"><title>Mile 37: 10:41 /mi</title></rect><rect x="326.0" y="78.5" width="6.0" height="49.5" rx="3.0" fill="#1F2BFF"><title>Mile 38: 10:19 /mi</title></rect><rect x="334.0" y="71.4" width="6.0" height="56.6" rx="3.0" fill="#1F2BFF"><title>Mile 39: 11:48 /mi</title></rect><rect x="342.0" y="62.6" width="6.0" height="65.4" rx="3.0" fill="#1F2BFF"><title>Mile 40: 13:37 /mi</title></rect><rect x="350.0" y="78.1" width="6.0" height="49.9" rx="3.0" fill="#1F2BFF"><title>Mile 41: 10:24 /mi</title></rect><rect x="358.0" y="59.5" width="6.0" height="68.5" rx="3.0" fill="#1F2BFF"><title>Mile 42: 14:16 /mi</title></rect><rect x="366.0" y="63.4" width="6.0" height="64.6" rx="3.0" fill="#1F2BFF"><title>Mile 43: 13:28 /mi</title></rect><rect x="374.0" y="9.7" width="6.0" height="118.3" rx="3.0" fill="#1F2BFF"><title>Mile 44: 24:39 /mi</title></rect><rect x="382.0" y="72.3" width="6.0" height="55.7" rx="3.0" fill="#1F2BFF"><title>Mile 45: 11:36 /mi</title></rect><rect x="390.0" y="75.2" width="6.0" height="52.8" rx="3.0" fill="#1F2BFF"><title>Mile 46: 11:00 /mi</title></rect><rect x="398.0" y="69.8" width="6.0" height="58.2" rx="3.0" fill="#1F2BFF"><title>Mile 47: 12:08 /mi</title></rect><rect x="406.0" y="72.0" width="6.0" height="56.0" rx="3.0" fill="#1F2BFF"><title>Mile 48: 11:40 /mi</title></rect><rect x="414.0" y="71.4" width="6.0" height="56.6" rx="3.0" fill="#1F2BFF"><title>Mile 49: 11:48 /mi</title></rect><line x1="30" x2="420" y1="128" y2="128" stroke="#111" stroke-width="1"/><text x="30.0" y="144" text-anchor="start">mile 1</text><text x="225.0" y="144" text-anchor="middle">25</text><text x="420.0" y="144" text-anchor="end">49</text></svg></figure>
+  </section>
+  <section class="slide page trip vids" tabindex="-1" aria-label="TSP Pyrénées, video">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab row"><video src="vid/pyr-night.mp4" poster="vid/pyr-night.jpg" muted loop playsinline preload="auto" aria-label="At night, a runner in a headlamp scrambles over boulders." style="height:31.69cqw;width:56.34cqw"></video><video src="vid/pyr-fog.mp4" poster="vid/pyr-fog.jpg" muted loop playsinline preload="auto" aria-label="Walking a ridge in thick blue fog; a teammate leans into frame." style="height:31.69cqw;width:17.83cqw"></video><video src="vid/pyr-ridge.mp4" poster="vid/pyr-ridge.jpg" muted loop playsinline preload="auto" aria-label="A runner with poles strapped to his pack crosses a sunlit grassy ridge." style="height:31.69cqw;width:17.83cqw"></video></div>
+    <div class="ab cap" style="top:44.09cqw"><p class="t"><i>The Speed Project, the Pyrénées</i> <span class="bl">October 2026. 696 km, 16 shifts. I ran 3, and modeled the route that placed the basecamps.</span></p><p class="tq3">We held to predictions until decisions were made to deviate and we arrived more or less when I expected us to.</p></div>
+  </section>
+  <section class="slide page tq" tabindex="-1" aria-label="Endurance">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="cur" href="#rw">Running & Writing</a><a href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab qc"><p>Endurance is the most human act, if not the most natural act.</p><div class="qsmall"><p>Running and writing, for me, are acts of endurance, acts of reflecting on our adaptation.</p></div></div>
+    
+  </section>
+  <section class="slide cover blue stmt" tabindex="-1" aria-label="Safety net">
+    
+    <h2 class="ab say huge" style="font-size:8.4cqw;width:92cqw">But: the only difference between an ultramarathoner and a refugee is a safety net.</h2>
+    
+  </section>
+  <section class="slide page tq ex" id="next" tabindex="-1" aria-label="Exhausted">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="v" href="#rw">Running & Writing</a><a class="cur" href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p class="xl">I'm exhausted.</p><p>I've done so many things!</p></div>
+  </section>
+  <section class="slide page tq" tabindex="-1" aria-label="The toolkit">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="v" href="#rw">Running & Writing</a><a class="cur" href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p>Today, I'm looking back on everything that I've done and realizing that I've developed an incredible toolkit for enduring, understanding, and building stories.</p><div class="qsmall"><p>I help people understand what it takes to make something happen. That, today, is what I intend to do.</p></div></div>
+    
+  </section>
+  <section class="slide cover blue stmt" tabindex="-1" aria-label="I am dedicated to stories">
+    
+    <h2 class="ab say huge" style="font-size:11cqw;width:92cqw">I am dedicated to stories.</h2>
+    <p class="ab sm b">What I do is examine what is happening and help people understand it.</p>
+  </section>
+  <section class="slide page tq st" tabindex="-1" aria-label="Stories">
+    <p class="ab nm">Park Feierbach</p>
+    <p class="ab nav"><a class="v" href="#early">Early life</a><a class="v" href="#anth">A Study of Culture</a><a class="v" href="#systems">Systems</a><a class="v" href="#tech">Tech</a><a class="v" href="#rw">Running & Writing</a><a class="cur" href="#next">Now</a></p>
+    <p class="ab pg"></p>
+    <hr>
+    <div class="ab q"><p class="big1">Stories aren't confined to a format.</p><p>They are built out of the narratives we tell ourselves in order to drive things forward, whether in how we built companies and culture, or in order to navigate a changing world.</p><p class="sc">I am a storyteller for culture.</p></div>
+  </section>
+  <section class="slide cover acid bbw" tabindex="-1" aria-label="Witness wonder, with me">
+    <div class="bbimg"><img src="img/billboard.jpg" alt="A blank black billboard on rusted legs stands over red desert scrub under a cloudy sky; the panel is empty."></div>
+    <h2 class="ab bbh huge">WITNESS<br>WONDER<span class="m">(with me)</span></h2>
+  </section>
+</main>
+<div class="folio" id="folio" aria-live="polite">1</div>
+<script>
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const folio = document.getElementById('folio');
+  let current = 0;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && e.intersectionRatio > 0.55) { current = slides.indexOf(e.target); folio.textContent = (current + 1) + ' / ' + slides.length; }
+  }), { threshold: [0.55] });
+  slides.forEach(s => io.observe(s));
+  slides.forEach((s, i) => { const pg = s.querySelector('.pg'); if (pg) pg.textContent = (i + 1) + ' / ' + slides.length; });
+  const go = i => { current = Math.max(0, Math.min(slides.length - 1, i)); slides[current].scrollIntoView({ block: 'start' }); slides[current].focus({ preventScroll: true }); };
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)) { e.preventDefault(); go(current + 1); }
+    if (['ArrowLeft','ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); go(current - 1); }
+  });
+  // links to chapters that are not built yet stay put
+  document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+  const t = document.getElementById('nt'); if (t) t.addEventListener('click', e => { e.preventDefault(); document.body.classList.toggle('nonotes'); t.textContent = document.body.classList.contains('nonotes') ? 'show notes' : 'hide notes'; });
+})();
+
+  const vObs = new IntersectionObserver(es => es.forEach(en => { const v = en.target; if (en.isIntersecting && en.intersectionRatio >= 0.35) { v.muted = true; v.playsInline = true; const p = v.play(); if (p) p.catch(() => {}); } else if (!en.isIntersecting) { v.pause(); v.currentTime = 0; } }), { threshold: [0, 0.35, 0.6, 1] });
+  document.querySelectorAll('.slide video').forEach(v => { v.muted = true; v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); vObs.observe(v); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) document.querySelectorAll('.slide video').forEach(v => { vObs.unobserve(v); vObs.observe(v); }); });
+
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0, on = false;
+  const show = n => { i = Math.max(0, Math.min(slides.length - 1, n)); slides.forEach((s, k) => s.classList.toggle('on', k === i)); };
+  const visible = () => { let best = 0, bd = Infinity; slides.forEach((s, k) => { const d = Math.abs(s.getBoundingClientRect().top); if (d < bd) { bd = d; best = k; } }); return best; };
+  const enter = () => { on = true; document.body.classList.add('present'); show(visible()); const el = document.documentElement; if (el.requestFullscreen) el.requestFullscreen().catch(() => {}); };
+  const exit = () => { on = false; document.body.classList.remove('present'); slides.forEach(s => s.classList.remove('on')); slides[i].scrollIntoView({ block: 'start' }); if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {}); };
+  document.addEventListener('keydown', e => {
+    if (!on) { if (e.key === 'p' || e.key === 'P') { e.preventDefault(); enter(); } return; }
+    if (['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(e.key)) { e.preventDefault(); e.stopImmediatePropagation(); show(i + 1); }
+    else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); e.stopImmediatePropagation(); show(i - 1); }
+    else if (e.key === 'Home') { e.preventDefault(); e.stopImmediatePropagation(); show(0); }
+    else if (e.key === 'End') { e.preventDefault(); e.stopImmediatePropagation(); show(slides.length - 1); }
+    else if (e.key === 'Escape' || e.key === 'p' || e.key === 'P') { e.preventDefault(); e.stopImmediatePropagation(); exit(); }
+  }, true);
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && on) exit(); });
+  const b = document.getElementById('present'); if (b) b.addEventListener('click', e => { e.preventDefault(); enter(); });
+})();
+
+(() => {
+  const mq = matchMedia('(max-width:760px)');
+  const bar = document.querySelector('.mbar'); if (!bar) return;
+  const links = [...bar.querySelectorAll('.mch a')];
+  const names = links.map(a => a.textContent);
+  const slides = [...document.querySelectorAll('.slide')];
+  // chapter of each slide, read from its own header nav (the "cur" link), carried forward for covers
+  let last = -1;
+  const chOf = slides.map(s => { const c = s.querySelector('.nav a.cur'); if (c) last = names.indexOf(c.textContent); else { const id = s.id && links.findIndex(a => a.getAttribute('href') === '#' + s.id); if (id >= 0) last = id; } return last; });
+  let shown = -2;
+  const mark = k => {
+    const ch = chOf[k]; if (ch === shown) return; shown = ch;
+    links.forEach((a, j) => { a.classList.toggle('cur', j === ch); a.classList.toggle('v', ch >= 0 && j < ch); });
+  };
+  const onScroll = () => { if (!mq.matches) return; const y = 80; let k = 0; for (let j = 0; j < slides.length; j++) { if (slides[j].getBoundingClientRect().top <= y) k = j; else break; } mark(k); };
+  addEventListener('scroll', onScroll, { passive: true });
+  document.getElementById('mtop').addEventListener('click', e => { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }); });
+  document.querySelectorAll('.slide video').forEach(v => { const w = parseFloat(v.style.width), h = parseFloat(v.style.height); if (w && h) v.style.aspectRatio = w + ' / ' + h; });
+  // readable type: lift tiny text, shrink headlines that overflow the phone width
+  const fit = () => {
+    document.querySelectorAll('[data-mfs]').forEach(el => { el.style.removeProperty('font-size'); el.style.removeProperty('line-height'); el.removeAttribute('data-mfs'); });
+    if (!mq.matches) return;
+    slides.forEach(sl => {
+      const els = [...sl.querySelectorAll('p,li,h1,h2,h3,span,a,div,i,b')].filter(el => !el.closest('svg') && [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim()));
+      els.forEach(el => { const fs = parseFloat(getComputedStyle(el).fontSize); if (fs < 15) { el.style.setProperty('font-size', '15px', 'important'); el.style.setProperty('line-height', '1.4', 'important'); el.dataset.mfs = 1; } });
+      const W = sl.clientWidth - 32;
+      const ctx = (fit.c = fit.c || document.createElement('canvas').getContext('2d'));
+      [...sl.querySelectorAll('*')].filter(el => !el.closest('svg') && [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).forEach(el => {
+        const cs = getComputedStyle(el); let fs = parseFloat(cs.fontSize); if (fs < 20) return;
+        const txt = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(' ');
+        const words = /nowrap|pre/.test(cs.whiteSpace) ? [txt.trim()] : txt.split(/\s+/).filter(Boolean); if (!words.length || !words[0]) return;
+        const ls = parseFloat(cs.letterSpacing) || 0;
+        ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
+        const widest = Math.max(...words.map(w => ctx.measureText(w).width + ls * w.length));
+        const blk = cs.display === 'inline' ? el.parentElement : el;
+        const bw = blk.clientWidth - parseFloat(getComputedStyle(blk).paddingLeft) - parseFloat(getComputedStyle(blk).paddingRight);
+        const avail = Math.min(W, bw > 40 ? bw : W);
+        if (widest > avail) { fs = Math.max(16, fs * avail / widest * 0.97); el.style.setProperty('font-size', fs + 'px', 'important'); el.dataset.mfs = 1; }
+      });
+    });
+    const grp = [...document.querySelectorAll('.roles .rn')];
+    if (grp.length) { const m = Math.min(...grp.map(e => parseFloat(getComputedStyle(e).fontSize))); grp.forEach(e => { e.style.setProperty('font-size', m + 'px', 'important'); e.dataset.mfs = 1; }); }
+    onScroll();
+  };
+  const go = () => requestAnimationFrame(fit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else go();
+  addEventListener('load', go); setTimeout(go, 1200);
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(go, 200); });
+  mq.addEventListener('change', () => { shown = -2; go(); });
+})();
+</script>
+</body>
+</html>
