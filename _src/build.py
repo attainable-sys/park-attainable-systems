@@ -72,6 +72,14 @@ PHOTOS = [  # file, title, line, series, shape (v = tall, h = wide)
     ("japan-climb", "Japan", "May 2018. Bicycling, January 2020.", "elsewhere", "h"),
     ("water", "Water", "March 2017.", "elsewhere", "v"),
 ]
+# the archive picks (Photos on Drive), made 2026-11-06; same shape as PHOTOS
+_pj = os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos.json")
+if os.path.exists(_pj):
+    PHOTOS += [tuple(x) for x in json.load(open(_pj))]
+SERIES = ["colorado plateau, 2017", "four corners, 2017", "montana, 2018", "montana, 2021", "kyrgyzstan and hong kong, 2025",
+          "australia, 2025", "san francisco, 2025", "vol state 500k, 2018", "running", "prospect park, january 2018",
+          "the speed project, 2026", "skygazer, 2016", "portraits, 2016", "water", "elsewhere"]
+
 TEARSHEETS = [
     ("rw-sam", "Runner's World", "May 2018 · the cover"),
     ("clip-goldsprints", "Bicycling", "November/December 2016 · goldsprints at Sacred Tattoo, New York"),
@@ -598,17 +606,19 @@ def main():
 
     # ── photography
     series = []
-    for sname in ["four corners, 2017", "kyrgyzstan and hong kong, 2025", "running", "the speed project, 2026", "elsewhere"]:
+    for sname in SERIES:
         ps = [p for p in PHOTOS if p[3] == sname and p is not hero]
         from PIL import Image
         def ar(f):
             w, h = Image.open(os.path.join(ROOT, "img/photo", f + ".jpg")).size
             return w / h
+        if not ps:
+            continue
         row = len(ps) <= 3
         cells = "".join(
             f'<figure class="ph {p[4]}" id="{p[0]}"' + (f' style="flex:{ar(p[0]):.3f}"' if row else "") + f'><img src="/img/photo/{p[0]}.jpg" alt="{esc(p[1])}, {esc(p[2])}" loading="lazy">'
             f'<figcaption class="inf"><span class="t">{esc(p[1])}</span><span class="d">{esc(p[2])}</span></figcaption></figure>' for p in ps)
-        cols = "row" if row else "two"
+        cols = "row" if row else ("two" if len(ps) <= 4 else "three")
         series.append(f'<div class="s-head series">{esc(sname)}</div><div class="photo-grid {cols}">{cells}</div>')
     tears = "".join(
         f'<figure class="ph tear"><img src="/img/photo/{f}.jpg" alt="{esc(t)}, {esc(d)}" loading="lazy">'
