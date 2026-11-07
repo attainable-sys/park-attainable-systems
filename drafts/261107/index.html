@@ -11,8 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Light theme only. Layout: the screen is a window. Behind it, an endless grid plane at depth D; the text floats on a clear layer at D/2.
-   The phone body around the window blocks light, so its edge casts a shadow onto the grid. */
+/* Light theme only. Layout: the screen is a window. Behind it, an endless grid plane at depth D.
+   The text sits still just inside the glass; the phone body around the window blocks light, so its edge casts a shadow onto the grid.
+   The page scrolls as a normal document so Safari can tuck its toolbars away and the stage runs edge to edge. */
 :root {
   --room: #D6DAD6;
   --bezel: #1A1D1F;
@@ -20,8 +21,8 @@
   --ink: #1C2024;
   --muted: #535C62;
   --accent: #2D5E86;
-  --shadow: rgba(20, 28, 36, 0.26);
-  --shadow-wide: rgba(20, 28, 36, 0.08);
+  --shadow: rgba(20, 28, 36, 0.20);
+  --shadow-wide: rgba(20, 28, 36, 0.10);
   --screen-r: 48px;
   --grid: rgba(20, 40, 60, 0.18);
   --grid-strong: rgba(20, 40, 60, 0.32);
@@ -30,20 +31,19 @@
   --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
-html, body { height: 100%; margin: 0; background: var(--back); }
-body { color: var(--ink); display: grid; place-items: center; overflow: hidden; }
+html, body { margin: 0; background: var(--back); color: var(--ink); }
 
-/* On a phone the stage is pinned to the whole screen, under the status bar and home indicator too. */
+/* On a phone the stage is pinned to the full screen height, including the area behind Safari's toolbars (lvh). */
 .stage {
-  position: fixed; inset: 0;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh;
   perspective: 1000px; perspective-origin: 50% 50%;
   overflow: hidden; background: var(--back);
 }
 @media (min-width: 560px) {
   html, body { background: var(--room); }
   .stage {
-    position: relative; inset: auto;
-    width: min(390px, calc(100vw - 32px)); height: min(820px, calc(100% - 32px));
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: min(390px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px));
     border: 11px solid var(--bezel); border-radius: 48px;
     box-shadow: 0 30px 60px -20px rgba(0,0,0,.35);
   }
@@ -69,13 +69,11 @@ body { color: var(--ink); display: grid; place-items: center; overflow: hidden; 
 /* Room light comes in through the screen opening, so the lit patch has the screen's own shape, rounded corners included.
    A fairly crisp edge, plus a faint wide penumbra from light arriving at other angles. */
 .shade { position: absolute; inset: 0; border-radius: var(--screen-r); box-shadow: 0 0 0 700px var(--shadow); }
-.shade.near { filter: blur(var(--soft, 10px)); }
-.shade.wide { box-shadow: 0 0 0 700px var(--shadow-wide); filter: blur(calc(var(--soft, 10px) * 4)); }
+.shade.near { filter: blur(var(--soft, 18px)); }
+.shade.wide { box-shadow: 0 0 0 700px var(--shadow-wide); filter: blur(calc(var(--soft, 18px) * 3.5)); }
 
-/* Floating text layer at half depth. No clipping, so text runs off past the window edges like everything else. */
-/* The text floats 3 mm behind the glass (about 18 CSS px), fixed there whatever the grid depth.
-   At that depth it shifts only a few pixels at full tilt, so it reads as inside the phone without visibly moving. */
-.textplane { position: absolute; inset: 0; pointer-events: none; transform: translateZ(-18px); }
+/* The text holds perfectly still and centered. Depth comes only from what moves behind it. */
+.textplane { position: absolute; inset: 0; pointer-events: none; }
 
 article { position: absolute; left: 0; right: 0; top: 0; max-width: 34rem; margin: 0 auto;
   padding: calc(48px + env(safe-area-inset-top, 0px)) max(28px, env(safe-area-inset-right, 0px)) 200px max(28px, env(safe-area-inset-left, 0px));
@@ -88,15 +86,11 @@ article p { font-size: 20px; line-height: 1.5; margin: 0 0 1em; }
 article p.lead::first-letter { font-size: 3.1em; float: left; line-height: .9; padding: 4px 8px 0 0; font-weight: 600; color: var(--accent); }
 blockquote { margin: 1.4em 0; padding: 0; font-size: 25px; line-height: 1.22; font-style: italic; color: var(--accent); text-wrap: balance; }
 
-/* Flat scroll surface on the glass: captures touch and wheel, drives the text layer */
-.scroller { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain; scrollbar-width: none; }
-.scroller::-webkit-scrollbar { display: none; }
+/* The document itself scrolls (this spacer gives it the article's height); the article is moved to match. */
 .spacer { width: 1px; }
-.scroller:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 
-
-.panel { position: absolute; z-index: 2; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+.panel { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); width: min(366px, calc(100% - 24px)); box-sizing: border-box;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   background: var(--panel); color: var(--panel-ink); border-radius: 18px; padding: 12px 14px;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   font-family: var(--mono); font-size: 11px; display: grid; gap: 10px; }
@@ -117,7 +111,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   <div class="space" id="space">
     <div class="plane"></div>
     <div class="litpatch" id="litpatch"><div class="shade wide"></div><div class="shade near"></div></div>
-    <div class="textplane">
+  </div>
+  <div class="textplane">
       <article id="article">
         <div class="kicker">Grid Economics</div>
         <h1>The Line Before the Line</h1>
@@ -129,11 +124,11 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
         <p>Each request triggers studies of how the new plant would change power flows across the network. When one project withdraws, the studies of everyone behind it can change, and the cycle restarts. Developers file extra requests to hedge, which lengthens the line for everyone.</p>
         <p>Grid operators have started to batch requests into clusters, raise deposits, and require proof that a developer controls the land. These reforms trade speed for seriousness. Whether they shorten the wait or only change who waits is the open question.</p>
         <p>What makes the queue hard to see is that it produces no ribbon cuttings. Its output is an absence: plants that were designed, financed on paper, and then quietly dropped when the upgrade bill arrived years later.</p>
-        <p>Tilt the phone while you read this. The words float just behind the glass and barely move. Behind them the grid shifts with your angle, and the edge of the phone casts its shadow onto the grid on the side opposite your tilt.</p>
+        <p>Tilt the phone while you read this. The words hold still just inside the glass. Behind them the grid shifts with your angle, and the edge of the phone casts its shadow onto the grid on the side opposite your tilt.</p>
       </article>
     </div>
-  </div>
-  <div class="scroller" id="scroller" tabindex="0" aria-label="Article"><div class="spacer" id="spacer"></div></div>
+</div>
+<div class="spacer" id="spacer"></div>
 
   <div class="panel" id="panel">
     <div class="row">
@@ -153,7 +148,6 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
       <button id="gridBtn" type="button" aria-pressed="true">Grid</button>
     </div>
     <div class="status" id="status">Move the mouse over the screen, or tap "Use tilt sensor" on a phone.</div>
-  </div>
 </div>
 
 <script>
@@ -163,7 +157,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   const MAX_DEG = 28;
   const $ = id => document.getElementById(id);
   const stage = $('stage'), space = $('space'), patch = $('litpatch');
-  const article = $('article'), scroller = $('scroller'), spacer = $('spacer');
+  const article = $('article'), spacer = $('spacer');
   const depthIn = $('depth'), lightIn = $('light'), readout = $('readout'), status = $('status');
   const motionBtn = $('motionBtn'), swayBtn = $('swayBtn'), centerBtn = $('centerBtn');
   const gridBtn = $('gridBtn'), minBtn = $('minBtn'), panel = $('panel');
@@ -181,8 +175,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
     space.style.setProperty('--d', d + 'px');
     // Scale the lit patch so that, held straight, it exactly fills the window: no shadow at rest.
     space.style.setProperty('--fit', ((P + d) / P).toFixed(4));
-    space.style.setProperty('--soft', (5 + d / 40).toFixed(1) + 'px');
-    readout.textContent = 'grid ' + (d / PX_PER_MM).toFixed(0) + ' mm · text 3 mm';
+    space.style.setProperty('--soft', (12 + d / 25).toFixed(1) + 'px');
+    readout.textContent = (d / PX_PER_MM).toFixed(0) + ' mm';
   }
   depthIn.addEventListener('input', () => setDepth(+depthIn.value));
   lightIn.addEventListener('input', () => { gain = +lightIn.value / 100; });
@@ -192,15 +186,15 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   sizeSpacer();
   window.addEventListener('resize', sizeSpacer);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeSpacer);
-  scroller.addEventListener('scroll', () => { scrollY = scroller.scrollTop; }, { passive: true });
+  window.addEventListener('scroll', () => { scrollY = Math.max(0, window.scrollY); }, { passive: true });
 
-  stage.addEventListener('pointermove', e => {
+  window.addEventListener('pointermove', e => {
     if (mode !== 'pointer' || e.pointerType !== 'mouse') return;
     const r = stage.getBoundingClientRect();
     tx = (e.clientX - (r.left + r.width / 2)) * 1.4;
     ty = (e.clientY - (r.top + r.height / 2)) * 1.0;
   });
-  stage.addEventListener('pointerleave', () => { if (mode === 'pointer') { tx = 0; ty = 0; } });
+  document.documentElement.addEventListener('pointerleave', () => { if (mode === 'pointer') { tx = 0; ty = 0; } });
 
   function onOrient(e) {
     if (e.beta == null || e.gamma == null) return;
