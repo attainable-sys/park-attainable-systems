@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Recessed Article</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the screen is a window. Behind it, an endless grid plane at depth D; the text floats on a clear layer at D/2.
+   The phone body around the window blocks light, so its edge casts a shadow onto the grid. */
+:root {
+  --room: #D6DAD6;
+  --bezel: #1A1D1F;
+  --back: #E9EBE6;
+  --ink: #1C2024;
+  --muted: #535C62;
+  --accent: #2D5E86;
+  --shadow: rgba(20, 28, 36, 0.26);
+  --shadow-wide: rgba(20, 28, 36, 0.08);
+  --screen-r: 48px;
+  --grid: rgba(20, 40, 60, 0.18);
+  --grid-strong: rgba(20, 40, 60, 0.32);
+  --panel: rgba(28, 32, 36, 0.84);
+  --panel-ink: #EEF1EC;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --room: #0D0F10; --bezel: #000; --back: #1E2226; --ink: #E4E7E2; --muted: #9AA39D; --accent: #8FB7D8;
+    --shadow: rgba(0, 0, 0, 0.5); --shadow-wide: rgba(0, 0, 0, 0.18); --grid: rgba(170, 205, 235, 0.14); --grid-strong: rgba(170, 205, 235, 0.28);
+    --panel: rgba(236, 240, 234, 0.9); --panel-ink: #15181A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --room: #0D0F10; --bezel: #000; --back: #1E2226; --ink: #E4E7E2; --muted: #9AA39D; --accent: #8FB7D8;
+  --shadow: rgba(0, 0, 0, 0.5); --shadow-wide: rgba(0, 0, 0, 0.18); --grid: rgba(170, 205, 235, 0.14); --grid-strong: rgba(170, 205, 235, 0.28);
+  --panel: rgba(236, 240, 234, 0.9); --panel-ink: #15181A; color-scheme: dark;
+}
+html, body { height: 100%; margin: 0; }
+body { background: var(--room); color: var(--ink); display: grid; place-items: center; overflow: hidden; }
+
+.stage {
+  position: relative; width: 100%; height: 100%;
+  perspective: 1000px; perspective-origin: 50% 50%;
+  overflow: hidden; background: var(--back);
+}
+@media (min-width: 560px) {
+  .stage {
+    width: min(390px, calc(100vw - 32px)); height: min(820px, calc(100% - 32px));
+    border: 11px solid var(--bezel); border-radius: 48px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.35);
+  }
+}
+
+.space { position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; --d: 160px; }
+
+/* Endless grid plane: far larger than the window, so no edge is ever visible */
+.plane { position: absolute; inset: -200%; background-color: var(--back);
+  transform: translateZ(calc(var(--d) * -1));
+  background-image:
+    repeating-linear-gradient(to right, var(--grid-strong) 0 1px, transparent 1px 120px),
+    repeating-linear-gradient(to bottom, var(--grid-strong) 0 1px, transparent 1px 120px),
+    repeating-linear-gradient(to right, var(--grid) 0 1px, transparent 1px 24px),
+    repeating-linear-gradient(to bottom, var(--grid) 0 1px, transparent 1px 24px);
+  background-position: center; }
+.plain .plane { background-image: none; }
+
+/* Light that comes in through the window lands on the plane as a lit patch the size of the window.
+   Everything outside the patch is in the phone body's shadow. */
+.litpatch { position: absolute; inset: 0;
+  transform: translate3d(var(--rx, 0px), var(--ry, 0px), calc(var(--d) * -1 + 1px)) scale(var(--fit, 1)); }
+/* Room light comes in through the screen opening, so the lit patch has the screen's own shape, rounded corners included.
+   A fairly crisp edge, plus a faint wide penumbra from light arriving at other angles. */
+.shade { position: absolute; inset: 0; border-radius: var(--screen-r); box-shadow: 0 0 0 700px var(--shadow); }
+.shade.near { filter: blur(var(--soft, 10px)); }
+.shade.wide { box-shadow: 0 0 0 700px var(--shadow-wide); filter: blur(calc(var(--soft, 10px) * 4)); }
+
+/* Floating text layer at half depth. No clipping, so text runs off past the window edges like everything else. */
+.textplane { position: absolute; inset: 0; transform: translateZ(calc(var(--d) * -0.5)); }
+
+article { position: absolute; left: 0; right: 0; top: 0; max-width: 34rem; margin: 0 auto;
+  padding: calc(48px + env(safe-area-inset-top, 0px)) max(28px, env(safe-area-inset-right, 0px)) 200px max(28px, env(safe-area-inset-left, 0px));
+  font-family: var(--serif); will-change: transform; }
+.kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font-weight: 600; font-size: 36px; line-height: 1.06; letter-spacing: -0.01em; margin: 14px 0 12px; text-wrap: balance; }
+.dek { font-style: italic; font-size: 20px; line-height: 1.35; color: var(--muted); margin: 0 0 18px; }
+.byline { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .04em; margin-bottom: 26px; }
+article p { font-size: 20px; line-height: 1.5; margin: 0 0 1em; }
+article p.lead::first-letter { font-size: 3.1em; float: left; line-height: .9; padding: 4px 8px 0 0; font-weight: 600; color: var(--accent); }
+blockquote { margin: 1.4em 0; padding: 0; font-size: 25px; line-height: 1.22; font-style: italic; color: var(--accent); text-wrap: balance; }
+
+/* Flat scroll surface on the glass: captures touch and wheel, drives the text layer */
+.scroller { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain; scrollbar-width: none; }
+.scroller::-webkit-scrollbar { display: none; }
+.spacer { width: 1px; }
+.scroller:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
+
+.sheen { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 45%, transparent 60%);
+  background-size: 260% 100%; background-position: 50% 0; mix-blend-mode: screen; }
+
+.panel { position: absolute; z-index: 2; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--panel); color: var(--panel-ink); border-radius: 18px; padding: 12px 14px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-family: var(--mono); font-size: 11px; display: grid; gap: 10px; }
+.row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.row label { flex: 0 0 auto; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.row input[type=range] { flex: 1 1 110px; min-width: 0; accent-color: var(--accent); }
+.readout { font-variant-numeric: tabular-nums; text-align: right; }
+button { font: inherit; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: inherit;
+  background: transparent; border: 1px solid currentColor; border-radius: 999px; padding: 7px 11px; cursor: pointer; }
+button[aria-pressed="true"] { background: var(--panel-ink); color: var(--panel); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.status { opacity: .8; line-height: 1.4; }
+.hide-btn { margin-left: auto; }
+.panel.min .row.extra, .panel.min .status { display: none; }
+</style>
+
+<div class="stage" id="stage">
+  <div class="space" id="space">
+    <div class="plane"></div>
+    <div class="litpatch" id="litpatch"><div class="shade wide"></div><div class="shade near"></div></div>
+    <div class="textplane">
+      <article id="article">
+        <div class="kicker">Grid Economics</div>
+        <h1>The Line Before the Line</h1>
+        <p class="dek">Most new power plants never fail on engineering. They stall in a waiting room most people have never heard of.</p>
+        <div class="byline">Mockup text · 6 min read</div>
+        <p class="lead">Before a solar farm or a battery can sell a single kilowatt-hour, it has to ask permission to plug in. The request goes into an interconnection queue run by the regional grid operator, and the queue decides who studies the project, when, and what upgrades the developer will be asked to pay for.</p>
+        <p>For most of the twentieth century this was a quiet process. A utility planned a plant, studied its own wires, and built both. The queue only became a bottleneck once thousands of independent developers began proposing projects at once, many of them speculative, many in the same windy or sunny places where the existing lines were already full.</p>
+        <blockquote>The bottleneck is not the panel or the turbine. It is the paperwork that decides who pays for the wire.</blockquote>
+        <p>Each request triggers studies of how the new plant would change power flows across the network. When one project withdraws, the studies of everyone behind it can change, and the cycle restarts. Developers file extra requests to hedge, which lengthens the line for everyone.</p>
+        <p>Grid operators have started to batch requests into clusters, raise deposits, and require proof that a developer controls the land. These reforms trade speed for seriousness. Whether they shorten the wait or only change who waits is the open question.</p>
+        <p>What makes the queue hard to see is that it produces no ribbon cuttings. Its output is an absence: plants that were designed, financed on paper, and then quietly dropped when the upgrade bill arrived years later.</p>
+        <p>Tilt the phone while you read this. The words float halfway between the glass and the grid, and the edge of the phone casts its shadow onto the grid on the side opposite your tilt.</p>
+      </article>
+    </div>
+  </div>
+  <div class="scroller" id="scroller" tabindex="0" aria-label="Article"><div class="spacer" id="spacer"></div></div>
+  <div class="sheen" id="sheen"></div>
+
+  <div class="panel" id="panel">
+    <div class="row">
+      <button id="motionBtn" type="button" aria-pressed="false">Use tilt sensor</button>
+      <button id="swayBtn" type="button" aria-pressed="false">Sway</button>
+      <button id="centerBtn" type="button">Recenter</button>
+      <button id="minBtn" class="hide-btn" type="button" aria-label="Collapse controls">–</button>
+    </div>
+    <div class="row extra">
+      <label for="depth">Grid depth</label>
+      <input id="depth" type="range" min="40" max="400" step="2" value="160">
+      <span class="readout" id="readout"></span>
+    </div>
+    <div class="row extra">
+      <label for="light">Edge shadow</label>
+      <input id="light" type="range" min="0" max="250" step="5" value="100">
+      <button id="gridBtn" type="button" aria-pressed="true">Grid</button>
+    </div>
+    <div class="status" id="status">Move the mouse over the screen, or tap "Use tilt sensor" on a phone.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const P = 1000;               // eye-to-glass distance in CSS px
+  const PX_PER_MM = 6.0;        // typical phone: ~153 CSS px per inch
+  const MAX_DEG = 28;
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), space = $('space'), sheen = $('sheen'), patch = $('litpatch');
+  const article = $('article'), scroller = $('scroller'), spacer = $('spacer');
+  const depthIn = $('depth'), lightIn = $('light'), readout = $('readout'), status = $('status');
+  const motionBtn = $('motionBtn'), swayBtn = $('swayBtn'), centerBtn = $('centerBtn');
+  const gridBtn = $('gridBtn'), minBtn = $('minBtn'), panel = $('panel');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let D = +depthIn.value, gain = +lightIn.value / 100;
+  let tx = 0, ty = 0, cx = 0, cy = 0, scrollY = 0;
+  let mode = 'pointer';
+  let beta0 = null, gamma0 = null, lastBeta = null, lastGamma = null, gotEvent = false;
+  const clamp = (v, a) => Math.max(-a, Math.min(a, v));
+  const rad = d => d * Math.PI / 180;
+
+  function setDepth(d) {
+    D = d;
+    space.style.setProperty('--d', d + 'px');
+    // Scale the lit patch so that, held straight, it exactly fills the window: no shadow at rest.
+    space.style.setProperty('--fit', ((P + d) / P).toFixed(4));
+    space.style.setProperty('--soft', (5 + d / 40).toFixed(1) + 'px');
+    readout.textContent = 'grid ' + (d / PX_PER_MM).toFixed(0) + ' mm · text ' + (d / 2 / PX_PER_MM).toFixed(1) + ' mm';
+  }
+  depthIn.addEventListener('input', () => setDepth(+depthIn.value));
+  lightIn.addEventListener('input', () => { gain = +lightIn.value / 100; });
+  setDepth(D);
+
+  function sizeSpacer() { spacer.style.height = article.offsetHeight + 'px'; }
+  sizeSpacer();
+  window.addEventListener('resize', sizeSpacer);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeSpacer);
+  scroller.addEventListener('scroll', () => { scrollY = scroller.scrollTop; }, { passive: true });
+
+  stage.addEventListener('pointermove', e => {
+    if (mode !== 'pointer' || e.pointerType !== 'mouse') return;
+    const r = stage.getBoundingClientRect();
+    tx = (e.clientX - (r.left + r.width / 2)) * 1.4;
+    ty = (e.clientY - (r.top + r.height / 2)) * 1.0;
+  });
+  stage.addEventListener('pointerleave', () => { if (mode === 'pointer') { tx = 0; ty = 0; } });
+
+  function onOrient(e) {
+    if (e.beta == null || e.gamma == null) return;
+    gotEvent = true;
+    lastBeta = e.beta; lastGamma = e.gamma;
+    if (beta0 === null) { beta0 = e.beta; gamma0 = e.gamma; }
+    if (mode !== 'sensor') return;
+    const g = clamp(e.gamma - gamma0, MAX_DEG);
+    const b = clamp(beta0 - e.beta, MAX_DEG);
+    tx = -P * Math.sin(rad(g));
+    ty =  P * Math.sin(rad(b));
+  }
+
+  function setMode(m) {
+    mode = m;
+    motionBtn.setAttribute('aria-pressed', m === 'sensor');
+    swayBtn.setAttribute('aria-pressed', m === 'sway');
+    if (m === 'pointer') { tx = 0; ty = 0; }
+  }
+
+  motionBtn.addEventListener('click', async () => {
+    if (mode === 'sensor') { setMode('pointer'); status.textContent = 'Tilt sensor off.'; return; }
+    try {
+      if (typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function') {
+        const res = await DeviceOrientationEvent.requestPermission();
+        if (res !== 'granted') throw new Error('denied');
+      }
+      window.addEventListener('deviceorientation', onOrient);
+      beta0 = null; gotEvent = false;
+      setMode('sensor');
+      status.textContent = 'Listening for tilt…';
+      setTimeout(() => {
+        if (mode !== 'sensor') return;
+        if (gotEvent) status.textContent = 'Tilt is live. Hold the phone how you read, then tap Recenter.';
+        else { status.textContent = 'This view blocks the tilt sensor. Showing sway instead.'; setMode('sway'); }
+      }, 1500);
+    } catch (err) {
+      status.textContent = 'Tilt permission was refused here. Showing sway instead.';
+      setMode('sway');
+    }
+  });
+  swayBtn.addEventListener('click', () => {
+    if (mode === 'sway') { setMode('pointer'); status.textContent = 'Sway off.'; }
+    else { setMode('sway'); status.textContent = 'Simulating a slow tilt in a circle.'; }
+  });
+  centerBtn.addEventListener('click', () => {
+    if (lastBeta !== null) { beta0 = lastBeta; gamma0 = lastGamma; }
+    tx = 0; ty = 0;
+  });
+  gridBtn.addEventListener('click', () => {
+    const plain = space.classList.toggle('plain');
+    gridBtn.setAttribute('aria-pressed', !plain);
+  });
+  minBtn.addEventListener('click', () => {
+    const min = panel.classList.toggle('min');
+    minBtn.textContent = min ? '+' : '–';
+    minBtn.setAttribute('aria-label', min ? 'Expand controls' : 'Collapse controls');
+  });
+
+  const t0 = performance.now();
+  function frame(now) {
+    if (mode === 'sway') {
+      const t = (now - t0) / 1000 * (reduce ? 0.35 : 1);
+      tx = -P * Math.sin(rad(16 * Math.sin(t * 0.7)));
+      ty =  P * Math.sin(rad(12 * Math.cos(t * 0.7)));
+    }
+    cx += (tx - cx) * 0.12;
+    cy += (ty - cy) * 0.12;
+    stage.style.perspectiveOrigin = `calc(50% + ${cx.toFixed(1)}px) calc(50% + ${cy.toFixed(1)}px)`;
+    // Light comes from where your eye was when you recentered. As the phone tilts, the lit patch on the
+    // grid slides toward the tilted-down side, uncovering the phone edge's shadow on the opposite side.
+    // The visible part of the grid already shifts by -cx * D / P; moving the patch further than that is what reveals the shadow.
+    const k = (D / P) * (1 + 0.9 * gain);
+    patch.style.setProperty('--rx', (-cx * k).toFixed(1) + 'px');
+    patch.style.setProperty('--ry', (-cy * k).toFixed(1) + 'px');
+    article.style.transform = `translate3d(0, ${-scrollY}px, 0)`;
+    sheen.style.backgroundPosition = `${50 + cx / 12}% 0`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
