@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: the screen is a window. Behind it, an endless grid plane at depth D; the text floats on a clear layer at D/2.
+/* Light theme only. Layout: the screen is a window. Behind it, an endless grid plane at depth D; the text floats on a clear layer at D/2.
    The phone body around the window blocks light, so its edge casts a shadow onto the grid. */
 :root {
   --room: #D6DAD6;
@@ -28,18 +28,6 @@
   --panel-ink: #EEF1EC;
   --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --room: #0D0F10; --bezel: #000; --back: #1E2226; --ink: #E4E7E2; --muted: #9AA39D; --accent: #8FB7D8;
-    --shadow: rgba(0, 0, 0, 0.5); --shadow-wide: rgba(0, 0, 0, 0.18); --grid: rgba(170, 205, 235, 0.14); --grid-strong: rgba(170, 205, 235, 0.28);
-    --panel: rgba(236, 240, 234, 0.9); --panel-ink: #15181A; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --room: #0D0F10; --bezel: #000; --back: #1E2226; --ink: #E4E7E2; --muted: #9AA39D; --accent: #8FB7D8;
-  --shadow: rgba(0, 0, 0, 0.5); --shadow-wide: rgba(0, 0, 0, 0.18); --grid: rgba(170, 205, 235, 0.14); --grid-strong: rgba(170, 205, 235, 0.28);
-  --panel: rgba(236, 240, 234, 0.9); --panel-ink: #15181A; color-scheme: dark;
 }
 html, body { height: 100%; margin: 0; }
 body { background: var(--room); color: var(--ink); display: grid; place-items: center; overflow: hidden; }
@@ -101,9 +89,6 @@ blockquote { margin: 1.4em 0; padding: 0; font-size: 25px; line-height: 1.22; fo
 .spacer { width: 1px; }
 .scroller:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 
-.sheen { position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.12) 45%, transparent 60%);
-  background-size: 260% 100%; background-position: 50% 0; mix-blend-mode: screen; }
 
 .panel { position: absolute; z-index: 2; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   background: var(--panel); color: var(--panel-ink); border-radius: 18px; padding: 12px 14px;
@@ -143,7 +128,6 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
     </div>
   </div>
   <div class="scroller" id="scroller" tabindex="0" aria-label="Article"><div class="spacer" id="spacer"></div></div>
-  <div class="sheen" id="sheen"></div>
 
   <div class="panel" id="panel">
     <div class="row">
@@ -172,7 +156,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   const PX_PER_MM = 6.0;        // typical phone: ~153 CSS px per inch
   const MAX_DEG = 28;
   const $ = id => document.getElementById(id);
-  const stage = $('stage'), space = $('space'), sheen = $('sheen'), patch = $('litpatch');
+  const stage = $('stage'), space = $('space'), patch = $('litpatch');
   const article = $('article'), scroller = $('scroller'), spacer = $('spacer');
   const depthIn = $('depth'), lightIn = $('light'), readout = $('readout'), status = $('status');
   const motionBtn = $('motionBtn'), swayBtn = $('swayBtn'), centerBtn = $('centerBtn');
@@ -288,7 +272,6 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
     patch.style.setProperty('--rx', (-cx * k).toFixed(1) + 'px');
     patch.style.setProperty('--ry', (-cy * k).toFixed(1) + 'px');
     article.style.transform = `translate3d(0, ${-scrollY}px, 0)`;
-    sheen.style.backgroundPosition = `${50 + cx / 12}% 0`;
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
