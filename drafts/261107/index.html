@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#CACDCA">
 </head>
 <body>
 <title>Recessed Article</title>
@@ -40,10 +39,15 @@ html, body { margin: 0; background: var(--edge); color: var(--ink); }
   position: -webkit-sticky; position: sticky; top: 0; width: 100%; height: 100vh; height: 100lvh;
   perspective: 1000px; perspective-origin: 50% 50%;
   overflow: hidden; background: var(--back);
+  /* iOS 26 Safari paints its status bar solid from any full-width pinned element at the top edge.
+     A hidden, tap-through box is skipped, so Safari shows the page there; the children stay visible. */
+  visibility: hidden; pointer-events: none;
 }
+.stage > * { visibility: visible; }
 @media (min-width: 560px) {
   html, body { background: var(--room); }
   .stage {
+    visibility: visible;
     top: 16px; margin: 16px auto;
     width: min(390px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px)); height: min(820px, calc(100svh - 32px));
     border: 11px solid var(--bezel); border-radius: 48px;
