@@ -13,7 +13,8 @@
 <style>
 /* Light theme only. Layout: the screen is a window. Behind it, an endless grid plane at depth D.
    The text sits still just inside the glass; the phone body around the window blocks light, so its edge casts a shadow onto the grid.
-   The page scrolls as a normal document so Safari can tuck its toolbars away and the stage runs edge to edge. */
+   On phones the stage is ordinary page content one large-viewport tall, because iOS 26 Safari only draws page content
+   (not fixed elements) behind its glass toolbars. The article scrolls inside the stage. */
 :root {
   --room: #D6DAD6;
   --bezel: #1A1D1F;
@@ -33,16 +34,16 @@
 }
 html, body { margin: 0; background: var(--back); color: var(--ink); }
 
-/* On a phone the stage is pinned to the full screen height, including the area behind Safari's toolbars (lvh). */
+/* On a phone the stage is in-flow content the height of the full screen (lvh), so it runs behind Safari's toolbars. */
 .stage {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh;
+  position: relative; width: 100%; height: 100vh; height: 100lvh;
   perspective: 1000px; perspective-origin: 50% 50%;
   overflow: hidden; background: var(--back);
 }
 @media (min-width: 560px) {
   html, body { background: var(--room); }
   .stage {
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
     width: min(390px, calc(100vw - 32px)); height: min(820px, calc(100vh - 32px));
     border: 11px solid var(--bezel); border-radius: 48px;
     box-shadow: 0 30px 60px -20px rgba(0,0,0,.35);
@@ -86,8 +87,12 @@ article p { font-size: 20px; line-height: 1.5; margin: 0 0 1em; }
 article p.lead::first-letter { font-size: 3.1em; float: left; line-height: .9; padding: 4px 8px 0 0; font-weight: 600; color: var(--accent); }
 blockquote { margin: 1.4em 0; padding: 0; font-size: 25px; line-height: 1.22; font-style: italic; color: var(--accent); text-wrap: balance; }
 
-/* The document itself scrolls (this spacer gives it the article's height); the article is moved to match. */
+/* Scroll surface over the stage: captures touch and wheel, drives the article */
+.scroller { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain; scrollbar-width: none; }
+.scroller::-webkit-scrollbar { display: none; }
 .spacer { width: 1px; }
+.scroller:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; }
 
 .panel { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); width: min(366px, calc(100% - 24px)); box-sizing: border-box;
   bottom: calc(12px + env(safe-area-inset-bottom, 0px));
@@ -127,8 +132,8 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
         <p>Tilt the phone while you read this. The words hold still just inside the glass. Behind them the grid shifts with your angle, and the edge of the phone casts its shadow onto the grid on the side opposite your tilt.</p>
       </article>
     </div>
+  <div class="scroller" id="scroller" tabindex="0" aria-label="Article"><div class="spacer" id="spacer"></div></div>
 </div>
-<div class="spacer" id="spacer"></div>
 
   <div class="panel" id="panel">
     <div class="row">
@@ -157,7 +162,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   const MAX_DEG = 28;
   const $ = id => document.getElementById(id);
   const stage = $('stage'), space = $('space'), patch = $('litpatch');
-  const article = $('article'), spacer = $('spacer');
+  const article = $('article'), scroller = $('scroller'), spacer = $('spacer');
   const depthIn = $('depth'), lightIn = $('light'), readout = $('readout'), status = $('status');
   const motionBtn = $('motionBtn'), swayBtn = $('swayBtn'), centerBtn = $('centerBtn');
   const gridBtn = $('gridBtn'), minBtn = $('minBtn'), panel = $('panel');
@@ -186,7 +191,7 @@ button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); ou
   sizeSpacer();
   window.addEventListener('resize', sizeSpacer);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeSpacer);
-  window.addEventListener('scroll', () => { scrollY = Math.max(0, window.scrollY); }, { passive: true });
+  scroller.addEventListener('scroll', () => { scrollY = scroller.scrollTop; }, { passive: true });
 
   window.addEventListener('pointermove', e => {
     if (mode !== 'pointer' || e.pointerType !== 'mouse') return;
