@@ -630,7 +630,18 @@ def main():
 
     # ── photography
     series = []
-    for sname in SERIES:
+    MONTHS = {m: i for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august",
+                                         "september", "october", "november", "december"], 1)}
+    def latest(sname):  # newest photo in a series, from the dates in its captions
+        best = (0, 0)
+        for p in PHOTOS:
+            if p[3] != sname:
+                continue
+            t = f"{p[1]} {p[2]}".lower()
+            for y in re.finditer(r"(?:([a-z]+)\s+)?(?:\d{1,2}\s+)?(20\d\d)", t):
+                best = max(best, (int(y.group(2)), MONTHS.get(y.group(1) or "", 0)))
+        return best
+    for sname in sorted(SERIES, key=latest, reverse=True):
         ps = [p for p in PHOTOS if p[3] == sname and p is not hero]
         from PIL import Image
         def ar(f):
