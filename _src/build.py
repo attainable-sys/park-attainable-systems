@@ -302,7 +302,7 @@ def page(title, body, active=None, desc=None, path="/", extra_head=""):
 <link rel="canonical" href="{SITE}{path}">
 <link rel="alternate" type="application/rss+xml" title="codex magna · notebook" href="/rss.xml">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23172040'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23f0a050'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%231f0f2b'/%3E%3Crect x='4' y='4' width='8' height='8' fill='%23ff5f38'/%3E%3C/svg%3E">
 <script>try{{var t=localStorage.getItem("cm-theme");if(t)document.documentElement.setAttribute("data-theme",t)}}catch(e){{}}</script>
 {extra_head}</head>
 <body>

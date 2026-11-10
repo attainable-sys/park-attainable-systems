@@ -5,14 +5,14 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:   #172040;
-  --surf: #1e2a52;
-  --line: #2a3a6a;
-  --dim:  #6a7aaa;
-  --text: #b0bce0;
-  --hi:   #e0e8ff;
-  --acc:  #f0a050;
-  --link: #80b0f0;
+  --bg:   #1f0f2b;
+  --surf: #2a152e;
+  --line: #45285a;
+  --dim:  #9a7aa4;
+  --text: #e0c8d4;
+  --hi:   #fff0ea;
+  --acc:  #ff5f38;
+  --link: #ffa070;
 }
 
 :root[data-theme="light"] {
@@ -29,7 +29,12 @@
 :root[data-theme="light"] { color-scheme: light; }
 
 html { background: var(--bg); color: var(--text); font: 15px/1.7 'IBM Plex Mono', ui-monospace, monospace; -webkit-text-size-adjust: 100%; }
-body { max-width: 860px; margin: 0 auto; padding: 0 20px; background: var(--bg); }
+body { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+/* totality: a faint sunset on every horizon, brightest right at the edge of the window */
+body::after { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; transition: opacity 1.5s ease;
+  box-shadow: inset 0 0 6px rgba(160,64,24,.375), inset 0 0 26px rgba(140,48,26,.25), inset 0 0 80px rgba(110,28,44,.2), inset 0 0 220px rgba(80,18,52,.175),
+    inset 0 -3px 10px rgba(180,80,26,.4), inset 0 -18px 50px rgba(150,52,24,.225); }
+:root[data-theme="light"] body::after { opacity: 0; }
 ::selection { background: var(--acc); color: var(--bg); }
 a { color: var(--link); text-decoration: none; }
 a:hover { color: var(--acc); }
@@ -53,7 +58,7 @@ header .signal { font-size: 13px; color: var(--dim); text-align: right; }
 .eclipse .st.b { animation: corona-b 11s ease-in-out infinite; }
 .eclipse .sun { fill: #fff6e6; transition: fill 1.4s ease; }
 .eclipse .moon-pos { transition: transform 1.8s cubic-bezier(.45, 0, .2, 1); }
-.eclipse .moon { fill: var(--bg); }
+.eclipse .moon { fill: var(--bg); transition: fill 1.5s ease; }
 .eclipse .ring { fill: none; stroke: #fff6e6; stroke-width: .55; opacity: .85; transition: opacity .5s ease 1.3s; }
 .eclipse .glint { fill: #fff; opacity: 0; transform-box: fill-box; transform-origin: center; }
 .eclipse .g1 { animation: glint 8s ease-in-out 2s infinite; }
@@ -85,7 +90,7 @@ header .signal { font-size: 13px; color: var(--dim); text-align: right; }
   .eclipse, .eclipse svg { width: 56px; height: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .eclipse *, :root.theming, :root.theming body, :root.theming body * { animation: none !important; transition: none !important; }
+  body::after, .eclipse *, :root.theming, :root.theming body, :root.theming body * { animation: none !important; transition: none !important; }
 }
 nav { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 13px; }
 nav a { color: var(--dim); padding: 2px 0; border-bottom: 1px solid transparent; }
