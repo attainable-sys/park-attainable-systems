@@ -77,7 +77,7 @@ header .signal { font-size: 13px; color: var(--dim); text-align: right; }
 @keyframes diamond-in { 0%, 52% { opacity: 0; transform: scale(0); } 76% { opacity: 1; transform: scale(1.15); } 92%, 100% { opacity: 0; transform: scale(0); } }
 @keyframes moon-drift { from { transform: translate(0, 0); } to { transform: translate(-1.6px, 1.4px); } }
 /* while the switch turns, the page dims or brightens with it */
-:root.theming body, :root.theming body *:not(.eclipse):not(.eclipse *) { transition: background-color 1.5s ease, color 1.5s ease, border-color 1.5s ease; }
+:root.theming, :root.theming body, :root.theming body *:not(.eclipse):not(.eclipse *) { transition: background-color 1.5s ease, color 1.5s ease, border-color 1.5s ease; }
 @media (max-width: 560px) {
   header { padding-top: 20px; gap: 8px; }
   header h1 { font-size: 13px; letter-spacing: 1.5px; }
@@ -85,7 +85,7 @@ header .signal { font-size: 13px; color: var(--dim); text-align: right; }
   .eclipse, .eclipse svg { width: 56px; height: 56px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .eclipse *, :root.theming body, :root.theming body * { animation: none !important; transition: none !important; }
+  .eclipse *, :root.theming, :root.theming body, :root.theming body * { animation: none !important; transition: none !important; }
 }
 nav { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 13px; }
 nav a { color: var(--dim); padding: 2px 0; border-bottom: 1px solid transparent; }
