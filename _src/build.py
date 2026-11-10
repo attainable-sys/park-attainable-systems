@@ -603,11 +603,30 @@ def main():
   <div class="s-head">—— &mdash; the stacks</div>
   <h2>The Stacks</h2>
   <p>Codex Magna is an Obsidian vault, numbered like a library. This is the part of it that is public: {len(notes)} notes across {len(FOLDER_LISTS)} folders, every link between them kept. Start anywhere.</p>
+  <p><a class="graph-link" href="/vault/graph/">see the stacks in three dimensions &rarr;</a></p>
   <div class="idx">{''.join(stacks)}</div>
   <div class="s-head" style="margin-top:36px;">all notes, a–z</div>
   <div class="az">{''.join(f'<a href="{n.href}"><span class="n">{n.id}</span>{esc(n.title)}</a>' for n in sorted(notes, key=lambda n: n.title.lower().lstrip("'\"¿")))}</div>
 </div>"""
     write("vault/index.html", page("the stacks", vp, None, path="/vault/"))
+
+    # ── the graph: every note and link, for vault/graph/ (template in _src/graph.html)
+    gn = sorted(notes, key=lambda n: n.id)
+    gi = {id(n): i for i, n in enumerate(gn)}
+    gf = sorted({(n.dewey, n.flabel) for n in gn})
+    gfi = {d: i for i, (d, _) in enumerate(gf)}
+    ge = {}
+    for n in gn:
+        for o in n.out:
+            ge[tuple(sorted((gi[id(n)], gi[id(o)])))] = 0
+    for n in gn:
+        for o in n.mentions:
+            ge.setdefault(tuple(sorted((gi[id(n)], gi[id(o)]))), 1)
+    gdata = {"folders": [{"d": d, "l": l} for d, l in gf],
+             "nodes": [[n.title, gfi[n.dewey], n.href, 1 if n.notebook else 0, n.id] for n in gn],
+             "edges": [[a, b, m] for (a, b), m in sorted(ge.items())]}
+    gjson = json.dumps(gdata, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
+    write("vault/graph/index.html", open(os.path.join(SRC, "graph.html")).read().replace("__DATA__", gjson))
 
     # ── photography
     series = []
@@ -754,7 +773,7 @@ def main():
 </channel></rss>
 """)
     # ── sitemap
-    urls = ["/", "/photography/", "/notebook/", "/systems/", "/library/", "/about/", "/shelf/", "/figment/", "/vault/", "/deck/"]
+    urls = ["/", "/photography/", "/notebook/", "/systems/", "/library/", "/about/", "/shelf/", "/figment/", "/vault/", "/vault/graph/", "/deck/"]
     urls += [f"/vault/{d}/" for d in sorted(FOLDER_LISTS)] + [n.href for n in notes]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"<url><loc>{SITE}{u}</loc></url>\n" for u in urls) + "</urlset>\n")

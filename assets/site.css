@@ -281,3 +281,5 @@ footer a:hover { color: var(--acc); }
 html.lb-open { overflow: hidden; }
 @media (max-width: 760px) { .lb-prev, .lb-next { display: none; } }
 @media (prefers-reduced-motion: reduce) { .lb, .lb.on { transition: none; } }
+.graph-link { display: inline-block; margin: 6px 0 4px; padding: 6px 14px; border: 1px solid var(--acc); color: var(--acc); }
+.graph-link:hover { background: var(--acc); color: var(--bg); }

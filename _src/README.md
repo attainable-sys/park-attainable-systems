@@ -45,3 +45,9 @@ inline, and lists the pair on both pages: "in the writing" on the vault note,
 
 The eclipse button in the header switches themes (total eclipse = dark, partial =
 light). The choice is remembered in the visitor's browser only.
+
+## The graph
+
+`/vault/graph/` is the stacks in three dimensions. The page is `_src/graph.html`;
+the build fills in the notes and links. Layout numbers (gravity, the pull toward
+each folder's home, orbit speed) are near the top of its script.
