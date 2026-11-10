@@ -14,21 +14,25 @@
 <body>
 <header>
   <h1><a href="/">codex magna</a></h1>
-  <div class="hr"><div class="signal">park feierbach &mdash; sapere aude</div>
   <button class="eclipse" type="button" aria-label="switch to light mode" title="light / dark">
-    <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-      <g class="total">
-        <defs><radialGradient id="cm-corona" cx="16" cy="16" r="15.5" gradientUnits="userSpaceOnUse"><stop offset="0.5" stop-color="currentColor" stop-opacity="0.95"/><stop offset="0.6" stop-color="currentColor" stop-opacity="0.5"/><stop offset="0.78" stop-color="currentColor" stop-opacity="0.16"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient></defs><circle class="glow" cx="16" cy="16" r="15.5" fill="url(#cm-corona)"/><g class="corona"><line x1="25.19" y1="15.61" x2="29.39" y2="15.43"/><line x1="24.39" y1="19.78" x2="27.12" y2="21.01"/><line x1="22.44" y1="22.57" x2="24.54" y2="24.71"/><line x1="18.34" y1="24.90" x2="19.10" y2="27.80"/><line x1="13.08" y1="24.73" x2="11.75" y2="28.71"/><line x1="11.10" y1="23.78" x2="9.82" y2="25.81"/><line x1="7.79" y1="20.15" x2="4.04" y2="22.05"/><line x1="6.84" y1="16.90" x2="4.46" y2="17.14"/><line x1="7.34" y1="12.91" x2="4.51" y2="11.90"/><line x1="11.07" y1="8.23" x2="9.46" y2="5.70"/><line x1="14.12" y1="6.99" x2="13.63" y2="4.65"/><line x1="17.07" y1="6.86" x2="17.55" y2="2.69"/><line x1="20.92" y1="8.23" x2="23.17" y2="4.68"/><line x1="24.08" y1="11.59" x2="27.76" y2="9.58"/></g>
-        <circle class="ring" cx="16" cy="16" r="8.6"/>
-        <circle class="disc" cx="16" cy="16" r="8"/>
-      </g>
-      <g class="partial">
-        <g class="rays"><line x1="27.00" y1="16.00" x2="29.60" y2="16.00"/><line x1="23.78" y1="23.78" x2="25.62" y2="25.62"/><line x1="16.00" y1="27.00" x2="16.00" y2="29.60"/><line x1="8.22" y1="23.78" x2="6.38" y2="25.62"/><line x1="5.00" y1="16.00" x2="2.40" y2="16.00"/><line x1="8.22" y1="8.22" x2="6.38" y2="6.38"/><line x1="16.00" y1="5.00" x2="16.00" y2="2.40"/><line x1="23.78" y1="8.22" x2="25.62" y2="6.38"/></g>
-        <circle class="sun" cx="16" cy="16" r="8.6"/>
-        <circle class="moon" cx="16" cy="16" r="8"/>
-      </g>
+    <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+      <defs>
+        <radialGradient id="cm-halo" cx="32" cy="32" r="31" gradientUnits="userSpaceOnUse"><stop offset="0.48" stop-color="#fff4e0" stop-opacity="0.9"/><stop offset="0.58" stop-color="currentColor" stop-opacity="0.5"/><stop offset="0.78" stop-color="currentColor" stop-opacity="0.14"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></radialGradient>
+        <radialGradient id="cm-stream" cx="32" cy="32" r="31" gradientUnits="userSpaceOnUse"><stop offset="0.48" stop-color="#fffaf0" stop-opacity="0.95"/><stop offset="0.7" stop-color="#ffe9c8" stop-opacity="0.45"/><stop offset="1" stop-color="#ffe9c8" stop-opacity="0"/></radialGradient>
+        <filter id="cm-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="0.55"/></filter>
+        <filter id="cm-bloom" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="1.1"/></filter>
+      </defs>
+      <circle class="halo" cx="32" cy="32" r="31" fill="url(#cm-halo)"/>
+      <g class="corona" fill="url(#cm-stream)" filter="url(#cm-soft)"><g class="st a"><path d="M47.20 31.62 Q53.06 33.69 59.75 35.83 Q52.73 36.07 46.52 36.48 Z"/><path d="M42.41 43.08 Q43.35 45.90 44.63 48.69 Q42.29 46.70 39.83 45.03 Z"/><path d="M35.17 46.87 Q34.39 49.91 33.94 53.12 Q32.90 50.05 31.58 47.19 Z"/><path d="M24.73 45.35 Q20.16 49.18 15.19 53.67 Q18.30 47.74 20.88 42.36 Z"/><path d="M17.31 35.89 Q10.28 34.95 2.30 34.03 Q10.08 32.04 16.91 30.15 Z"/><path d="M17.42 27.71 Q14.07 24.36 10.22 21.07 Q15.16 22.18 19.84 22.87 Z"/><path d="M25.18 18.41 Q25.53 15.30 25.48 12.19 Q27.28 14.72 29.41 17.02 Z"/><path d="M33.82 16.91 Q36.04 13.72 38.04 10.16 Q37.93 14.24 38.19 18.12 Z"/><path d="M43.10 21.61 Q49.49 19.56 56.58 17.07 Q51.10 22.21 46.33 26.94 Z"/></g><g class="st b"><path d="M46.23 37.33 Q49.88 40.42 54.10 43.63 Q49.07 41.96 44.46 40.71 Z"/><path d="M36.55 46.50 Q35.87 48.74 35.56 50.90 Q34.48 49.00 33.05 47.16 Z"/><path d="M24.77 45.37 Q20.54 48.44 16.12 52.06 Q18.63 46.92 20.65 42.10 Z"/><path d="M18.18 38.33 Q10.78 38.79 2.36 39.42 Q10.09 36.00 16.83 32.93 Z"/><path d="M17.73 26.75 Q14.16 23.76 10.02 20.66 Q14.94 22.24 19.45 23.42 Z"/><path d="M25.83 18.11 Q26.29 15.89 26.39 13.80 Q27.64 15.47 29.27 17.05 Z"/><path d="M37.65 17.89 Q41.19 14.18 44.90 9.87 Q42.98 15.22 41.50 20.13 Z"/><path d="M44.98 24.09 Q52.30 23.30 60.53 22.29 Q53.40 26.51 47.11 30.35 Z"/></g></g>
+      <circle class="sun" cx="32" cy="32" r="15.4"/>
+      <g class="moon-pos"><circle class="moon" cx="32" cy="32" r="16"/></g>
+      <circle class="ring" cx="32" cy="32" r="16.3"/>
+      <g class="glint g1"><path d="M43.88 18.33 L44.43 21.19 L47.28 21.73 L44.43 22.28 L43.88 25.13 L43.34 22.28 L40.48 21.73 L43.34 21.19 Z"/></g>
+      <g class="glint g2"><path d="M17.59 23.08 L17.94 24.93 L19.79 25.28 L17.94 25.63 L17.59 27.48 L17.24 25.63 L15.39 25.28 L17.24 24.93 Z"/></g>
+      <g class="diamond" style="transform-origin:43.88px 21.73px"><circle cx="43.88" cy="21.73" r="3.2" filter="url(#cm-bloom)"/><path d="M43.88 14.73 L45.00 20.61 L50.88 21.73 L45.00 22.85 L43.88 28.73 L42.76 22.85 L36.88 21.73 L42.76 20.61 Z"/></g>
     </svg>
-  </button></div>
+  </button>
+  <div class="signal">park feierbach &mdash; sapere aude</div>
 </header>
 <nav><a href="/"><span class="n">0000</span>index</a><a href="/photography/"><span class="n">0100</span>photography</a><a href="/notebook/" class=on><span class="n">0200</span>writing</a><a href="/systems/"><span class="n">2222</span>systems</a><a href="/library/"><span class="n">0300</span>library</a><a href="/about/"><span class="n">0400</span>about</a><a href="/deck/"><span class="n">0500</span>deck</a></nav>
 <main class="s note">
@@ -48,7 +52,7 @@ Prefiero ser valiente que pendeja</p>
 </main>
 <footer>
   <div>© park feierbach 2026 · hand-built · <a href="/vault/">the stacks</a> · <a href="/rss.xml">rss</a> · <a href="https://github.com/attainable-sys/park-attainable-systems">source</a></div>
-  <div>built 2026.11.06 from 355 notes</div>
+  <div>built 2026.11.09 from 355 notes</div>
 </footer>
 <script src="/assets/site.js" defer></script>
 </body>

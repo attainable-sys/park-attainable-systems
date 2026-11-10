@@ -8,6 +8,12 @@
   }
   btn.addEventListener('click', function () {
     var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.classList.add('theming');
+    btn.classList.remove('turning');
+    void btn.offsetWidth;
+    btn.classList.add('turning');
+    clearTimeout(btn._t);
+    btn._t = setTimeout(function () { root.classList.remove('theming'); btn.classList.remove('turning'); }, 1900);
     root.setAttribute('data-theme', next);
     try { localStorage.setItem('cm-theme', next); } catch (e) {}
     label();

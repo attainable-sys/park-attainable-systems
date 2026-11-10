@@ -37,31 +37,55 @@ a:focus-visible { outline: 1px solid var(--acc); outline-offset: 2px; }
 img { max-width: 100%; display: block; }
 
 /* header + nav */
-header { padding: 48px 0 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
+header { padding: 30px 0 14px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
 header h1 { font-size: 15px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 header h1 a { color: var(--hi); }
-header .signal { font-size: 13px; color: var(--dim); }
-header .hr { display: flex; align-items: center; gap: 14px; }
-.eclipse { width: 32px; height: 32px; padding: 0; background: none; border: 1px solid var(--line); cursor: pointer; display: grid; place-items: center; color: var(--acc); flex: none; }
-.eclipse:hover, .eclipse:focus-visible { border-color: var(--acc); outline: none; }
-.eclipse svg { width: 26px; height: 26px; overflow: visible; }
-.eclipse .corona line { stroke: currentColor; stroke-width: .5; stroke-linecap: round; opacity: .55; }
-.eclipse .glow { transform-origin: 16px 16px; transform-box: view-box; animation: corona-glow 5s ease-in-out infinite; }
-.eclipse .corona { transform-origin: 16px 16px; transform-box: view-box; animation: corona-turn 48s linear infinite; }
-.eclipse .ring { fill: none; stroke: #fff4e0; stroke-width: .5; opacity: .8; }
-.eclipse .disc { fill: var(--bg); }
-.eclipse .sun { fill: var(--acc); }
-.eclipse .rays line { stroke: var(--acc); stroke-width: 1.3; stroke-linecap: round; }
-.eclipse .moon { fill: var(--bg); animation: moon-pass 9s ease-in-out infinite alternate; }
-.eclipse .partial { display: none; }
-:root[data-theme="light"] .eclipse .total { display: none; }
-:root[data-theme="light"] .eclipse .partial { display: inline; }
-@keyframes corona-turn { to { transform: rotate(360deg); } }
-@keyframes corona-glow { 0%, 100% { opacity: .7; transform: scale(.94); } 50% { opacity: 1; transform: scale(1.04); } }
-@keyframes moon-pass { from { transform: translate(4.6px, -3px); } to { transform: translate(2px, -1.2px); } }
+header .signal { font-size: 13px; color: var(--dim); text-align: right; }
+
+/* the eclipse: one sun, one moon. Dark = totality, light = the moon most of the way off. */
+.eclipse { width: 64px; height: 64px; padding: 0; background: none; border: 0; border-radius: 50%; cursor: pointer; display: grid; place-items: center; color: var(--acc); -webkit-tap-highlight-color: transparent; }
+.eclipse:focus-visible { outline: 1px solid var(--acc); outline-offset: 6px; }
+.eclipse svg { width: 64px; height: 64px; overflow: visible; display: block; }
+.eclipse .halo, .eclipse .corona, .eclipse .st { transform-origin: 32px 32px; transform-box: view-box; }
+.eclipse .halo { transition: opacity 1.2s ease .5s, transform 1.6s ease; animation: halo-breathe 6s ease-in-out infinite; }
+.eclipse .corona { transition: opacity 1s ease .9s; }
+.eclipse .st.a { animation: corona-a 7s ease-in-out infinite; }
+.eclipse .st.b { animation: corona-b 11s ease-in-out infinite; }
+.eclipse .sun { fill: #fff6e6; transition: fill 1.4s ease; }
+.eclipse .moon-pos { transition: transform 1.8s cubic-bezier(.45, 0, .2, 1); }
+.eclipse .moon { fill: var(--bg); }
+.eclipse .ring { fill: none; stroke: #fff6e6; stroke-width: .55; opacity: .85; transition: opacity .5s ease 1.3s; }
+.eclipse .glint { fill: #fff; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.eclipse .g1 { animation: glint 8s ease-in-out 2s infinite; }
+.eclipse .g2 { animation: glint 13s ease-in-out 6s infinite; }
+.eclipse .diamond { fill: #fff; opacity: 0; transform: scale(0); }
+.eclipse:hover .halo { animation-duration: 2.4s; }
+:root[data-theme="light"] .eclipse .moon-pos { transform: translate(-11.2px, 9.6px); }
+:root[data-theme="light"] .eclipse .moon { animation: moon-drift 9s ease-in-out infinite alternate; }
+:root[data-theme="light"] .eclipse .sun { fill: var(--acc); }
+:root[data-theme="light"] .eclipse .corona { opacity: 0; transition: opacity .5s ease; }
+:root[data-theme="light"] .eclipse .ring { opacity: 0; transition: opacity .3s ease; }
+:root[data-theme="light"] .eclipse .halo { opacity: .38; transform: translate(3.4px, -3px) scale(.78); transition: opacity 1s ease, transform 1.6s ease; }
+:root[data-theme="light"] .eclipse .glint { animation: none; }
+.eclipse.turning .diamond { animation: diamond-in 1.8s ease-in-out both; }
+:root[data-theme="light"] .eclipse.turning .diamond { animation-name: diamond-out; }
+@keyframes halo-breathe { 0%, 100% { opacity: .72; } 50% { opacity: 1; } }
+@keyframes corona-a { 0%, 100% { opacity: .95; transform: rotate(-2deg) scale(.97); } 50% { opacity: .6; transform: rotate(2deg) scale(1.04); } }
+@keyframes corona-b { 0%, 100% { opacity: .55; transform: rotate(3deg) scale(1.03); } 50% { opacity: 1; transform: rotate(-3deg) scale(.96); } }
+@keyframes glint { 0%, 86%, 100% { opacity: 0; transform: scale(.2) rotate(0deg); } 92% { opacity: 1; transform: scale(1) rotate(20deg); } 96% { opacity: .5; transform: scale(.6) rotate(35deg); } }
+@keyframes diamond-out { 0%, 6% { opacity: 0; transform: scale(0); } 22% { opacity: 1; transform: scale(1.15); } 55% { opacity: 0; transform: scale(.5); } 100% { opacity: 0; transform: scale(0); } }
+@keyframes diamond-in { 0%, 52% { opacity: 0; transform: scale(0); } 76% { opacity: 1; transform: scale(1.15); } 92%, 100% { opacity: 0; transform: scale(0); } }
+@keyframes moon-drift { from { transform: translate(0, 0); } to { transform: translate(-1.6px, 1.4px); } }
+/* while the switch turns, the page dims or brightens with it */
+:root.theming body, :root.theming body *:not(.eclipse):not(.eclipse *) { transition: background-color 1.5s ease, color 1.5s ease, border-color 1.5s ease; }
+@media (max-width: 560px) {
+  header { padding-top: 20px; gap: 8px; }
+  header h1 { font-size: 13px; letter-spacing: 1.5px; }
+  header .signal { font-size: 11px; }
+  .eclipse, .eclipse svg { width: 56px; height: 56px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .eclipse .corona, .eclipse .glow, .eclipse .moon { animation: none; }
-  .eclipse .moon { transform: translate(3.5px, -2.2px); }
+  .eclipse *, :root.theming body, :root.theming body * { animation: none !important; transition: none !important; }
 }
 nav { padding: 12px 0; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 13px; }
 nav a { color: var(--dim); padding: 2px 0; border-bottom: 1px solid transparent; }
