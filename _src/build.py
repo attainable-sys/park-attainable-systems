@@ -76,6 +76,8 @@ PHOTOS = [  # file, title, line, series, shape (v = tall, h = wide)
 _pj = os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos.json")
 if os.path.exists(_pj):
     PHOTOS += [tuple(x) for x in json.load(open(_pj))]
+PHOTO_COVER = "kg-ridge"  # the large photo at the top of /photography/
+
 SERIES = ["colorado plateau, 2017", "four corners, 2017", "montana, 2018", "montana, 2021", "kyrgyzstan and hong kong, 2025",
           "australia, 2025", "san francisco, 2025", "vol state 500k, 2018", "running", "prospect park, january 2018",
           "the speed project, 2026", "skygazer, 2016", "portraits, 2016", "water", "elsewhere"]
@@ -629,6 +631,7 @@ def main():
     write("vault/graph/index.html", open(os.path.join(SRC, "graph.html")).read().replace("__DATA__", gjson))
 
     # ── photography
+    cover = next(p for p in PHOTOS if p[0] == PHOTO_COVER)
     series = []
     MONTHS = {m: i for i, m in enumerate(["january", "february", "march", "april", "may", "june", "july", "august",
                                          "september", "october", "november", "december"], 1)}
@@ -642,7 +645,7 @@ def main():
                 best = max(best, (int(y.group(2)), MONTHS.get(y.group(1) or "", 0)))
         return best
     for sname in sorted(SERIES, key=latest, reverse=True):
-        ps = [p for p in PHOTOS if p[3] == sname and p is not hero]
+        ps = [p for p in PHOTOS if p[3] == sname and p is not cover]
         from PIL import Image
         def ar(f):
             w, h = Image.open(os.path.join(ROOT, "img/photo", f + ".jpg")).size
@@ -664,7 +667,7 @@ def main():
   <p>Film and digital. Processed in Capture One. Published in National Geographic, The New York Times. Three books.</p>
   <p class="quiet">Studio manager for Robert Clark, National Geographic photographer, two years. Every scientific caption in <em>Feathers: Displays of Brilliant Plumage</em> (Chronicle, 2016).</p>
   <div class="gallery">
-    <figure class="photo-full"><img src="/img/photo/{hero[0]}.jpg" alt="{esc(hero[1])}, {esc(hero[2])}"><figcaption class="cap"><strong>{esc(hero[1])}</strong> &middot; {esc(hero[2])}</figcaption></figure>
+    <figure class="photo-full"><img src="/img/photo/{cover[0]}.jpg" alt="{esc(cover[1])}, {esc(cover[2])}"><figcaption class="cap"><strong>{esc(cover[1])}</strong> &middot; {esc(cover[2])}</figcaption></figure>
     {''.join(series)}
     <div class="s-head series">tear sheets</div>
     <div class="photo-grid tears">{tears}</div>
