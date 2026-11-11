@@ -164,7 +164,7 @@ const SITE = '';
     const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch), base = Math.min(W, H) * .88 * zoom;
     const ox = W / 2, oy = H / 2 + (W < 640 ? -10 : 8);
     for (const n of N) { const x = n.x * cy - n.z * sy, z1 = n.x * sy + n.z * cy, y = n.y * cp - z1 * sp, z = n.y * sp + z1 * cp;
-      const s = base / (CAM + z); n.sx = ox + x * s; n.sy = oy + y * s; n.sz = z; n.ss = s; n.fog = Math.max(.16, Math.min(1, 1 - (z + 160) / 520)); }
+      const s = base / (CAM + z); n.sx = ox + x * s; n.sy = oy - y * s; n.sz = z; n.ss = s; n.fog = Math.max(.16, Math.min(1, 1 - (z + 160) / 520)); }
   }
   const vis = n => !hidden.has(n.g);
   function draw(now) {
@@ -224,7 +224,7 @@ const SITE = '';
   cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(), p = pts.get(e.pointerId);
     if (!p) { hover = pick(e.clientX - r.left, e.clientY - r.top); cv.classList.toggle('over', !!hover); return; }
     if (pts.size === 2) { pts.set(e.pointerId, [e.clientX, e.clientY]); const q = [...pts.values()], d = Math.hypot(q[0][0] - q[1][0], q[0][1] - q[1][1]); if (pinch) zoom = Math.max(.4, Math.min(4, zoom * d / pinch)); pinch = d; moved = 99; return; }
-    const dx = e.clientX - p[0], dy = e.clientY - p[1]; moved += Math.abs(dx) + Math.abs(dy); yaw += dx * .005; pitch = Math.max(-1.4, Math.min(1.4, pitch - dy * .005)); pts.set(e.pointerId, [e.clientX, e.clientY]); });
+    const dx = e.clientX - p[0], dy = e.clientY - p[1]; moved += Math.abs(dx) + Math.abs(dy); yaw += dx * .005; pitch = Math.max(-1.4, Math.min(1.4, pitch + dy * .005)); pts.set(e.pointerId, [e.clientX, e.clientY]); });
   const up = e => { if (!pts.has(e.pointerId)) return; pts.delete(e.pointerId); pinch = 0; if (!pts.size) { drag = false; cv.classList.remove('drag');
     if (moved < 6 && e.type === 'pointerup') { const r = cv.getBoundingClientRect(); show(pick(e.clientX - r.left, e.clientY - r.top)); } } };
   cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up); cv.addEventListener('pointerleave', () => { if (!drag) hover = null; });
