@@ -199,6 +199,13 @@ def render_body(n, idx):
     def stash(m):
         keep.append(m.group(0)); return f"\x00{len(keep)-1}\x00"
     text = re.sub(r"```.*?```|`[^`\n]+`", stash, text, flags=re.S)
+    # markdown links whose target isn't a real address: a bare domain gets https://, a placeholder ("link") becomes plain text
+    def fixlink(m):
+        label, url = m.group(1), m.group(2).strip()
+        if re.match(r"^[\w.-]+\.[a-z]{2,}(/\S*)?$", url):
+            return f"[{label}](https://{url})"
+        return label
+    text = re.sub(r"(?<!!)\[([^\]\n]+)\]\((?!https?:|/|#|mailto:)([^)\n]*)\)", fixlink, text)
     def wl(m):
         inner = m.group(1)
         target, _, alias = inner.partition("|")
