@@ -288,3 +288,14 @@ html.lb-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .lb, .lb.on { transition: none; } }
 .graph-link { display: inline-block; margin: 6px 0 4px; padding: 6px 14px; border: 1px solid var(--acc); color: var(--acc); }
 .graph-link:hover { background: var(--acc); color: var(--bg); }
+
+/* writing meant to be read: Spectral for the body, mono stays for everything around it */
+.reading .prose { font-family: 'Spectral', Georgia, 'Times New Roman', serif; font-size: 19px; line-height: 1.65; max-width: 34em; letter-spacing: .005em; }
+.reading .prose p + p { margin-top: .9em; }
+.reading .prose em { font-style: italic; border-bottom: none; }
+.reading .prose strong { font-weight: 600; }
+.reading .prose blockquote { font-style: italic; background: none; padding: 2px 0 2px 18px; }
+.reading .prose h1, .reading .prose h2, .reading .prose h3, .reading .prose h4,
+.reading .prose code, .reading .prose pre, .reading .prose table, .reading .prose .footnote { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+.reading .prose .footnote { font-size: 13px; }
+@media (max-width: 560px) { .reading .prose { font-size: 17.5px; } }

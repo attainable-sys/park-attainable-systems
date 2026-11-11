@@ -399,6 +399,11 @@ def write(rel, content):
     open(p, "w").write(content)
 
 
+# writing meant to be read (not referenced) is set in Spectral
+READING_FONT = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+                '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">\n')
+
+
 def note_page(n, idx):
     body_html = n.html
     meta = [f'<span>{n.id}</span>', f'<a href="/vault/{n.dewey}/">{n.dewey} {esc(n.flabel)}</a>']
@@ -430,7 +435,7 @@ def note_page(n, idx):
     pn += f'<a href="{prev_n.href}">← {prev_n.id} {esc(prev_n.title)}</a>' if prev_n else "<span></span>"
     pn += f'<a href="{next_n.href}">{next_n.id} {esc(next_n.title)} →</a>' if next_n else "<span></span>"
     pn += "</div>"
-    body = f"""<main class="s note">
+    body = f"""<main class="s note{' reading' if n.notebook else ''}">
   <div class="s-head crumb"><a href="/vault/">stacks</a> / <a href="/vault/{n.dewey}/">{n.dewey} {esc(n.flabel)}</a> / {n.id}</div>
   <h2 class="title">{esc(n.title)}</h2>
   <div class="meta">{' · '.join(meta)}</div>
@@ -442,7 +447,7 @@ def note_page(n, idx):
   {pn}
 </main>"""
     sec = "0200" if n.notebook else ("2222" if n.dewey in ("2222", "2266") else None)
-    write(n.href.strip("/") + "/index.html", page(n.title, body, sec, plain(n.body, 160), n.href))
+    write(n.href.strip("/") + "/index.html", page(n.title, body, sec, plain(n.body, 160), n.href, READING_FONT if n.notebook else ""))
 
 
 def main():
