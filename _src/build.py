@@ -141,6 +141,14 @@ def load():
         n.slug = s
         n.href = f"/notebook/{s}/" if n.notebook else f"/notes/{s}/"
         n.dewey, n.flabel = FOLDERS.get(n.folder, ("0000", n.folder.lower()))
+    # vault notes take the day they were first written (see _src/dates.json)
+    try:
+        created = json.load(open(os.path.join(SRC, "dates.json")))
+    except FileNotFoundError:
+        created = {}
+    for n in notes:
+        if not n.notebook and not n.date and n.stem in created:
+            n.date = created[n.stem]
     by_folder = {}
     for n in notes:
         by_folder.setdefault(n.dewey, []).append(n)
@@ -407,8 +415,6 @@ def note_page(n, idx):
     if n.mentions:
         side += f'<div class="links"><div class="lbl">in the vault · {len(n.mentions)}</div><div class="bls">{lst(n.mentions, "↘")}</div></div>'
     # neighbours in the same folder
-    # when the note was first written (garden notes; from the vault file's creation date, see _src/dates.json)
-    created = f'<p class="quiet created">created {CREATED[n.stem].replace("-", ".")}</p>' if (not n.notebook and n.stem in CREATED) else ""
     sib = [x for x in FOLDER_LISTS[n.dewey] if x is not n]
     pos = FOLDER_LISTS[n.dewey].index(n)
     prev_n = FOLDER_LISTS[n.dewey][pos - 1] if pos > 0 else None
@@ -425,7 +431,6 @@ def note_page(n, idx):
   <article class="prose">
 {body_html}
   </article>
-  {created}
   {side}
   {pn}
 </main>"""
@@ -433,15 +438,8 @@ def note_page(n, idx):
     write(n.href.strip("/") + "/index.html", page(n.title, body, sec, plain(n.body, 160), n.href))
 
 
-CREATED = {}
-
-
 def main():
-    global BUILT, NCOUNT, FOLDER_LISTS, CREATED
-    try:
-        CREATED = json.load(open(os.path.join(SRC, "dates.json")))
-    except FileNotFoundError:
-        CREATED = {}
+    global BUILT, NCOUNT, FOLDER_LISTS
     BUILT = datetime.date.today().strftime("%Y.%m.%d")
     notes = load()
     NCOUNT = len(notes)

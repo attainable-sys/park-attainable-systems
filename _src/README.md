@@ -56,5 +56,5 @@ each folder's home, orbit speed) are near the top of its script.
 
 `_src/dates.json` maps each vault note to the day it was first written: the date in
 its title when it has one (YYMMDD), otherwise the creation date of the note's file
-in Google Drive. Vault notes show it as a "created" line at the bottom. New notes
+in Google Drive. Vault notes show it next to their id at the top, and their ids (2222.001, ...) run oldest first. New notes
 need an entry added here; notes without one simply show no line.
