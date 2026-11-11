@@ -295,7 +295,7 @@ html.lb-open { overflow: hidden; }
 @font-face { font-family: 'Spectral'; src: url('/assets/fonts/spectral-semibold.woff') format('woff'); font-weight: 600 700; font-style: normal; font-display: swap; }
 @font-face { font-family: 'Spectral'; src: url('/assets/fonts/spectral-semibolditalic.woff') format('woff'); font-weight: 600 700; font-style: italic; font-display: swap; }
 .reading .prose { font-family: 'Spectral', Georgia, 'Times New Roman', serif; font-size: 19px; line-height: 1.65; max-width: 34em; letter-spacing: .005em; }
-.reading .prose p + p { margin-top: .9em; }
+.reading .prose > * + * { margin-top: 1.15em; }
 .reading .prose em { font-style: italic; border-bottom: none; }
 .reading .prose strong { font-weight: 600; }
 .reading .prose blockquote { font-style: italic; background: none; padding: 2px 0 2px 18px; }

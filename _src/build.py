@@ -214,6 +214,16 @@ def render_body(n, idx):
     text = WIKI.sub(wl, text)
     text = re.sub(r"==([^=\n]+)==", r"<mark>\1</mark>", text)
     text = re.sub(r"\x00(\d+)\x00", lambda m: keep[int(m.group(1))], text)
+    if n.notebook and n.kind != "poem":
+        # in writing, every line break starts a new paragraph (poems keep their lines)
+        block = re.compile(r"^\s*([-*+]\s|\d+[.)]\s|>|\||#|\x00|<)")
+        lines, outl = text.split("\n"), []
+        for i, ln in enumerate(lines):
+            outl.append(ln)
+            nxt = lines[i + 1] if i + 1 < len(lines) else ""
+            if ln.strip() and nxt.strip() and not block.match(ln) and not block.match(nxt):
+                outl.append("")
+        text = "\n".join(outl)
     md = markdown.Markdown(extensions=["extra", "sane_lists", "nl2br"], output_format="html5")
     out = md.convert(text)
     out = re.sub(r'<a href="(https?://[^"]+)"', r'<a class="ext" href="\1" rel="noopener"', out)
