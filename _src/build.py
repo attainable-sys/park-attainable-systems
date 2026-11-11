@@ -400,8 +400,7 @@ def write(rel, content):
 
 
 # writing meant to be read (not referenced) is set in Spectral
-READING_FONT = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-                '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">\n')
+READING_FONT = '<link rel="preload" href="/assets/fonts/spectral-regular.woff" as="font" type="font/woff" crossorigin>\n'
 
 
 def note_page(n, idx):

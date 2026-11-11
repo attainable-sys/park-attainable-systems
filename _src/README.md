@@ -62,5 +62,5 @@ need an entry added here; notes without one simply show no line.
 ## Type for reading
 
 Pieces in the notebook (writing meant to be read, not referenced) set their body in
-Spectral, loaded from Google Fonts on those pages only. Everything around the text,
+Spectral, served from `assets/fonts/` like the mono (OFL licence alongside). Everything around the text,
 and every vault note, stays in IBM Plex Mono.
