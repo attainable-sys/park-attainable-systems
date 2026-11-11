@@ -625,10 +625,22 @@ def main():
   <h2>The Stacks</h2>
   <p>Codex Magna is an Obsidian vault, numbered like a library. This is the part of it that is public: {len(notes)} notes across {len(FOLDER_LISTS)} folders, every link between them kept. Start anywhere.</p>
   <p><a class="graph-link" href="/vault/graph/">see the stacks in three dimensions &rarr;</a></p>
+  <div class="search" role="search">
+    <label for="q" class="s-head">search the stacks</label>
+    <input id="q" type="search" placeholder="a word, a title, a number like 2222.039" autocomplete="off" spellcheck="false">
+    <p class="quiet search-n" id="qn" aria-live="polite"></p>
+    <div class="results" id="qr"></div>
+  </div>
+  <div class="browse">
   <div class="idx">{''.join(stacks)}</div>
   <div class="s-head" style="margin-top:36px;">all notes, a–z</div>
   <div class="az">{''.join(f'<a href="{n.href}"><span class="n">{n.id}</span>{esc(n.title)}</a>' for n in sorted(notes, key=lambda n: n.title.lower().lstrip("'\"¿")))}</div>
+  </div>
 </div>"""
+    # the search index for /vault/: title, id, link, folder, date, and the note's text
+    sidx = [[n.title, n.id, n.href, f"{n.dewey} {n.flabel}", (n.date or "").replace("-", "."), re.sub(r"\s+", " ", re.sub(r"https?://\S+|\b\S*%20\S*", " ", plain(n.body, 10**7))).strip()]
+            for n in sorted(notes, key=lambda n: n.id)]
+    write("vault/search.json", json.dumps(sidx, separators=(",", ":"), ensure_ascii=False))
     write("vault/index.html", page("the stacks", vp, None, path="/vault/"))
 
     # ── the graph: every note and link, for vault/graph/ (template in _src/graph.html)

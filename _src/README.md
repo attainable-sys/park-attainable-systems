@@ -64,3 +64,9 @@ need an entry added here; notes without one simply show no line.
 Pieces in the notebook (writing meant to be read, not referenced) set their body in
 Spectral, served from `assets/fonts/` like the mono (OFL licence alongside). Everything around the text,
 and every vault note, stays in IBM Plex Mono.
+
+## Search
+
+The stacks page has a search box (press `/` to jump to it). The build writes
+`vault/search.json` with every note's title, number, folder, date and text; the
+page loads it on first use and searches it in the browser. Nothing is sent anywhere.
