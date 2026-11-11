@@ -51,3 +51,10 @@ light). The choice is remembered in the visitor's browser only.
 `/vault/graph/` is the stacks in three dimensions. The page is `_src/graph.html`;
 the build fills in the notes and links. Layout numbers (gravity, the pull toward
 each folder's home, orbit speed) are near the top of its script.
+
+## Creation dates
+
+`_src/dates.json` maps each vault note to the day it was first written: the date in
+its title when it has one (YYMMDD), otherwise the creation date of the note's file
+in Google Drive. Vault notes show it as a "created" line at the bottom. New notes
+need an entry added here; notes without one simply show no line.
